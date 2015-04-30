@@ -15,6 +15,7 @@
 		F85059F81AE5D19200BAED40 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F85059F71AE5D19200BAED40 /* Images.xcassets */; };
 		F85059FB1AE5D19200BAED40 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = F85059F91AE5D19200BAED40 /* LaunchScreen.xib */; };
 		F8505A071AE5D19300BAED40 /* DataTrackerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F8505A061AE5D19300BAED40 /* DataTrackerTests.m */; };
+		F8913D3E1AF2CABF0027AD9F /* FirstTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F8913D3D1AF2CABF0027AD9F /* FirstTableViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,6 +43,8 @@
 		F8505A001AE5D19300BAED40 /* DataTrackerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DataTrackerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8505A051AE5D19300BAED40 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F8505A061AE5D19300BAED40 /* DataTrackerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DataTrackerTests.m; sourceTree = "<group>"; };
+		F8913D3C1AF2CABF0027AD9F /* FirstTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirstTableViewController.h; sourceTree = "<group>"; };
+		F8913D3D1AF2CABF0027AD9F /* FirstTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirstTableViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +90,8 @@
 				F85059EC1AE5D19200BAED40 /* AppDelegate.m */,
 				F85059F11AE5D19200BAED40 /* ViewController.h */,
 				F85059F21AE5D19200BAED40 /* ViewController.m */,
+				F8913D3C1AF2CABF0027AD9F /* FirstTableViewController.h */,
+				F8913D3D1AF2CABF0027AD9F /* FirstTableViewController.m */,
 				F85059F41AE5D19200BAED40 /* Main.storyboard */,
 				F85059F71AE5D19200BAED40 /* Images.xcassets */,
 				F85059F91AE5D19200BAED40 /* LaunchScreen.xib */,
@@ -224,6 +229,7 @@
 			files = (
 				F85059ED1AE5D19200BAED40 /* AppDelegate.m in Sources */,
 				F85059F01AE5D19200BAED40 /* DataTracker.xcdatamodeld in Sources */,
+				F8913D3E1AF2CABF0027AD9F /* FirstTableViewController.m in Sources */,
 				F85059F31AE5D19200BAED40 /* ViewController.m in Sources */,
 				F85059EA1AE5D19200BAED40 /* main.m in Sources */,
 			);
@@ -422,6 +428,7 @@
 				F8505A0C1AE5D19300BAED40 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		F8505A0D1AE5D19300BAED40 /* Build configuration list for PBXNativeTarget "DataTrackerTests" */ = {
 			isa = XCConfigurationList;
@@ -430,6 +437,7 @@
 				F8505A0F1AE5D19300BAED40 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

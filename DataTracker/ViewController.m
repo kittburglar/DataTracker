@@ -23,6 +23,13 @@
     self.WIFILabel.text = [NSString stringWithFormat:@"%.01f MB", ([[usageData objectAtIndex:0] floatValue] + [[usageData objectAtIndex:1] floatValue])/1000000];
     self.WANLabel.text = [NSString stringWithFormat:@"%.01f MB", ([[usageData objectAtIndex:2] floatValue] + [[usageData objectAtIndex:3] floatValue])/1000000];
     
+    self.navigationItem.title=@"First View";
+    UIBarButtonItem *flipButton = [[UIBarButtonItem alloc]
+                                   initWithTitle:@"Flip"
+                                   style:UIBarButtonItemStyleBordered
+                                   target:self
+                                   action:@selector(flipView:)];
+    self.navigationItem.rightBarButtonItem = flipButton;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -92,4 +99,10 @@
     self.WANLabel.text = [NSString stringWithFormat:@"%.01f MB", ([[usageData objectAtIndex:2] floatValue] + [[usageData objectAtIndex:3] floatValue])/1000000];
    
 }
+
+- (IBAction)flipView:(id)sender{
+    NSLog(@"pressed flip button");
+    [self performSegueWithIdentifier:@"SegueToNextPage" sender:self];
+}
+
 @end

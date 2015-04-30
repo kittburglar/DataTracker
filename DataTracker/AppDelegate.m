@@ -17,6 +17,21 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"HasLaunchedOnce"])
+    {
+        // app already launched
+    }
+    else
+    {
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"HasLaunchedOnce"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        // This is the first launch ever
+        [[NSUserDefaults standardUserDefaults] setDouble:CFAbsoluteTimeGetCurrent() -CACurrentMediaTime() forKey:@"LastReboot"];
+        NSLog(@"LastReboot init to %ld", (long)[[NSUserDefaults standardUserDefaults] integerForKey:@"LastReboot"]);
+        [[NSUserDefaults standardUserDefaults] setDouble:0.0 forKey:@"WANBalance"];
+        [[NSUserDefaults standardUserDefaults] setDouble:0.0 forKey:@"WIFIBalance"];
+        NSLog(@"WANBalance: %ld \nWIFIBalance: %ld", (long)[[NSUserDefaults standardUserDefaults] integerForKey:@"WANBalance"],(long)[[NSUserDefaults standardUserDefaults] integerForKey:@"WIFIBalance"]);
+    }
     return YES;
 }
 
