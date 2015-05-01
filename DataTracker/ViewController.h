@@ -15,6 +15,7 @@
 @interface ViewController : UIViewController
 @property (strong, nonatomic) IBOutlet UILabel *WANLabel;
 @property (strong, nonatomic) IBOutlet UILabel *WIFILabel;
+@property (strong, nonatomic) IBOutlet UILabel *percentLabel;
 - (IBAction)refreshButton:(id)sender;
 @end
 

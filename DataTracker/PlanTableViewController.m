@@ -1,18 +1,18 @@
 //
-//  FirstTableViewController.m
+//  PlanTableViewController.m
 //  DataTracker
 //
 //  Created by kittiphong xayasane on 2015-04-30.
 //  Copyright (c) 2015 Kittiphong Xayasane. All rights reserved.
 //
 
-#import "FirstTableViewController.h"
+#import "PlanTableViewController.h"
 
-@interface FirstTableViewController ()
+@interface PlanTableViewController ()
 
 @end
 
-@implementation FirstTableViewController
+@implementation PlanTableViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -22,9 +22,8 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    self.navigationItem.title = @"Options";
+    self.navigationItem.title = @"Plan Cycle";
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 10.0f)];
-    self.tableView.backgroundColor = [UIColor redColor];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -46,6 +45,13 @@
     return 0;
 }
 */
+-(NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSIndexPath *oldIndex = [self.tableView indexPathForSelectedRow];
+    [self.tableView cellForRowAtIndexPath:oldIndex].accessoryType = UITableViewCellAccessoryNone;
+    [self.tableView cellForRowAtIndexPath:indexPath].accessoryType = UITableViewCellAccessoryCheckmark;
+    return indexPath;
+}
+
 /*
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];

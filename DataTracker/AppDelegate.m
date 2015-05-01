@@ -30,7 +30,10 @@
         NSLog(@"LastReboot init to %ld", (long)[[NSUserDefaults standardUserDefaults] integerForKey:@"LastReboot"]);
         [[NSUserDefaults standardUserDefaults] setDouble:0.0 forKey:@"WANBalance"];
         [[NSUserDefaults standardUserDefaults] setDouble:0.0 forKey:@"WIFIBalance"];
+        [[NSUserDefaults standardUserDefaults] setDouble:0.0 forKey:@"DataAmount"];
+        [[NSUserDefaults standardUserDefaults] setFloat:0.0f forKey:@"CurrentUsage"];
         NSLog(@"WANBalance: %ld \nWIFIBalance: %ld", (long)[[NSUserDefaults standardUserDefaults] integerForKey:@"WANBalance"],(long)[[NSUserDefaults standardUserDefaults] integerForKey:@"WIFIBalance"]);
+        [[NSUserDefaults standardUserDefaults] setObject:@"MB" forKey:@"UnitType"];
     }
     return YES;
 }

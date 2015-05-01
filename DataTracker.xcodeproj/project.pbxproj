@@ -16,6 +16,10 @@
 		F85059FB1AE5D19200BAED40 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = F85059F91AE5D19200BAED40 /* LaunchScreen.xib */; };
 		F8505A071AE5D19300BAED40 /* DataTrackerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F8505A061AE5D19300BAED40 /* DataTrackerTests.m */; };
 		F8913D3E1AF2CABF0027AD9F /* FirstTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F8913D3D1AF2CABF0027AD9F /* FirstTableViewController.m */; };
+		F8913D411AF2EFE50027AD9F /* PlanTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F8913D401AF2EFE50027AD9F /* PlanTableViewController.m */; };
+		F8913D441AF2F65A0027AD9F /* DateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F8913D431AF2F65A0027AD9F /* DateViewController.m */; };
+		F8913D471AF2F7090027AD9F /* AmountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F8913D461AF2F7090027AD9F /* AmountViewController.m */; };
+		F8913D4A1AF302A80027AD9F /* UsageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F8913D491AF302A80027AD9F /* UsageViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +49,14 @@
 		F8505A061AE5D19300BAED40 /* DataTrackerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DataTrackerTests.m; sourceTree = "<group>"; };
 		F8913D3C1AF2CABF0027AD9F /* FirstTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirstTableViewController.h; sourceTree = "<group>"; };
 		F8913D3D1AF2CABF0027AD9F /* FirstTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirstTableViewController.m; sourceTree = "<group>"; };
+		F8913D3F1AF2EFE50027AD9F /* PlanTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlanTableViewController.h; sourceTree = "<group>"; };
+		F8913D401AF2EFE50027AD9F /* PlanTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlanTableViewController.m; sourceTree = "<group>"; };
+		F8913D421AF2F65A0027AD9F /* DateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DateViewController.h; sourceTree = "<group>"; };
+		F8913D431AF2F65A0027AD9F /* DateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DateViewController.m; sourceTree = "<group>"; };
+		F8913D451AF2F7090027AD9F /* AmountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AmountViewController.h; sourceTree = "<group>"; };
+		F8913D461AF2F7090027AD9F /* AmountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AmountViewController.m; sourceTree = "<group>"; };
+		F8913D481AF302A80027AD9F /* UsageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UsageViewController.h; sourceTree = "<group>"; };
+		F8913D491AF302A80027AD9F /* UsageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UsageViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +104,14 @@
 				F85059F21AE5D19200BAED40 /* ViewController.m */,
 				F8913D3C1AF2CABF0027AD9F /* FirstTableViewController.h */,
 				F8913D3D1AF2CABF0027AD9F /* FirstTableViewController.m */,
+				F8913D3F1AF2EFE50027AD9F /* PlanTableViewController.h */,
+				F8913D401AF2EFE50027AD9F /* PlanTableViewController.m */,
+				F8913D451AF2F7090027AD9F /* AmountViewController.h */,
+				F8913D461AF2F7090027AD9F /* AmountViewController.m */,
+				F8913D421AF2F65A0027AD9F /* DateViewController.h */,
+				F8913D431AF2F65A0027AD9F /* DateViewController.m */,
+				F8913D481AF302A80027AD9F /* UsageViewController.h */,
+				F8913D491AF302A80027AD9F /* UsageViewController.m */,
 				F85059F41AE5D19200BAED40 /* Main.storyboard */,
 				F85059F71AE5D19200BAED40 /* Images.xcassets */,
 				F85059F91AE5D19200BAED40 /* LaunchScreen.xib */,
@@ -230,8 +250,12 @@
 				F85059ED1AE5D19200BAED40 /* AppDelegate.m in Sources */,
 				F85059F01AE5D19200BAED40 /* DataTracker.xcdatamodeld in Sources */,
 				F8913D3E1AF2CABF0027AD9F /* FirstTableViewController.m in Sources */,
+				F8913D4A1AF302A80027AD9F /* UsageViewController.m in Sources */,
 				F85059F31AE5D19200BAED40 /* ViewController.m in Sources */,
+				F8913D471AF2F7090027AD9F /* AmountViewController.m in Sources */,
+				F8913D411AF2EFE50027AD9F /* PlanTableViewController.m in Sources */,
 				F85059EA1AE5D19200BAED40 /* main.m in Sources */,
+				F8913D441AF2F65A0027AD9F /* DateViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

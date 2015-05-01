@@ -7,6 +7,9 @@
 //
 
 #import "ViewController.h"
+#import <math.h>
+
+NSArray *usageData;
 
 @interface ViewController ()
 
@@ -17,19 +20,43 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-    
-    NSArray *usageData = [self getDataCounters];
+    NSLog(@"View loaded");
+    usageData = [self getDataCounters];
     //NSLog(@"%@", [usageData objectAtIndex:<#(NSUInteger)#>]);
-    self.WIFILabel.text = [NSString stringWithFormat:@"%.01f MB", ([[usageData objectAtIndex:0] floatValue] + [[usageData objectAtIndex:1] floatValue])/1000000];
-    self.WANLabel.text = [NSString stringWithFormat:@"%.01f MB", ([[usageData objectAtIndex:2] floatValue] + [[usageData objectAtIndex:3] floatValue])/1000000];
+    //self.WIFILabel.text = [NSString stringWithFormat:@"%.01f MB", ([[usageData objectAtIndex:0] floatValue] + [[usageData objectAtIndex:1] floatValue])/1000000];
+    //self.WANLabel.text = [NSString stringWithFormat:@"%.01f MB", ([[usageData objectAtIndex:2] floatValue] + [[usageData objectAtIndex:3] floatValue])/1000000];
+    self.WIFILabel.text = [NSString stringWithFormat:@"%.01f MB", ([[usageData objectAtIndex:0] floatValue] + [[usageData objectAtIndex:1] floatValue])];
+    self.WANLabel.text = [NSString stringWithFormat:@"%.01f MB", ([[usageData objectAtIndex:2] floatValue] + [[usageData objectAtIndex:3] floatValue])];
     
     self.navigationItem.title=@"First View";
     UIBarButtonItem *flipButton = [[UIBarButtonItem alloc]
-                                   initWithTitle:@"Flip"
+                                   initWithTitle:@"Options"
                                    style:UIBarButtonItemStyleBordered
                                    target:self
                                    action:@selector(flipView:)];
     self.navigationItem.rightBarButtonItem = flipButton;
+    
+    self.percentLabel.text = [NSString stringWithFormat:@"%f", [self calculatePercentage]];
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    usageData = [self getDataCounters];
+    //self.WIFILabel.text = [NSString stringWithFormat:@"%.01f MB", ([[usageData objectAtIndex:0] floatValue] + [[usageData objectAtIndex:1] floatValue])/1000000];
+    //self.WANLabel.text = [NSString stringWithFormat:@"%.01f MB", ([[usageData objectAtIndex:2] floatValue] + [[usageData objectAtIndex:3] floatValue])/1000000];
+    self.WIFILabel.text = [NSString stringWithFormat:@"%.01f MB", ([[usageData objectAtIndex:0] floatValue] + [[usageData objectAtIndex:1] floatValue])];
+    self.WANLabel.text = [NSString stringWithFormat:@"%.01f MB", ([[usageData objectAtIndex:2] floatValue] + [[usageData objectAtIndex:3] floatValue])];
+    self.percentLabel.text = [NSString stringWithFormat:@"%f", [self calculatePercentage]];
+}
+
+- (float)calculatePercentage{
+    float percentage = 0.0;
+    float difference = 0.0;
+    //WAN mod allowed amount
+    difference =  [[[NSUserDefaults standardUserDefaults] stringForKey:@"CurrentUsage"] floatValue] - fmodf(([[usageData objectAtIndex:2] floatValue] + [[usageData objectAtIndex:3] floatValue]), [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue]);
+    NSLog(@"Current usage is:%f.\nThe difference is %f/",[[[NSUserDefaults standardUserDefaults] stringForKey:@"CurrentUsage"] floatValue], difference);
+    percentage = fmodf(difference + ([[usageData objectAtIndex:2] floatValue] + [[usageData objectAtIndex:3] floatValue]), [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue]) / [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue];
+    NSLog(@"The percentage is: %f", percentage);
+    return percentage;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -95,9 +122,10 @@
     NSLog(@"refreshButton");
     NSArray *usageData = [self getDataCounters];
     //NSLog(@"%@", [usageData objectAtIndex:<#(NSUInteger)#>]);
-    self.WIFILabel.text = [NSString stringWithFormat:@"%.01f MB", ([[usageData objectAtIndex:0] floatValue] + [[usageData objectAtIndex:1] floatValue])/1000000];
-    self.WANLabel.text = [NSString stringWithFormat:@"%.01f MB", ([[usageData objectAtIndex:2] floatValue] + [[usageData objectAtIndex:3] floatValue])/1000000];
-   
+    //self.WIFILabel.text = [NSString stringWithFormat:@"%.01f MB", ([[usageData objectAtIndex:0] floatValue] + [[usageData objectAtIndex:1] floatValue])/1000000];
+    // self.WANLabel.text = [NSString stringWithFormat:@"%.01f MB", ([[usageData objectAtIndex:2] floatValue] + [[usageData objectAtIndex:3] floatValue])/1000000];
+    self.WIFILabel.text = [NSString stringWithFormat:@"%.01f MB", ([[usageData objectAtIndex:0] floatValue] + [[usageData objectAtIndex:1] floatValue])];
+    self.WANLabel.text = [NSString stringWithFormat:@"%.01f MB", ([[usageData objectAtIndex:2] floatValue] + [[usageData objectAtIndex:3] floatValue])];
 }
 
 - (IBAction)flipView:(id)sender{
