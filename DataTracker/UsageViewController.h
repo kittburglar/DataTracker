@@ -7,6 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#include <arpa/inet.h>
+#include <net/if.h>
+#include <ifaddrs.h>
+#include <net/if_dl.h>
 
 @interface UsageViewController : UIViewController{
     UIView *inputAccView;

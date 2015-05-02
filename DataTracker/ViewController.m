@@ -9,7 +9,7 @@
 #import "ViewController.h"
 #import <math.h>
 
-NSArray *usageData;
+NSArray *usageData2;
 
 @interface ViewController ()
 
@@ -21,12 +21,12 @@ NSArray *usageData;
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     NSLog(@"View loaded");
-    usageData = [self getDataCounters];
+    usageData2 = [self getDataCounters];
     //NSLog(@"%@", [usageData objectAtIndex:<#(NSUInteger)#>]);
     //self.WIFILabel.text = [NSString stringWithFormat:@"%.01f MB", ([[usageData objectAtIndex:0] floatValue] + [[usageData objectAtIndex:1] floatValue])/1000000];
     //self.WANLabel.text = [NSString stringWithFormat:@"%.01f MB", ([[usageData objectAtIndex:2] floatValue] + [[usageData objectAtIndex:3] floatValue])/1000000];
-    self.WIFILabel.text = [NSString stringWithFormat:@"%.01f MB", ([[usageData objectAtIndex:0] floatValue] + [[usageData objectAtIndex:1] floatValue])];
-    self.WANLabel.text = [NSString stringWithFormat:@"%.01f MB", ([[usageData objectAtIndex:2] floatValue] + [[usageData objectAtIndex:3] floatValue])];
+    self.WIFILabel.text = [NSString stringWithFormat:@"%.01f MB", ([[usageData2 objectAtIndex:0] floatValue] + [[usageData2 objectAtIndex:1] floatValue])];
+    self.WANLabel.text = [NSString stringWithFormat:@"%.01f MB", ([[usageData2 objectAtIndex:2] floatValue] + [[usageData2 objectAtIndex:3] floatValue])];
     
     self.navigationItem.title=@"First View";
     UIBarButtonItem *flipButton = [[UIBarButtonItem alloc]
@@ -40,11 +40,11 @@ NSArray *usageData;
 }
 
 - (void)viewWillAppear:(BOOL)animated{
-    usageData = [self getDataCounters];
+    usageData2 = [self getDataCounters];
     //self.WIFILabel.text = [NSString stringWithFormat:@"%.01f MB", ([[usageData objectAtIndex:0] floatValue] + [[usageData objectAtIndex:1] floatValue])/1000000];
     //self.WANLabel.text = [NSString stringWithFormat:@"%.01f MB", ([[usageData objectAtIndex:2] floatValue] + [[usageData objectAtIndex:3] floatValue])/1000000];
-    self.WIFILabel.text = [NSString stringWithFormat:@"%.01f MB", ([[usageData objectAtIndex:0] floatValue] + [[usageData objectAtIndex:1] floatValue])];
-    self.WANLabel.text = [NSString stringWithFormat:@"%.01f MB", ([[usageData objectAtIndex:2] floatValue] + [[usageData objectAtIndex:3] floatValue])];
+    self.WIFILabel.text = [NSString stringWithFormat:@"%.01f MB", ([[usageData2 objectAtIndex:0] floatValue] + [[usageData2 objectAtIndex:1] floatValue])];
+    self.WANLabel.text = [NSString stringWithFormat:@"%.01f MB", ([[usageData2 objectAtIndex:2] floatValue] + [[usageData2 objectAtIndex:3] floatValue])];
     self.percentLabel.text = [NSString stringWithFormat:@"%f", [self calculatePercentage]];
 }
 
@@ -52,9 +52,10 @@ NSArray *usageData;
     float percentage = 0.0;
     float difference = 0.0;
     //WAN mod allowed amount
-    difference =  [[[NSUserDefaults standardUserDefaults] stringForKey:@"CurrentUsage"] floatValue] - fmodf(([[usageData objectAtIndex:2] floatValue] + [[usageData objectAtIndex:3] floatValue]), [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue]);
+    //difference =  [[[NSUserDefaults standardUserDefaults] stringForKey:@"CurrentUsage"] floatValue] - fmodf(([[usageData objectAtIndex:2] floatValue] + [[usageData objectAtIndex:3] floatValue]), [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue]);
     NSLog(@"Current usage is:%f.\nThe difference is %f/",[[[NSUserDefaults standardUserDefaults] stringForKey:@"CurrentUsage"] floatValue], difference);
-    percentage = fmodf(difference + ([[usageData objectAtIndex:2] floatValue] + [[usageData objectAtIndex:3] floatValue]), [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue]) / [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue];
+    percentage = fmodf([[[NSUserDefaults standardUserDefaults] stringForKey:@"UsageDifference"] floatValue] + ([[usageData2 objectAtIndex:2] floatValue] + [[usageData2 objectAtIndex:3] floatValue]), [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue]) / [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue];
+    //percentage = fmodf(difference + ([[usageData objectAtIndex:2] floatValue] + [[usageData objectAtIndex:3] floatValue]), [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue]) / [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue];
     NSLog(@"The percentage is: %f", percentage);
     return percentage;
 }
