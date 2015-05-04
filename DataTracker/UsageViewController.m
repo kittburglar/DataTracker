@@ -7,6 +7,8 @@
 //
 
 #import "UsageViewController.h"
+#import "UIViewController+ECSlidingViewController.h"
+#import "FirstTableViewController.h"
 
 NSArray *usageData;
 
@@ -22,6 +24,18 @@ NSArray *usageData;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    //ECSLIDER
+    self.view.layer.shadowOpacity = 0.75f;
+    self.view.layer.shadowRadius = 10.0f;
+    self.view.layer.shadowColor = [UIColor blackColor].CGColor;
+    
+    if (![self.slidingViewController.underLeftViewController isKindOfClass:[FirstTableViewController class]]){
+        self.slidingViewController.underLeftViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"Menu"];
+    }
+    
+    [self.view addGestureRecognizer:self.slidingViewController.panGesture];
+    
     usageData = [self getDataCounters];
     // Do any additional setup after loading the view.
     self.navigationItem.title = @"Current Usage";

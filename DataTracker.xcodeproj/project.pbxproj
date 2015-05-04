@@ -20,6 +20,13 @@
 		F8913D441AF2F65A0027AD9F /* DateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F8913D431AF2F65A0027AD9F /* DateViewController.m */; };
 		F8913D471AF2F7090027AD9F /* AmountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F8913D461AF2F7090027AD9F /* AmountViewController.m */; };
 		F8913D4A1AF302A80027AD9F /* UsageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F8913D491AF302A80027AD9F /* UsageViewController.m */; };
+		F8D988CF1AF74EEC00CA8736 /* ECPercentDrivenInteractiveTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = F8D988C31AF74EEC00CA8736 /* ECPercentDrivenInteractiveTransition.m */; };
+		F8D988D01AF74EEC00CA8736 /* ECSlidingAnimationController.m in Sources */ = {isa = PBXBuildFile; fileRef = F8D988C51AF74EEC00CA8736 /* ECSlidingAnimationController.m */; };
+		F8D988D11AF74EEC00CA8736 /* ECSlidingInteractiveTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = F8D988C81AF74EEC00CA8736 /* ECSlidingInteractiveTransition.m */; };
+		F8D988D21AF74EEC00CA8736 /* ECSlidingSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = F8D988CA1AF74EEC00CA8736 /* ECSlidingSegue.m */; };
+		F8D988D31AF74EEC00CA8736 /* ECSlidingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F8D988CC1AF74EEC00CA8736 /* ECSlidingViewController.m */; };
+		F8D988D41AF74EEC00CA8736 /* UIViewController+ECSlidingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F8D988CE1AF74EEC00CA8736 /* UIViewController+ECSlidingViewController.m */; };
+		F8D988D71AF74F7A00CA8736 /* InitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F8D988D61AF74F7A00CA8736 /* InitViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +64,21 @@
 		F8913D461AF2F7090027AD9F /* AmountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AmountViewController.m; sourceTree = "<group>"; };
 		F8913D481AF302A80027AD9F /* UsageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UsageViewController.h; sourceTree = "<group>"; };
 		F8913D491AF302A80027AD9F /* UsageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UsageViewController.m; sourceTree = "<group>"; };
+		F8D988C21AF74EEC00CA8736 /* ECPercentDrivenInteractiveTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECPercentDrivenInteractiveTransition.h; sourceTree = "<group>"; };
+		F8D988C31AF74EEC00CA8736 /* ECPercentDrivenInteractiveTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECPercentDrivenInteractiveTransition.m; sourceTree = "<group>"; };
+		F8D988C41AF74EEC00CA8736 /* ECSlidingAnimationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECSlidingAnimationController.h; sourceTree = "<group>"; };
+		F8D988C51AF74EEC00CA8736 /* ECSlidingAnimationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECSlidingAnimationController.m; sourceTree = "<group>"; };
+		F8D988C61AF74EEC00CA8736 /* ECSlidingConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECSlidingConstants.h; sourceTree = "<group>"; };
+		F8D988C71AF74EEC00CA8736 /* ECSlidingInteractiveTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECSlidingInteractiveTransition.h; sourceTree = "<group>"; };
+		F8D988C81AF74EEC00CA8736 /* ECSlidingInteractiveTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECSlidingInteractiveTransition.m; sourceTree = "<group>"; };
+		F8D988C91AF74EEC00CA8736 /* ECSlidingSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECSlidingSegue.h; sourceTree = "<group>"; };
+		F8D988CA1AF74EEC00CA8736 /* ECSlidingSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECSlidingSegue.m; sourceTree = "<group>"; };
+		F8D988CB1AF74EEC00CA8736 /* ECSlidingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECSlidingViewController.h; sourceTree = "<group>"; };
+		F8D988CC1AF74EEC00CA8736 /* ECSlidingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECSlidingViewController.m; sourceTree = "<group>"; };
+		F8D988CD1AF74EEC00CA8736 /* UIViewController+ECSlidingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+ECSlidingViewController.h"; sourceTree = "<group>"; };
+		F8D988CE1AF74EEC00CA8736 /* UIViewController+ECSlidingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+ECSlidingViewController.m"; sourceTree = "<group>"; };
+		F8D988D51AF74F7A00CA8736 /* InitViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InitViewController.h; sourceTree = "<group>"; };
+		F8D988D61AF74F7A00CA8736 /* InitViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InitViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,10 +120,13 @@
 		F85059E61AE5D19200BAED40 /* DataTracker */ = {
 			isa = PBXGroup;
 			children = (
+				F8D988C11AF74EEC00CA8736 /* ECSlidingViewController */,
 				F85059EB1AE5D19200BAED40 /* AppDelegate.h */,
 				F85059EC1AE5D19200BAED40 /* AppDelegate.m */,
 				F85059F11AE5D19200BAED40 /* ViewController.h */,
 				F85059F21AE5D19200BAED40 /* ViewController.m */,
+				F8D988D51AF74F7A00CA8736 /* InitViewController.h */,
+				F8D988D61AF74F7A00CA8736 /* InitViewController.m */,
 				F8913D3C1AF2CABF0027AD9F /* FirstTableViewController.h */,
 				F8913D3D1AF2CABF0027AD9F /* FirstTableViewController.m */,
 				F8913D3F1AF2EFE50027AD9F /* PlanTableViewController.h */,
@@ -145,6 +170,26 @@
 				F8505A051AE5D19300BAED40 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		F8D988C11AF74EEC00CA8736 /* ECSlidingViewController */ = {
+			isa = PBXGroup;
+			children = (
+				F8D988C21AF74EEC00CA8736 /* ECPercentDrivenInteractiveTransition.h */,
+				F8D988C31AF74EEC00CA8736 /* ECPercentDrivenInteractiveTransition.m */,
+				F8D988C41AF74EEC00CA8736 /* ECSlidingAnimationController.h */,
+				F8D988C51AF74EEC00CA8736 /* ECSlidingAnimationController.m */,
+				F8D988C61AF74EEC00CA8736 /* ECSlidingConstants.h */,
+				F8D988C71AF74EEC00CA8736 /* ECSlidingInteractiveTransition.h */,
+				F8D988C81AF74EEC00CA8736 /* ECSlidingInteractiveTransition.m */,
+				F8D988C91AF74EEC00CA8736 /* ECSlidingSegue.h */,
+				F8D988CA1AF74EEC00CA8736 /* ECSlidingSegue.m */,
+				F8D988CB1AF74EEC00CA8736 /* ECSlidingViewController.h */,
+				F8D988CC1AF74EEC00CA8736 /* ECSlidingViewController.m */,
+				F8D988CD1AF74EEC00CA8736 /* UIViewController+ECSlidingViewController.h */,
+				F8D988CE1AF74EEC00CA8736 /* UIViewController+ECSlidingViewController.m */,
+			);
+			path = ECSlidingViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -247,15 +292,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F8D988D01AF74EEC00CA8736 /* ECSlidingAnimationController.m in Sources */,
 				F85059ED1AE5D19200BAED40 /* AppDelegate.m in Sources */,
+				F8D988D71AF74F7A00CA8736 /* InitViewController.m in Sources */,
 				F85059F01AE5D19200BAED40 /* DataTracker.xcdatamodeld in Sources */,
 				F8913D3E1AF2CABF0027AD9F /* FirstTableViewController.m in Sources */,
+				F8D988CF1AF74EEC00CA8736 /* ECPercentDrivenInteractiveTransition.m in Sources */,
 				F8913D4A1AF302A80027AD9F /* UsageViewController.m in Sources */,
 				F85059F31AE5D19200BAED40 /* ViewController.m in Sources */,
+				F8D988D41AF74EEC00CA8736 /* UIViewController+ECSlidingViewController.m in Sources */,
 				F8913D471AF2F7090027AD9F /* AmountViewController.m in Sources */,
+				F8D988D11AF74EEC00CA8736 /* ECSlidingInteractiveTransition.m in Sources */,
+				F8D988D31AF74EEC00CA8736 /* ECSlidingViewController.m in Sources */,
 				F8913D411AF2EFE50027AD9F /* PlanTableViewController.m in Sources */,
 				F85059EA1AE5D19200BAED40 /* main.m in Sources */,
 				F8913D441AF2F65A0027AD9F /* DateViewController.m in Sources */,
+				F8D988D21AF74EEC00CA8736 /* ECSlidingSegue.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

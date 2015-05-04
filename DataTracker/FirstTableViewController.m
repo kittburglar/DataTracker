@@ -25,12 +25,23 @@
     self.navigationItem.title = @"Options";
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 10.0f)];
     self.tableView.backgroundColor = [UIColor redColor];
+    
+    
+    if ([[[NSUserDefaults standardUserDefaults] stringForKey:@"UnitType"] isEqual: @"MB"]) {
+        self.amountLabel.text = [NSString stringWithFormat:@"%.0f %@", [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue]/1000000, [[NSUserDefaults standardUserDefaults] stringForKey:@"UnitType"]];
+    }
+    else if ([[[NSUserDefaults standardUserDefaults] stringForKey:@"UnitType"] isEqual: @"GB"]){
+        self.amountLabel.text = [NSString stringWithFormat:@"%.0f %@", [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue]/1000000000, [[NSUserDefaults standardUserDefaults] stringForKey:@"UnitType"]];
+    }
+
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+- (IBAction)unwindToMenuViewController:(UIStoryboardSegue *)segue { }
 
 #pragma mark - Table view data source
 /*

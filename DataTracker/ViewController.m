@@ -8,6 +8,8 @@
 
 #import "ViewController.h"
 #import <math.h>
+#import "UIViewController+ECSlidingViewController.h"
+#import "FirstTableViewController.h"
 
 NSArray *usageData2;
 
@@ -19,6 +21,18 @@ NSArray *usageData2;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    //ECSLIDER
+    self.view.layer.shadowOpacity = 0.75f;
+    self.view.layer.shadowRadius = 10.0f;
+    self.view.layer.shadowColor = [UIColor blackColor].CGColor;
+    
+    if (![self.slidingViewController.underLeftViewController isKindOfClass:[FirstTableViewController class]]){
+        self.slidingViewController.underLeftViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"Menu"];
+    }
+    
+    [self.view addGestureRecognizer:self.slidingViewController.panGesture];
+    
     // Do any additional setup after loading the view, typically from a nib.
     NSLog(@"View loaded");
     usageData2 = [self getDataCounters];

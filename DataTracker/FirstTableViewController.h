@@ -9,5 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface FirstTableViewController : UITableViewController
+- (IBAction)unwindToMenuViewController:(UIStoryboardSegue *)segue;
+@property (strong, nonatomic) IBOutlet UILabel *amountLabel;
 
 @end

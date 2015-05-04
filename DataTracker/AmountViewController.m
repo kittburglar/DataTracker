@@ -7,6 +7,8 @@
 //
 
 #import "AmountViewController.h"
+#import "UIViewController+ECSlidingViewController.h"
+#import "FirstTableViewController.h"
 
 @interface AmountViewController ()
 
@@ -20,6 +22,17 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    //ECSLIDER
+    self.view.layer.shadowOpacity = 0.75f;
+    self.view.layer.shadowRadius = 10.0f;
+    self.view.layer.shadowColor = [UIColor blackColor].CGColor;
+    
+    if (![self.slidingViewController.underLeftViewController isKindOfClass:[FirstTableViewController class]]){
+        self.slidingViewController.underLeftViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"Menu"];
+    }
+    
+    [self.view addGestureRecognizer:self.slidingViewController.panGesture];
     // Do any additional setup after loading the view.
     self.navigationItem.title = @"Data Amount";
     if ([[[NSUserDefaults standardUserDefaults] stringForKey:@"UnitType"]  isEqual: @"MB"]) {
