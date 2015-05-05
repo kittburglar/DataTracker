@@ -24,7 +24,7 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     self.navigationItem.title = @"Options";
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 10.0f)];
-    self.tableView.backgroundColor = [UIColor redColor];
+    //self.tableView.backgroundColor = [UIColor redColor];
     
     
     if ([[[NSUserDefaults standardUserDefaults] stringForKey:@"UnitType"] isEqual: @"MB"]) {

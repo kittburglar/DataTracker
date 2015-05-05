@@ -27,6 +27,8 @@
 		F8D988D31AF74EEC00CA8736 /* ECSlidingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F8D988CC1AF74EEC00CA8736 /* ECSlidingViewController.m */; };
 		F8D988D41AF74EEC00CA8736 /* UIViewController+ECSlidingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F8D988CE1AF74EEC00CA8736 /* UIViewController+ECSlidingViewController.m */; };
 		F8D988D71AF74F7A00CA8736 /* InitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F8D988D61AF74F7A00CA8736 /* InitViewController.m */; };
+		F8D988D91AF8241300CA8736 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8D988D81AF8241300CA8736 /* MapKit.framework */; };
+		F8D988E21AF84C6900CA8736 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F8D988E11AF84C6900CA8736 /* MapViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,6 +81,9 @@
 		F8D988CE1AF74EEC00CA8736 /* UIViewController+ECSlidingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+ECSlidingViewController.m"; sourceTree = "<group>"; };
 		F8D988D51AF74F7A00CA8736 /* InitViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InitViewController.h; sourceTree = "<group>"; };
 		F8D988D61AF74F7A00CA8736 /* InitViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InitViewController.m; sourceTree = "<group>"; };
+		F8D988D81AF8241300CA8736 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		F8D988E01AF84C6900CA8736 /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
+		F8D988E11AF84C6900CA8736 /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +91,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F8D988D91AF8241300CA8736 /* MapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -102,6 +108,7 @@
 		F85059DB1AE5D19100BAED40 = {
 			isa = PBXGroup;
 			children = (
+				F8D988D81AF8241300CA8736 /* MapKit.framework */,
 				F85059E61AE5D19200BAED40 /* DataTracker */,
 				F8505A031AE5D19300BAED40 /* DataTrackerTests */,
 				F85059E51AE5D19200BAED40 /* Products */,
@@ -137,6 +144,8 @@
 				F8913D431AF2F65A0027AD9F /* DateViewController.m */,
 				F8913D481AF302A80027AD9F /* UsageViewController.h */,
 				F8913D491AF302A80027AD9F /* UsageViewController.m */,
+				F8D988E01AF84C6900CA8736 /* MapViewController.h */,
+				F8D988E11AF84C6900CA8736 /* MapViewController.m */,
 				F85059F41AE5D19200BAED40 /* Main.storyboard */,
 				F85059F71AE5D19200BAED40 /* Images.xcassets */,
 				F85059F91AE5D19200BAED40 /* LaunchScreen.xib */,
@@ -307,6 +316,7 @@
 				F8913D411AF2EFE50027AD9F /* PlanTableViewController.m in Sources */,
 				F85059EA1AE5D19200BAED40 /* main.m in Sources */,
 				F8913D441AF2F65A0027AD9F /* DateViewController.m in Sources */,
+				F8D988E21AF84C6900CA8736 /* MapViewController.m in Sources */,
 				F8D988D21AF74EEC00CA8736 /* ECSlidingSegue.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

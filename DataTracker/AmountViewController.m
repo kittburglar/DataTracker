@@ -23,14 +23,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    //ECSLIDER
-    self.view.layer.shadowOpacity = 0.75f;
-    self.view.layer.shadowRadius = 10.0f;
-    self.view.layer.shadowColor = [UIColor blackColor].CGColor;
-    
-    if (![self.slidingViewController.underLeftViewController isKindOfClass:[FirstTableViewController class]]){
-        self.slidingViewController.underLeftViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"Menu"];
-    }
     
     [self.view addGestureRecognizer:self.slidingViewController.panGesture];
     // Do any additional setup after loading the view.
@@ -68,24 +60,27 @@
 
 -(void)createInputAccessoryView{
     inputAccView = [[UIView alloc] initWithFrame:CGRectMake(10.0, 0.0, 310.0, 40.0)];
-    [inputAccView setBackgroundColor:[UIColor lightGrayColor]];
+    [inputAccView setBackgroundColor:[UIColor whiteColor]];
     [inputAccView setAlpha: 0.8];
     btnMB = [UIButton buttonWithType: UIButtonTypeCustom];
     [btnMB setFrame: CGRectMake(0.0, 0.0, 80.0, 40.0)];
     [btnMB setTitle: @"MB" forState: UIControlStateNormal];
-    [btnMB setBackgroundColor: [UIColor blueColor]];
+    //[btnMB setBackgroundColor: [UIColor blueColor]];
+    [btnMB setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [btnMB addTarget: self action: @selector(MBButtonPressed) forControlEvents: UIControlEventTouchUpInside];
     
     btnGB = [UIButton buttonWithType: UIButtonTypeCustom];
     [btnGB setFrame: CGRectMake(85.0f, 0.0f, 80.0f, 40.0f)];
     [btnGB setTitle: @"GB" forState: UIControlStateNormal];
-    [btnGB setBackgroundColor: [UIColor blueColor]];
+    //[btnGB setBackgroundColor: [UIColor blueColor]];
+    [btnGB setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [btnGB addTarget: self action: @selector(GBButtonPressed) forControlEvents: UIControlEventTouchUpInside];
     
     btnDone = [UIButton buttonWithType:UIButtonTypeCustom];
     [btnDone setFrame:CGRectMake(240.0, 0.0f, 80.0f, 40.0f)];
     [btnDone setTitle:@"Done" forState:UIControlStateNormal];
-    [btnDone setBackgroundColor:[UIColor greenColor]];
+    //[btnDone setBackgroundColor:[UIColor greenColor]];
+    [btnDone setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [btnDone setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [btnDone addTarget:self action:@selector(doneTyping) forControlEvents:UIControlEventTouchUpInside];
     
