@@ -48,7 +48,7 @@
     if (self.switchEnabled.on)
     {
         NSLog(@"Switch is on");
-        [self.locationManager requestWhenInUseAuthorization];
+        [self.locationManager requestAlwaysAuthorization];
         [self.locationManager startMonitoringSignificantLocationChanges];
         [self.locationManager startUpdatingLocation];
     }
