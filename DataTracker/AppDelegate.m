@@ -36,6 +36,7 @@
         [[NSUserDefaults standardUserDefaults] setObject:@"MB" forKey:@"UnitType"];
         [[NSUserDefaults standardUserDefaults] setObject:@"MB" forKey:@"UnitType2"];
         [[NSUserDefaults standardUserDefaults] setFloat:0.0f forKey:@"UsageDifference"];
+        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"ShowAnnotation"];
         
     }
     return YES;

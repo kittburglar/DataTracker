@@ -20,6 +20,16 @@
 		F8913D441AF2F65A0027AD9F /* DateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F8913D431AF2F65A0027AD9F /* DateViewController.m */; };
 		F8913D471AF2F7090027AD9F /* AmountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F8913D461AF2F7090027AD9F /* AmountViewController.m */; };
 		F8913D4A1AF302A80027AD9F /* UsageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F8913D491AF302A80027AD9F /* UsageViewController.m */; };
+		F8A7B0A51AFF306E00E41647 /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F8A7B09B1AFF306E00E41647 /* OpenSans-Bold.ttf */; };
+		F8A7B0A61AFF306E00E41647 /* OpenSans-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F8A7B09C1AFF306E00E41647 /* OpenSans-BoldItalic.ttf */; };
+		F8A7B0A71AFF306E00E41647 /* OpenSans-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F8A7B09D1AFF306E00E41647 /* OpenSans-Italic.ttf */; };
+		F8A7B0A81AFF306E00E41647 /* OpenSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F8A7B09E1AFF306E00E41647 /* OpenSans-Light.ttf */; };
+		F8A7B0A91AFF306E00E41647 /* OpenSans-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F8A7B09F1AFF306E00E41647 /* OpenSans-LightItalic.ttf */; };
+		F8A7B0AA1AFF306E00E41647 /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F8A7B0A01AFF306E00E41647 /* OpenSans-Regular.ttf */; };
+		F8A7B0AB1AFF306E00E41647 /* OpenSans-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F8A7B0A11AFF306E00E41647 /* OpenSans-Semibold.ttf */; };
+		F8A7B0AC1AFF306E00E41647 /* OpenSans-SemiboldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F8A7B0A21AFF306E00E41647 /* OpenSans-SemiboldItalic.ttf */; };
+		F8A7B0AD1AFF306E00E41647 /* OpenSans-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F8A7B0A31AFF306E00E41647 /* OpenSans-ExtraBold.ttf */; };
+		F8A7B0AE1AFF306E00E41647 /* OpenSans-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F8A7B0A41AFF306E00E41647 /* OpenSans-ExtraBoldItalic.ttf */; };
 		F8D988CF1AF74EEC00CA8736 /* ECPercentDrivenInteractiveTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = F8D988C31AF74EEC00CA8736 /* ECPercentDrivenInteractiveTransition.m */; };
 		F8D988D01AF74EEC00CA8736 /* ECSlidingAnimationController.m in Sources */ = {isa = PBXBuildFile; fileRef = F8D988C51AF74EEC00CA8736 /* ECSlidingAnimationController.m */; };
 		F8D988D11AF74EEC00CA8736 /* ECSlidingInteractiveTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = F8D988C81AF74EEC00CA8736 /* ECSlidingInteractiveTransition.m */; };
@@ -29,6 +39,8 @@
 		F8D988D71AF74F7A00CA8736 /* InitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F8D988D61AF74F7A00CA8736 /* InitViewController.m */; };
 		F8D988D91AF8241300CA8736 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8D988D81AF8241300CA8736 /* MapKit.framework */; };
 		F8D988E21AF84C6900CA8736 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F8D988E11AF84C6900CA8736 /* MapViewController.m */; };
+		F8D988E81AFB3D4400CA8736 /* KAProgressLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = F8D988E51AFB3D4400CA8736 /* KAProgressLabel.m */; };
+		F8D988E91AFB3D4400CA8736 /* TPPropertyAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = F8D988E71AFB3D4400CA8736 /* TPPropertyAnimation.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +78,16 @@
 		F8913D461AF2F7090027AD9F /* AmountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AmountViewController.m; sourceTree = "<group>"; };
 		F8913D481AF302A80027AD9F /* UsageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UsageViewController.h; sourceTree = "<group>"; };
 		F8913D491AF302A80027AD9F /* UsageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UsageViewController.m; sourceTree = "<group>"; };
+		F8A7B09B1AFF306E00E41647 /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Bold.ttf"; sourceTree = "<group>"; };
+		F8A7B09C1AFF306E00E41647 /* OpenSans-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-BoldItalic.ttf"; sourceTree = "<group>"; };
+		F8A7B09D1AFF306E00E41647 /* OpenSans-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Italic.ttf"; sourceTree = "<group>"; };
+		F8A7B09E1AFF306E00E41647 /* OpenSans-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Light.ttf"; sourceTree = "<group>"; };
+		F8A7B09F1AFF306E00E41647 /* OpenSans-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-LightItalic.ttf"; sourceTree = "<group>"; };
+		F8A7B0A01AFF306E00E41647 /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Regular.ttf"; sourceTree = "<group>"; };
+		F8A7B0A11AFF306E00E41647 /* OpenSans-Semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Semibold.ttf"; sourceTree = "<group>"; };
+		F8A7B0A21AFF306E00E41647 /* OpenSans-SemiboldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-SemiboldItalic.ttf"; sourceTree = "<group>"; };
+		F8A7B0A31AFF306E00E41647 /* OpenSans-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-ExtraBold.ttf"; sourceTree = "<group>"; };
+		F8A7B0A41AFF306E00E41647 /* OpenSans-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-ExtraBoldItalic.ttf"; sourceTree = "<group>"; };
 		F8D988C21AF74EEC00CA8736 /* ECPercentDrivenInteractiveTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECPercentDrivenInteractiveTransition.h; sourceTree = "<group>"; };
 		F8D988C31AF74EEC00CA8736 /* ECPercentDrivenInteractiveTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECPercentDrivenInteractiveTransition.m; sourceTree = "<group>"; };
 		F8D988C41AF74EEC00CA8736 /* ECSlidingAnimationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECSlidingAnimationController.h; sourceTree = "<group>"; };
@@ -84,6 +106,10 @@
 		F8D988D81AF8241300CA8736 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		F8D988E01AF84C6900CA8736 /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
 		F8D988E11AF84C6900CA8736 /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
+		F8D988E41AFB3D4400CA8736 /* KAProgressLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KAProgressLabel.h; sourceTree = "<group>"; };
+		F8D988E51AFB3D4400CA8736 /* KAProgressLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KAProgressLabel.m; sourceTree = "<group>"; };
+		F8D988E61AFB3D4400CA8736 /* TPPropertyAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPPropertyAnimation.h; sourceTree = "<group>"; };
+		F8D988E71AFB3D4400CA8736 /* TPPropertyAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPPropertyAnimation.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,6 +153,8 @@
 		F85059E61AE5D19200BAED40 /* DataTracker */ = {
 			isa = PBXGroup;
 			children = (
+				F8A7B09A1AFF302900E41647 /* Fonts */,
+				F8D988E31AFB3D4400CA8736 /* KAProgressLabel */,
 				F8D988C11AF74EEC00CA8736 /* ECSlidingViewController */,
 				F85059EB1AE5D19200BAED40 /* AppDelegate.h */,
 				F85059EC1AE5D19200BAED40 /* AppDelegate.m */,
@@ -181,6 +209,23 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		F8A7B09A1AFF302900E41647 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				F8A7B09B1AFF306E00E41647 /* OpenSans-Bold.ttf */,
+				F8A7B09C1AFF306E00E41647 /* OpenSans-BoldItalic.ttf */,
+				F8A7B09D1AFF306E00E41647 /* OpenSans-Italic.ttf */,
+				F8A7B09E1AFF306E00E41647 /* OpenSans-Light.ttf */,
+				F8A7B09F1AFF306E00E41647 /* OpenSans-LightItalic.ttf */,
+				F8A7B0A01AFF306E00E41647 /* OpenSans-Regular.ttf */,
+				F8A7B0A11AFF306E00E41647 /* OpenSans-Semibold.ttf */,
+				F8A7B0A21AFF306E00E41647 /* OpenSans-SemiboldItalic.ttf */,
+				F8A7B0A31AFF306E00E41647 /* OpenSans-ExtraBold.ttf */,
+				F8A7B0A41AFF306E00E41647 /* OpenSans-ExtraBoldItalic.ttf */,
+			);
+			name = Fonts;
+			sourceTree = "<group>";
+		};
 		F8D988C11AF74EEC00CA8736 /* ECSlidingViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -199,6 +244,17 @@
 				F8D988CE1AF74EEC00CA8736 /* UIViewController+ECSlidingViewController.m */,
 			);
 			path = ECSlidingViewController;
+			sourceTree = "<group>";
+		};
+		F8D988E31AFB3D4400CA8736 /* KAProgressLabel */ = {
+			isa = PBXGroup;
+			children = (
+				F8D988E41AFB3D4400CA8736 /* KAProgressLabel.h */,
+				F8D988E51AFB3D4400CA8736 /* KAProgressLabel.m */,
+				F8D988E61AFB3D4400CA8736 /* TPPropertyAnimation.h */,
+				F8D988E71AFB3D4400CA8736 /* TPPropertyAnimation.m */,
+			);
+			path = KAProgressLabel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -283,7 +339,17 @@
 			files = (
 				F85059F61AE5D19200BAED40 /* Main.storyboard in Resources */,
 				F85059FB1AE5D19200BAED40 /* LaunchScreen.xib in Resources */,
+				F8A7B0A81AFF306E00E41647 /* OpenSans-Light.ttf in Resources */,
+				F8A7B0A51AFF306E00E41647 /* OpenSans-Bold.ttf in Resources */,
+				F8A7B0AB1AFF306E00E41647 /* OpenSans-Semibold.ttf in Resources */,
+				F8A7B0A71AFF306E00E41647 /* OpenSans-Italic.ttf in Resources */,
 				F85059F81AE5D19200BAED40 /* Images.xcassets in Resources */,
+				F8A7B0A91AFF306E00E41647 /* OpenSans-LightItalic.ttf in Resources */,
+				F8A7B0AA1AFF306E00E41647 /* OpenSans-Regular.ttf in Resources */,
+				F8A7B0AE1AFF306E00E41647 /* OpenSans-ExtraBoldItalic.ttf in Resources */,
+				F8A7B0A61AFF306E00E41647 /* OpenSans-BoldItalic.ttf in Resources */,
+				F8A7B0AC1AFF306E00E41647 /* OpenSans-SemiboldItalic.ttf in Resources */,
+				F8A7B0AD1AFF306E00E41647 /* OpenSans-ExtraBold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -312,7 +378,9 @@
 				F8D988D41AF74EEC00CA8736 /* UIViewController+ECSlidingViewController.m in Sources */,
 				F8913D471AF2F7090027AD9F /* AmountViewController.m in Sources */,
 				F8D988D11AF74EEC00CA8736 /* ECSlidingInteractiveTransition.m in Sources */,
+				F8D988E81AFB3D4400CA8736 /* KAProgressLabel.m in Sources */,
 				F8D988D31AF74EEC00CA8736 /* ECSlidingViewController.m in Sources */,
+				F8D988E91AFB3D4400CA8736 /* TPPropertyAnimation.m in Sources */,
 				F8913D411AF2EFE50027AD9F /* PlanTableViewController.m in Sources */,
 				F85059EA1AE5D19200BAED40 /* main.m in Sources */,
 				F8913D441AF2F65A0027AD9F /* DateViewController.m in Sources */,

@@ -19,6 +19,9 @@ NSArray *usageData2;
 
 @implementation ViewController
 
+#define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -26,29 +29,62 @@ NSArray *usageData2;
     NSLog(@"View loaded");
     usageData2 = [self getDataCounters];
     //NSLog(@"%@", [usageData objectAtIndex:<#(NSUInteger)#>]);
-    //self.WIFILabel.text = [NSString stringWithFormat:@"%.01f MB", ([[usageData objectAtIndex:0] floatValue] + [[usageData objectAtIndex:1] floatValue])/1000000];
-    //self.WANLabel.text = [NSString stringWithFormat:@"%.01f MB", ([[usageData objectAtIndex:2] floatValue] + [[usageData objectAtIndex:3] floatValue])/1000000];
-    self.WIFILabel.text = [NSString stringWithFormat:@"%.01f MB", ([[usageData2 objectAtIndex:0] floatValue] + [[usageData2 objectAtIndex:1] floatValue])];
-    self.WANLabel.text = [NSString stringWithFormat:@"%.01f MB", ([[usageData2 objectAtIndex:2] floatValue] + [[usageData2 objectAtIndex:3] floatValue])];
+    self.WIFILabel.text = [NSString stringWithFormat:@"%.01f MB", ([[usageData2 objectAtIndex:0] floatValue] + [[usageData2 objectAtIndex:1] floatValue])/1000000];
+    self.WIFILabel.textColor = UIColorFromRGB(0x4d4d4c);
     
-    self.navigationItem.title=@"First View";
-    UIBarButtonItem *flipButton = [[UIBarButtonItem alloc]
-                                   initWithTitle:@"Options"
-                                   style:UIBarButtonItemStyleBordered
-                                   target:self
-                                   action:@selector(flipView:)];
-    self.navigationItem.rightBarButtonItem = flipButton;
+    //self.WANLabel.text = [NSString stringWithFormat:@"%.01f MB", ([[usageData2 objectAtIndex:2] floatValue] + [[usageData2 objectAtIndex:3] floatValue])/1000000];
+    self.WANLabel.text = [NSString stringWithFormat:@"%.01f MB", [self calculateWAN]];
+    self.WANLabel.textColor = UIColorFromRGB(0x4d4d4c);
     
+    //self.navigationItem.title=@"First View";
     self.percentLabel.text = [NSString stringWithFormat:@"%f", [self calculatePercentage]];
+    
+    //Circular Progress Bar
+    self.myProgressLabel.progressColor = UIColorFromRGB(0x4271ae);
+    self.myProgressLabel.trackColor = UIColorFromRGB(0x8e908c);
+    //self.myProgressLabel.progress = [self calculatePercentage];
+    self.myProgressLabel.text = [NSString stringWithFormat:@"%.0f%%", [self calculatePercentage]*100];
+    self.myProgressLabel.textColor = UIColorFromRGB(0x4d4d4c);
+    self.myProgressLabel.trackWidth = 50;         // Defaults to 5.0
+    self.myProgressLabel.progressWidth = 50;        // Defaults to 5.0
+    //self.myProgressLabel.roundedCornersWidth = 40; // Defaults to 0
+    
+    //Animation
+    self.myProgressLabel.labelVCBlock = ^(KAProgressLabel *label) {
+        label.text = [NSString stringWithFormat:@"%.0f%%", (label.progress * 100)];
+    };
+    [self.myProgressLabel setProgress:[self calculatePercentage]
+                               timing:TPPropertyAnimationTimingEaseOut
+                             duration:1.0
+                                delay:0.0];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
     usageData2 = [self getDataCounters];
-    //self.WIFILabel.text = [NSString stringWithFormat:@"%.01f MB", ([[usageData objectAtIndex:0] floatValue] + [[usageData objectAtIndex:1] floatValue])/1000000];
-    //self.WANLabel.text = [NSString stringWithFormat:@"%.01f MB", ([[usageData objectAtIndex:2] floatValue] + [[usageData objectAtIndex:3] floatValue])/1000000];
-    self.WIFILabel.text = [NSString stringWithFormat:@"%.01f MB", ([[usageData2 objectAtIndex:0] floatValue] + [[usageData2 objectAtIndex:1] floatValue])];
-    self.WANLabel.text = [NSString stringWithFormat:@"%.01f MB", ([[usageData2 objectAtIndex:2] floatValue] + [[usageData2 objectAtIndex:3] floatValue])];
+    
+    self.WIFILabel.text = [NSString stringWithFormat:@"%.01f MB", ([[usageData2 objectAtIndex:0] floatValue] + [[usageData2 objectAtIndex:1] floatValue])/1000000];
+    //self.WANLabel.text = [NSString stringWithFormat:@"%.01f MB", ([[usageData2 objectAtIndex:2] floatValue] + [[usageData2 objectAtIndex:3] floatValue])/1000000];
+    self.WANLabel.text = [NSString stringWithFormat:@"%.01f MB", [self calculateWAN]];
     self.percentLabel.text = [NSString stringWithFormat:@"%f", [self calculatePercentage]];
+    
+    //Circular Progress Bar
+    //self.myProgressLabel.progress = [self calculatePercentage];
+    self.myProgressLabel.text = [NSString stringWithFormat:@"%.0f%%", [self calculatePercentage]*100];
+    
+    //Animation
+    self.myProgressLabel.labelVCBlock = ^(KAProgressLabel *label) {
+        label.text = [NSString stringWithFormat:@"%.0f%%", (label.progress * 100)];
+    };
+    [self.myProgressLabel setProgress:[self calculatePercentage]
+                               timing:TPPropertyAnimationTimingEaseOut
+                             duration:1.0
+                                delay:0.0];
+}
+
+- (float)calculateWAN{
+    float WANUsage = 0.0;
+    WANUsage = (([[usageData2 objectAtIndex:2] floatValue] + [[usageData2 objectAtIndex:3] floatValue]) - (floorf(([[usageData2 objectAtIndex:2] floatValue] + [[usageData2 objectAtIndex:3] floatValue]) / [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue]) * [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue]) + [[[NSUserDefaults standardUserDefaults] stringForKey:@"UsageDifference"] floatValue])/1000000;
+    return WANUsage;
 }
 
 - (float)calculatePercentage{
@@ -57,7 +93,8 @@ NSArray *usageData2;
     //WAN mod allowed amount
     //difference =  [[[NSUserDefaults standardUserDefaults] stringForKey:@"CurrentUsage"] floatValue] - fmodf(([[usageData objectAtIndex:2] floatValue] + [[usageData objectAtIndex:3] floatValue]), [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue]);
     NSLog(@"Current usage is:%f.\nThe difference is %f/",[[[NSUserDefaults standardUserDefaults] stringForKey:@"CurrentUsage"] floatValue], difference);
-    percentage = fmodf([[[NSUserDefaults standardUserDefaults] stringForKey:@"UsageDifference"] floatValue] + ([[usageData2 objectAtIndex:2] floatValue] + [[usageData2 objectAtIndex:3] floatValue]), [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue]) / [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue];
+    //percentage = fmodf([[[NSUserDefaults standardUserDefaults] stringForKey:@"UsageDifference"] floatValue] + ([[usageData2 objectAtIndex:2] floatValue] + [[usageData2 objectAtIndex:3] floatValue]), [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue]) / [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue];
+    percentage = (([[usageData2 objectAtIndex:2] floatValue] + [[usageData2 objectAtIndex:3] floatValue]) - (floorf(([[usageData2 objectAtIndex:2] floatValue] + [[usageData2 objectAtIndex:3] floatValue]) / [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue]) * [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue]) + [[[NSUserDefaults standardUserDefaults] stringForKey:@"UsageDifference"] floatValue]) / [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue];
     //percentage = fmodf(difference + ([[usageData objectAtIndex:2] floatValue] + [[usageData objectAtIndex:3] floatValue]), [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue]) / [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue];
     NSLog(@"The percentage is: %f", percentage);
     return percentage;
@@ -124,12 +161,25 @@ NSArray *usageData2;
 
 - (IBAction)refreshButton:(id)sender {
     NSLog(@"refreshButton");
-    NSArray *usageData = [self getDataCounters];
-    //NSLog(@"%@", [usageData objectAtIndex:<#(NSUInteger)#>]);
-    //self.WIFILabel.text = [NSString stringWithFormat:@"%.01f MB", ([[usageData objectAtIndex:0] floatValue] + [[usageData objectAtIndex:1] floatValue])/1000000];
-    // self.WANLabel.text = [NSString stringWithFormat:@"%.01f MB", ([[usageData objectAtIndex:2] floatValue] + [[usageData objectAtIndex:3] floatValue])/1000000];
-    self.WIFILabel.text = [NSString stringWithFormat:@"%.01f MB", ([[usageData objectAtIndex:0] floatValue] + [[usageData objectAtIndex:1] floatValue])];
-    self.WANLabel.text = [NSString stringWithFormat:@"%.01f MB", ([[usageData objectAtIndex:2] floatValue] + [[usageData objectAtIndex:3] floatValue])];
+    usageData2 = [self getDataCounters];
+    
+    self.WIFILabel.text = [NSString stringWithFormat:@"%.01f MB", ([[usageData2 objectAtIndex:0] floatValue] + [[usageData2 objectAtIndex:1] floatValue])/1000000];
+    //self.WANLabel.text = [NSString stringWithFormat:@"%.01f MB", ([[usageData2 objectAtIndex:2] floatValue] + [[usageData2 objectAtIndex:3] floatValue])/1000000];
+    self.WANLabel.text = [NSString stringWithFormat:@"%.01f MB", [self calculateWAN]];
+    self.percentLabel.text = [NSString stringWithFormat:@"%f", [self calculatePercentage]];
+    
+    //Circular Progress Bar
+    //self.myProgressLabel.progress = [self calculatePercentage];
+    self.myProgressLabel.text = [NSString stringWithFormat:@"%.0f%%", [self calculatePercentage]*100];
+    
+    //Animation
+    self.myProgressLabel.labelVCBlock = ^(KAProgressLabel *label) {
+        label.text = [NSString stringWithFormat:@"%.0f%%", (label.progress * 100)];
+    };
+    [self.myProgressLabel setProgress:[self calculatePercentage]
+                               timing:TPPropertyAnimationTimingEaseOut
+                             duration:1.0
+                                delay:0.0];
 }
 
 - (IBAction)flipView:(id)sender{

@@ -9,20 +9,33 @@
 #import "MapViewController.h"
 
 @interface MapViewController ()
-@property (nonatomic, strong) CLLocationManager *locationManager;
-@property (nonatomic, strong) NSMutableArray *locations;
+
 @end
 
 @implementation MapViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self.switchEnabled setOn:[[NSUserDefaults standardUserDefaults] boolForKey:@"ShowAnnotation"]];
     // Do any additional setup after loading the view.
     self.locations = [[NSMutableArray alloc] init];
     self.locationManager = [[CLLocationManager alloc] init];
     self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
     self.locationManager.distanceFilter=kCLDistanceFilterNone;
     self.locationManager.delegate = self;
+    if (self.switchEnabled.on)
+    {
+        NSLog(@"Switch is on");
+        //[[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"ShowAnnotation"];
+        [self.locationManager requestAlwaysAuthorization];
+        [self.locationManager startMonitoringSignificantLocationChanges];
+        [self.locationManager startUpdatingLocation];
+    }
+    else
+    {
+        //[[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"ShowAnnotation"];
+        [self.locationManager stopUpdatingLocation];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -48,12 +61,14 @@
     if (self.switchEnabled.on)
     {
         NSLog(@"Switch is on");
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"ShowAnnotation"];
         [self.locationManager requestAlwaysAuthorization];
         [self.locationManager startMonitoringSignificantLocationChanges];
         [self.locationManager startUpdatingLocation];
     }
     else
     {
+        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"ShowAnnotation"];
         [self.locationManager stopUpdatingLocation];
     }
 }
@@ -78,6 +93,9 @@
     // Add another annotation to the map.
     MKPointAnnotation *annotation = [[MKPointAnnotation alloc] init];
     annotation.coordinate = newLocation.coordinate;
+    annotation.title = @"Hello";
+    annotation.subtitle = @"World";
+    
     [self.map addAnnotation:annotation];
     
     // Also add to our map so we can remove old values later

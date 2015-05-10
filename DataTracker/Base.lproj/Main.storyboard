@@ -2,8 +2,19 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="1cI-e0-MJa">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <mutableArray key="OpenSans-Bold.ttf">
+            <string>OpenSans-Bold</string>
+        </mutableArray>
+        <mutableArray key="OpenSans-Semibold.ttf">
+            <string>OpenSans-Semibold</string>
+            <string>OpenSans-Semibold</string>
+        </mutableArray>
+    </customFonts>
     <scenes>
         <!--Sliding View Controller-->
         <scene sceneID="tTh-W7-jCm">
@@ -39,29 +50,86 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EdG-In-tLu">
-                                <rect key="frame" x="279" y="289" width="42" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="123 MB" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EdG-In-tLu">
+                                <rect key="frame" x="16" y="571" width="84" height="21"/>
+                                <fontDescription key="fontDescription" name="OpenSans-Semibold" family="Open Sans" pointSize="20"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IR6-6W-m2M">
-                                <rect key="frame" x="279" y="318" width="42" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="456 MB" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IR6-6W-m2M">
+                                <rect key="frame" x="500" y="571" width="84" height="21"/>
+                                <fontDescription key="fontDescription" name="OpenSans-Semibold" family="Open Sans" pointSize="20"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MGt-RJ-ehD">
-                                <rect key="frame" x="277" y="347" width="46" height="30"/>
-                                <state key="normal" title="Button">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="refreshButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="SDh-dn-5Tk"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MDi-so-DDf">
-                                <rect key="frame" x="16" y="385" width="568" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="57%" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ity-l2-Gwo" customClass="KAProgressLabel">
+                                <rect key="frame" x="16" y="139" width="568" height="424"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="Ity-l2-Gwo" secondAttribute="height" multiplier="1:1" id="rO0-Ag-iM1"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="OpenSans-Bold" family="Open Sans" pointSize="40"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="W" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YVw-X0-bmZ" customClass="KAProgressLabel">
+                                <rect key="frame" x="271" y="72" width="59" height="59"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="YVw-X0-bmZ" secondAttribute="height" multiplier="1:1" id="N1V-f6-u32"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="T" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8qq-Z6-2se" customClass="KAProgressLabel">
+                                <rect key="frame" x="204" y="72" width="59" height="59"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="8qq-Z6-2se" secondAttribute="height" multiplier="1:1" id="AOx-4z-noY"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="T" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="azF-Cf-Qt6" customClass="KAProgressLabel">
+                                <rect key="frame" x="338" y="72" width="59" height="59"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="azF-Cf-Qt6" secondAttribute="height" multiplier="1:1" id="EHA-sc-TfB"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="M" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Gd-vh-sQn" customClass="KAProgressLabel">
+                                <rect key="frame" x="137" y="72" width="59" height="59"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="5Gd-vh-sQn" secondAttribute="height" multiplier="1:1" id="4ko-6Z-paf"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="F" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0d9-z8-thp" customClass="KAProgressLabel">
+                                <rect key="frame" x="405" y="72" width="59" height="59"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="0d9-z8-thp" secondAttribute="height" multiplier="1:1" id="j5c-eW-poM"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="S" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pc0-UP-fgU" customClass="KAProgressLabel">
+                                <rect key="frame" x="70" y="72" width="59" height="59"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="pc0-UP-fgU" secondAttribute="height" multiplier="1:1" id="5jw-Ic-7L6"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="S" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Mt-rn-exj" customClass="KAProgressLabel">
+                                <rect key="frame" x="472" y="72" width="59" height="59"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="4Mt-rn-exj" secondAttribute="height" multiplier="1:1" id="WIa-sw-Fyi"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
@@ -69,19 +137,53 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="centerX" secondItem="MDi-so-DDf" secondAttribute="centerX" id="57i-JQ-Dab"/>
-                            <constraint firstItem="MGt-RJ-ehD" firstAttribute="leading" secondItem="MDi-so-DDf" secondAttribute="trailing" constant="-44" id="5EV-oF-PlI"/>
-                            <constraint firstAttribute="centerX" secondItem="IR6-6W-m2M" secondAttribute="centerX" id="5zp-Ve-XyE"/>
-                            <constraint firstAttribute="centerX" secondItem="MGt-RJ-ehD" secondAttribute="centerX" id="J2w-X5-ade"/>
-                            <constraint firstAttribute="centerX" secondItem="EdG-In-tLu" secondAttribute="centerX" id="M0U-JO-vNy"/>
-                            <constraint firstItem="IR6-6W-m2M" firstAttribute="top" secondItem="EdG-In-tLu" secondAttribute="bottom" constant="8" id="Xiv-s8-v2P"/>
-                            <constraint firstItem="MDi-so-DDf" firstAttribute="top" secondItem="MGt-RJ-ehD" secondAttribute="bottom" constant="8" id="Zoe-Hc-LWE"/>
-                            <constraint firstAttribute="centerY" secondItem="EdG-In-tLu" secondAttribute="centerY" constant="0.5" id="aa1-eZ-bI5"/>
-                            <constraint firstItem="MGt-RJ-ehD" firstAttribute="top" secondItem="IR6-6W-m2M" secondAttribute="bottom" constant="8" id="jKn-HD-WwC"/>
+                            <constraint firstItem="0d9-z8-thp" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" id="6pG-xF-Hjx"/>
+                            <constraint firstItem="IR6-6W-m2M" firstAttribute="top" secondItem="Ity-l2-Gwo" secondAttribute="bottom" constant="8" id="7RS-8z-wyA"/>
+                            <constraint firstItem="IR6-6W-m2M" firstAttribute="top" secondItem="Ity-l2-Gwo" secondAttribute="bottom" priority="999" constant="8" id="7Y2-Yf-9Pk"/>
+                            <constraint firstItem="5Gd-vh-sQn" firstAttribute="width" secondItem="YVw-X0-bmZ" secondAttribute="width" id="9wV-RE-SU9"/>
+                            <constraint firstItem="YVw-X0-bmZ" firstAttribute="width" secondItem="0d9-z8-thp" secondAttribute="width" id="F1X-m9-D78"/>
+                            <constraint firstItem="4Mt-rn-exj" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" id="FGj-6a-c1W"/>
+                            <constraint firstItem="4Mt-rn-exj" firstAttribute="leading" secondItem="0d9-z8-thp" secondAttribute="trailing" constant="8" id="JK5-gU-UjE"/>
+                            <constraint firstItem="Ity-l2-Gwo" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" id="RhB-u9-ZZv"/>
+                            <constraint firstItem="0d9-z8-thp" firstAttribute="leading" secondItem="azF-Cf-Qt6" secondAttribute="trailing" constant="8" id="Rvw-jM-LX7"/>
+                            <constraint firstItem="8qq-Z6-2se" firstAttribute="width" secondItem="YVw-X0-bmZ" secondAttribute="width" id="SHV-kJ-6Vz"/>
+                            <constraint firstItem="YVw-X0-bmZ" firstAttribute="leading" secondItem="8qq-Z6-2se" secondAttribute="trailing" constant="8" id="T7j-Uc-4Oh"/>
+                            <constraint firstItem="Ity-l2-Gwo" firstAttribute="width" secondItem="YVw-X0-bmZ" secondAttribute="width" multiplier="8" id="U6s-Ei-RRN"/>
+                            <constraint firstItem="IR6-6W-m2M" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="VaV-36-QPm"/>
+                            <constraint firstItem="5Gd-vh-sQn" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" id="Wfq-hh-wQD"/>
+                            <constraint firstItem="EdG-In-tLu" firstAttribute="top" secondItem="Ity-l2-Gwo" secondAttribute="bottom" constant="8" id="X5h-VQ-UDa"/>
+                            <constraint firstAttribute="centerX" secondItem="Ity-l2-Gwo" secondAttribute="centerX" id="YfJ-Uf-67m"/>
+                            <constraint firstItem="5Gd-vh-sQn" firstAttribute="leading" secondItem="pc0-UP-fgU" secondAttribute="trailing" constant="8" id="aDp-cF-Vu2"/>
+                            <constraint firstItem="Ity-l2-Gwo" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="bES-7M-cK7"/>
+                            <constraint firstItem="Ity-l2-Gwo" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" id="cEF-05-kno"/>
+                            <constraint firstAttribute="centerY" secondItem="Ity-l2-Gwo" secondAttribute="centerY" id="dtm-ay-Umy"/>
+                            <constraint firstItem="pc0-UP-fgU" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" id="gNn-QE-3hR"/>
+                            <constraint firstItem="8qq-Z6-2se" firstAttribute="leading" secondItem="5Gd-vh-sQn" secondAttribute="trailing" constant="8" id="gTs-Jd-E8P"/>
+                            <constraint firstItem="pc0-UP-fgU" firstAttribute="width" secondItem="YVw-X0-bmZ" secondAttribute="width" id="hwg-UQ-SJP"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="EdG-In-tLu" secondAttribute="bottom" constant="8" id="ikJ-G7-hAP"/>
+                            <constraint firstItem="EdG-In-tLu" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="jC9-fW-hfJ"/>
+                            <constraint firstItem="Ity-l2-Gwo" firstAttribute="top" secondItem="YVw-X0-bmZ" secondAttribute="bottom" constant="8" id="knG-zd-JEV"/>
+                            <constraint firstItem="8qq-Z6-2se" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" id="lUg-aa-087"/>
+                            <constraint firstItem="azF-Cf-Qt6" firstAttribute="leading" secondItem="YVw-X0-bmZ" secondAttribute="trailing" constant="8" id="lh4-4L-d3w"/>
+                            <constraint firstItem="YVw-X0-bmZ" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" id="mWc-8a-t3z"/>
+                            <constraint firstItem="4Mt-rn-exj" firstAttribute="width" secondItem="YVw-X0-bmZ" secondAttribute="width" id="qIU-gX-Ota"/>
+                            <constraint firstAttribute="centerX" secondItem="Ity-l2-Gwo" secondAttribute="centerX" constant="-0.5" id="sB8-Kh-7E7"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="IR6-6W-m2M" secondAttribute="bottom" constant="8" id="skX-zH-MUc"/>
+                            <constraint firstItem="Ity-l2-Gwo" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="t0s-OS-R1W"/>
+                            <constraint firstAttribute="centerX" secondItem="YVw-X0-bmZ" secondAttribute="centerX" constant="-0.5" id="tOL-gC-qMJ"/>
+                            <constraint firstItem="azF-Cf-Qt6" firstAttribute="width" secondItem="YVw-X0-bmZ" secondAttribute="width" id="wPL-Y9-CZ7"/>
+                            <constraint firstItem="azF-Cf-Qt6" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" id="xX7-c5-gY7"/>
+                            <constraint firstAttribute="centerX" secondItem="Ity-l2-Gwo" secondAttribute="centerX" id="yqk-BO-7Da"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
-                                <exclude reference="5EV-oF-PlI"/>
+                                <exclude reference="RhB-u9-ZZv"/>
+                                <exclude reference="cEF-05-kno"/>
+                                <exclude reference="dtm-ay-Umy"/>
+                                <exclude reference="knG-zd-JEV"/>
+                                <exclude reference="sB8-Kh-7E7"/>
+                                <exclude reference="yqk-BO-7Da"/>
+                                <exclude reference="7RS-8z-wyA"/>
                             </mask>
                         </variation>
                     </view>
@@ -95,7 +197,7 @@
                     <connections>
                         <outlet property="WANLabel" destination="IR6-6W-m2M" id="hkz-Jo-fnj"/>
                         <outlet property="WIFILabel" destination="EdG-In-tLu" id="w9F-ar-zXV"/>
-                        <outlet property="percentLabel" destination="MDi-so-DDf" id="KAh-mz-dCS"/>
+                        <outlet property="myProgressLabel" destination="Ity-l2-Gwo" id="sdQ-gy-oBi"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
