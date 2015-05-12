@@ -32,6 +32,7 @@
         [[NSUserDefaults standardUserDefaults] setDouble:0.0 forKey:@"WIFIBalance"];
         [[NSUserDefaults standardUserDefaults] setDouble:0.0 forKey:@"DataAmount"];
         [[NSUserDefaults standardUserDefaults] setFloat:0.0f forKey:@"CurrentUsage"];
+        [[NSUserDefaults standardUserDefaults] setDouble:0.0 forKey:@"LastWanSinceUpdate"];
         NSLog(@"WANBalance: %ld \nWIFIBalance: %ld", (long)[[NSUserDefaults standardUserDefaults] integerForKey:@"WANBalance"],(long)[[NSUserDefaults standardUserDefaults] integerForKey:@"WIFIBalance"]);
         [[NSUserDefaults standardUserDefaults] setObject:@"MB" forKey:@"UnitType"];
         [[NSUserDefaults standardUserDefaults] setObject:@"MB" forKey:@"UnitType2"];

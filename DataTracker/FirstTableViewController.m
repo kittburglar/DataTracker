@@ -34,6 +34,7 @@
         self.amountLabel.text = [NSString stringWithFormat:@"%.0f %@", [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue]/1000000000, [[NSUserDefaults standardUserDefaults] stringForKey:@"UnitType"]];
     }
 
+    
 }
 
 - (void)didReceiveMemoryWarning {

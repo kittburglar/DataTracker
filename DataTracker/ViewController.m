@@ -57,6 +57,15 @@ NSArray *usageData2;
                                timing:TPPropertyAnimationTimingEaseOut
                              duration:1.0
                                 delay:0.0];
+    
+    //Map stuff
+    self.locations = [[NSMutableArray alloc] init];
+    self.locationManager = [[CLLocationManager alloc] init];
+    self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    self.locationManager.distanceFilter=kCLDistanceFilterNone;
+    //self.locationManager.distanceFilter=50;
+    self.locationManager.delegate = self;
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -94,7 +103,13 @@ NSArray *usageData2;
     //difference =  [[[NSUserDefaults standardUserDefaults] stringForKey:@"CurrentUsage"] floatValue] - fmodf(([[usageData objectAtIndex:2] floatValue] + [[usageData objectAtIndex:3] floatValue]), [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue]);
     NSLog(@"Current usage is:%f.\nThe difference is %f/",[[[NSUserDefaults standardUserDefaults] stringForKey:@"CurrentUsage"] floatValue], difference);
     //percentage = fmodf([[[NSUserDefaults standardUserDefaults] stringForKey:@"UsageDifference"] floatValue] + ([[usageData2 objectAtIndex:2] floatValue] + [[usageData2 objectAtIndex:3] floatValue]), [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue]) / [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue];
-    percentage = (([[usageData2 objectAtIndex:2] floatValue] + [[usageData2 objectAtIndex:3] floatValue]) - (floorf(([[usageData2 objectAtIndex:2] floatValue] + [[usageData2 objectAtIndex:3] floatValue]) / [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue]) * [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue]) + [[[NSUserDefaults standardUserDefaults] stringForKey:@"UsageDifference"] floatValue]) / [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue];
+    if ([[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue] == 0) {
+        percentage = 0.0;
+    }
+    else{
+       percentage = (([[usageData2 objectAtIndex:2] floatValue] + [[usageData2 objectAtIndex:3] floatValue]) - (floorf(([[usageData2 objectAtIndex:2] floatValue] + [[usageData2 objectAtIndex:3] floatValue]) / [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue]) * [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue]) + [[[NSUserDefaults standardUserDefaults] stringForKey:@"UsageDifference"] floatValue]) / [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue];
+    }
+    
     //percentage = fmodf(difference + ([[usageData objectAtIndex:2] floatValue] + [[usageData objectAtIndex:3] floatValue]), [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue]) / [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue];
     NSLog(@"The percentage is: %f", percentage);
     return percentage;
@@ -186,5 +201,85 @@ NSArray *usageData2;
     NSLog(@"pressed flip button");
     [self performSegueWithIdentifier:@"SegueToNextPage" sender:self];
 }
+
+- (void)locationManager:(CLLocationManager *)manager
+    didUpdateToLocation:(CLLocation *)newLocation
+           fromLocation:(CLLocation *)oldLocation
+{
+    
+    usageData2 = [self getDataCounters];
+    float lastWanSinceUpdate = [[[NSUserDefaults standardUserDefaults] stringForKey:@"LastWanSinceUpdate"] floatValue];
+    float thisWan = ([[usageData2 objectAtIndex:2] floatValue] + [[usageData2 objectAtIndex:3] floatValue]);
+    
+    // Add another annotation to the map.
+    MKPointAnnotation *annotation = [[MKPointAnnotation alloc] init];
+    annotation.coordinate = newLocation.coordinate;
+    annotation.title = [NSString stringWithFormat:@"%f MB", (thisWan - lastWanSinceUpdate)/100000];
+    //annotation.subtitle = @"World";
+    
+    if ((thisWan - lastWanSinceUpdate) > 100000) {
+        NSLog(@"(thisWan - lastWanSinceUpdate) > 100000");
+        //[self.map addAnnotation:annotation];
+        // Also add to our map so we can remove old values later
+        [self.locations addObject:annotation];
+        
+        [[NSUserDefaults standardUserDefaults] setFloat:thisWan forKey:@"LastWanSinceUpdate"];
+    }
+    
+    //[[NSUserDefaults standardUserDefaults] setFloat:lastWanSinceUpdate forKey:@"LastWanSinceUpdate"];
+    
+    
+    // Remove values if the array is too big
+    while (self.locations.count > 100)
+    {
+        annotation = [self.locations objectAtIndex:0];
+        [self.locations removeObjectAtIndex:0];
+        
+        // Also remove from the map
+        //[self.map removeAnnotation:annotation];
+    }
+    
+    if (UIApplication.sharedApplication.applicationState == UIApplicationStateActive)
+    {
+        // determine the region the points span so we can update our map's zoom.
+        double maxLat = -91;
+        double minLat =  91;
+        double maxLon = -181;
+        double minLon =  181;
+        
+        for (MKPointAnnotation *annotation in self.locations)
+        {
+            CLLocationCoordinate2D coordinate = annotation.coordinate;
+            
+            if (coordinate.latitude > maxLat)
+                maxLat = coordinate.latitude;
+            if (coordinate.latitude < minLat)
+                minLat = coordinate.latitude;
+            
+            if (coordinate.longitude > maxLon)
+                maxLon = coordinate.longitude;
+            if (coordinate.longitude < minLon)
+                minLon = coordinate.longitude;
+        }
+        
+        MKCoordinateRegion region;
+        region.span.latitudeDelta  = (maxLat +  90) - (minLat +  90);
+        region.span.longitudeDelta = (maxLon + 180) - (minLon + 180);
+        
+        // the center point is the average of the max and mins
+        region.center.latitude  = minLat + region.span.latitudeDelta / 2;
+        region.center.longitude = minLon + region.span.longitudeDelta / 2;
+        
+        // Set the region of the map.
+        
+        
+    }
+    else
+    {
+        NSLog(@"App is backgrounded. New location is %@", newLocation);
+        NSLog(@"This wan is: %f. Last Wan is: %f. Difference is: %f", thisWan, lastWanSinceUpdate,thisWan - lastWanSinceUpdate);
+    }
+}
+
 
 @end

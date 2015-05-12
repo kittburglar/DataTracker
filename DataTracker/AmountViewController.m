@@ -41,6 +41,8 @@
     [self.amountText becomeFirstResponder];
     
     [self createInputAccessoryView];
+    
+    
 }
 
 - (void)didReceiveMemoryWarning {

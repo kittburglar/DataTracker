@@ -30,6 +30,7 @@
 		F8A7B0AC1AFF306E00E41647 /* OpenSans-SemiboldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F8A7B0A21AFF306E00E41647 /* OpenSans-SemiboldItalic.ttf */; };
 		F8A7B0AD1AFF306E00E41647 /* OpenSans-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F8A7B0A31AFF306E00E41647 /* OpenSans-ExtraBold.ttf */; };
 		F8A7B0AE1AFF306E00E41647 /* OpenSans-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F8A7B0A41AFF306E00E41647 /* OpenSans-ExtraBoldItalic.ttf */; };
+		F8A7B0B11AFF75F600E41647 /* Usage.m in Sources */ = {isa = PBXBuildFile; fileRef = F8A7B0B01AFF75F600E41647 /* Usage.m */; };
 		F8D988CF1AF74EEC00CA8736 /* ECPercentDrivenInteractiveTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = F8D988C31AF74EEC00CA8736 /* ECPercentDrivenInteractiveTransition.m */; };
 		F8D988D01AF74EEC00CA8736 /* ECSlidingAnimationController.m in Sources */ = {isa = PBXBuildFile; fileRef = F8D988C51AF74EEC00CA8736 /* ECSlidingAnimationController.m */; };
 		F8D988D11AF74EEC00CA8736 /* ECSlidingInteractiveTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = F8D988C81AF74EEC00CA8736 /* ECSlidingInteractiveTransition.m */; };
@@ -88,6 +89,8 @@
 		F8A7B0A21AFF306E00E41647 /* OpenSans-SemiboldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-SemiboldItalic.ttf"; sourceTree = "<group>"; };
 		F8A7B0A31AFF306E00E41647 /* OpenSans-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-ExtraBold.ttf"; sourceTree = "<group>"; };
 		F8A7B0A41AFF306E00E41647 /* OpenSans-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-ExtraBoldItalic.ttf"; sourceTree = "<group>"; };
+		F8A7B0AF1AFF75F600E41647 /* Usage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Usage.h; sourceTree = "<group>"; };
+		F8A7B0B01AFF75F600E41647 /* Usage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Usage.m; sourceTree = "<group>"; };
 		F8D988C21AF74EEC00CA8736 /* ECPercentDrivenInteractiveTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECPercentDrivenInteractiveTransition.h; sourceTree = "<group>"; };
 		F8D988C31AF74EEC00CA8736 /* ECPercentDrivenInteractiveTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECPercentDrivenInteractiveTransition.m; sourceTree = "<group>"; };
 		F8D988C41AF74EEC00CA8736 /* ECSlidingAnimationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECSlidingAnimationController.h; sourceTree = "<group>"; };
@@ -175,6 +178,8 @@
 				F8D988E01AF84C6900CA8736 /* MapViewController.h */,
 				F8D988E11AF84C6900CA8736 /* MapViewController.m */,
 				F85059F41AE5D19200BAED40 /* Main.storyboard */,
+				F8A7B0AF1AFF75F600E41647 /* Usage.h */,
+				F8A7B0B01AFF75F600E41647 /* Usage.m */,
 				F85059F71AE5D19200BAED40 /* Images.xcassets */,
 				F85059F91AE5D19200BAED40 /* LaunchScreen.xib */,
 				F85059EE1AE5D19200BAED40 /* DataTracker.xcdatamodeld */,
@@ -386,6 +391,7 @@
 				F8913D441AF2F65A0027AD9F /* DateViewController.m in Sources */,
 				F8D988E21AF84C6900CA8736 /* MapViewController.m in Sources */,
 				F8D988D21AF74EEC00CA8736 /* ECSlidingSegue.m in Sources */,
+				F8A7B0B11AFF75F600E41647 /* Usage.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

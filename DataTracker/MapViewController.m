@@ -8,6 +8,8 @@
 
 #import "MapViewController.h"
 
+NSArray *usageData3;
+
 @interface MapViewController ()
 
 @end
@@ -22,6 +24,7 @@
     self.locationManager = [[CLLocationManager alloc] init];
     self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
     self.locationManager.distanceFilter=kCLDistanceFilterNone;
+    //self.locationManager.distanceFilter=50;
     self.locationManager.delegate = self;
     if (self.switchEnabled.on)
     {
@@ -90,16 +93,27 @@
     didUpdateToLocation:(CLLocation *)newLocation
            fromLocation:(CLLocation *)oldLocation
 {
+    usageData3 = [self getDataCounters];
+    float lastWanSinceUpdate = [[[NSUserDefaults standardUserDefaults] stringForKey:@"LastWanSinceUpdate"] floatValue];
+    float thisWan = ([[usageData3 objectAtIndex:2] floatValue] + [[usageData3 objectAtIndex:3] floatValue]);
+    
     // Add another annotation to the map.
     MKPointAnnotation *annotation = [[MKPointAnnotation alloc] init];
     annotation.coordinate = newLocation.coordinate;
-    annotation.title = @"Hello";
-    annotation.subtitle = @"World";
+    annotation.title = [NSString stringWithFormat:@"%f MB", (thisWan - lastWanSinceUpdate)/100000];
+    //annotation.subtitle = @"World";
+
+    if ((thisWan - lastWanSinceUpdate) > 100000) {
+        NSLog(@"(thisWan - lastWanSinceUpdate) > 100000");
+        [self.map addAnnotation:annotation];
+        // Also add to our map so we can remove old values later
+        [self.locations addObject:annotation];
+        
+        [[NSUserDefaults standardUserDefaults] setFloat:thisWan forKey:@"LastWanSinceUpdate"];
+    }
     
-    [self.map addAnnotation:annotation];
+    //[[NSUserDefaults standardUserDefaults] setFloat:lastWanSinceUpdate forKey:@"LastWanSinceUpdate"];
     
-    // Also add to our map so we can remove old values later
-    [self.locations addObject:annotation];
     
     // Remove values if the array is too big
     while (self.locations.count > 100)
@@ -143,12 +157,68 @@
         region.center.longitude = minLon + region.span.longitudeDelta / 2;
         
         // Set the region of the map.
-        [self.map setRegion:region animated:YES];
+        
+        
     }
     else
     {
         NSLog(@"App is backgrounded. New location is %@", newLocation);
+        NSLog(@"This wan is: %f. Last Wan is: %f. Difference is: %f", thisWan, lastWanSinceUpdate,thisWan - lastWanSinceUpdate);
     }
+}
+
+- (NSArray *)getDataCounters
+{
+    BOOL   success;
+    struct ifaddrs *addrs;
+    const struct ifaddrs *cursor;
+    const struct if_data *networkStatisc;
+    
+    float WiFiSent = 0;
+    float WiFiReceived = 0;
+    float WWANSent = 0;
+    float WWANReceived = 0;
+    
+    NSString *name=[[NSString alloc]init];
+    
+    success = getifaddrs(&addrs) == 0;
+    if (success)
+    {
+        cursor = addrs;
+        while (cursor != NULL)
+        {
+            name=[NSString stringWithFormat:@"%s",cursor->ifa_name];
+            NSLog(@"ifa_name %s == %@\n", cursor->ifa_name,name);
+            // names of interfaces: en0 is WiFi ,pdp_ip0 is WWAN
+            
+            if (cursor->ifa_addr->sa_family == AF_LINK)
+            {
+                if ([name hasPrefix:@"en"])
+                {
+                    networkStatisc = (const struct if_data *) cursor->ifa_data;
+                    WiFiSent+=networkStatisc->ifi_obytes;
+                    WiFiReceived+=networkStatisc->ifi_ibytes;
+                    NSLog(@"WiFiSent %f ==%d",WiFiSent,networkStatisc->ifi_obytes);
+                    NSLog(@"WiFiReceived %f ==%d",WiFiReceived,networkStatisc->ifi_ibytes);
+                }
+                
+                if ([name hasPrefix:@"pdp_ip"])
+                {
+                    networkStatisc = (const struct if_data *) cursor->ifa_data;
+                    WWANSent+=networkStatisc->ifi_obytes;
+                    WWANReceived+=networkStatisc->ifi_ibytes;
+                    NSLog(@"WWANSent %f ==%d",WWANSent,networkStatisc->ifi_obytes);
+                    NSLog(@"WWANReceived %f ==%d",WWANReceived,networkStatisc->ifi_ibytes);
+                }
+            }
+            
+            cursor = cursor->ifa_next;
+        }
+        
+        freeifaddrs(addrs);
+    }
+    
+    return [NSArray arrayWithObjects:[NSNumber numberWithInt:WiFiSent], [NSNumber numberWithInt:WiFiReceived],[NSNumber numberWithInt:WWANSent],[NSNumber numberWithInt:WWANReceived], nil];
 }
 
 /*
