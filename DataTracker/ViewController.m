@@ -10,6 +10,7 @@
 #import <math.h>
 #import "UIViewController+ECSlidingViewController.h"
 #import "FirstTableViewController.h"
+#import "AppDelegate.h"
 
 NSArray *usageData2;
 
@@ -18,6 +19,8 @@ NSArray *usageData2;
 @end
 
 @implementation ViewController
+
+@synthesize managedObjectContext = _managedObjectContext;
 
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
@@ -66,6 +69,17 @@ NSArray *usageData2;
     //self.locationManager.distanceFilter=50;
     self.locationManager.delegate = self;
     
+    [self.locationManager requestAlwaysAuthorization];
+    [self.locationManager startMonitoringSignificantLocationChanges];
+    [self.locationManager startUpdatingLocation];
+    
+    //core data
+    AppDelegate *appdelegate = [[UIApplication sharedApplication] delegate];
+    managedObjectContext = [appdelegate managedObjectContext];
+    
+    float thisWan = ([[usageData2 objectAtIndex:2] floatValue] + [[usageData2 objectAtIndex:3] floatValue]);
+    [[NSUserDefaults standardUserDefaults] setFloat:thisWan forKey:@"LastWanSinceUpdate"];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -92,8 +106,31 @@ NSArray *usageData2;
 
 - (float)calculateWAN{
     float WANUsage = 0.0;
-    WANUsage = (([[usageData2 objectAtIndex:2] floatValue] + [[usageData2 objectAtIndex:3] floatValue]) - (floorf(([[usageData2 objectAtIndex:2] floatValue] + [[usageData2 objectAtIndex:3] floatValue]) / [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue]) * [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue]) + [[[NSUserDefaults standardUserDefaults] stringForKey:@"UsageDifference"] floatValue])/1000000;
+    if ([[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue] == 0) {
+        WANUsage = 0.0;
+    }
+    else{
+        [[NSUserDefaults standardUserDefaults] setFloat:[[[NSUserDefaults standardUserDefaults] stringForKey:@"CurrentUsage"] floatValue] - fmodf(([[usageData2 objectAtIndex:2] floatValue] + [[usageData2 objectAtIndex:3] floatValue]), [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue]) forKey:@"UsageDifference"];
+        
+        NSLog(@"Wan usage is: %f. Lower bounds is: %f. Difference is: %f", ([[usageData2 objectAtIndex:2] floatValue] + [[usageData2 objectAtIndex:3] floatValue]),(floorf(([[usageData2 objectAtIndex:2] floatValue] + [[usageData2 objectAtIndex:3] floatValue]) / [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue]) * [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue]),[[[NSUserDefaults standardUserDefaults] stringForKey:@"UsageDifference"] floatValue]);
+        
+        WANUsage = (([[usageData2 objectAtIndex:2] floatValue] + [[usageData2 objectAtIndex:3] floatValue]) -
+                    (floorf(([[usageData2 objectAtIndex:2] floatValue] + [[usageData2 objectAtIndex:3] floatValue]) / [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue]) * [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue])
+                    + [[[NSUserDefaults standardUserDefaults] stringForKey:@"UsageDifference"] floatValue])/1000000;
+    }
     return WANUsage;
+}
+
+/*
+- (float)calculateWIFI{
+    float WIFIUsage = 0.0;
+    WIFIUsage = (([[usageData2 objectAtIndex:0] floatValue] + [[usageData2 objectAtIndex:1] floatValue]) - (floorf(([[usageData2 objectAtIndex:0] floatValue] + [[usageData2 objectAtIndex:1] floatValue]) / [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue]) * [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue]) + [[[NSUserDefaults standardUserDefaults] stringForKey:@"UsageDifference"] floatValue])/1000000;
+    return WIFIUsage;
+}
+*/
+
+- (void)fillWeeklyBars{
+    
 }
 
 - (float)calculatePercentage{
@@ -107,6 +144,8 @@ NSArray *usageData2;
         percentage = 0.0;
     }
     else{
+        [[NSUserDefaults standardUserDefaults] setFloat:[[[NSUserDefaults standardUserDefaults] stringForKey:@"CurrentUsage"] floatValue] - fmodf(([[usageData2 objectAtIndex:2] floatValue] + [[usageData2 objectAtIndex:3] floatValue]), [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue]) forKey:@"UsageDifference"];
+       //wan usage - (floor of ((wan usage / montly data usage) * monthly usage)) + difference between current and monthly
        percentage = (([[usageData2 objectAtIndex:2] floatValue] + [[usageData2 objectAtIndex:3] floatValue]) - (floorf(([[usageData2 objectAtIndex:2] floatValue] + [[usageData2 objectAtIndex:3] floatValue]) / [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue]) * [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue]) + [[[NSUserDefaults standardUserDefaults] stringForKey:@"UsageDifference"] floatValue]) / [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue];
     }
     
@@ -224,9 +263,72 @@ NSArray *usageData2;
         [self.locations addObject:annotation];
         
         [[NSUserDefaults standardUserDefaults] setFloat:thisWan forKey:@"LastWanSinceUpdate"];
+        
+        /*
+        //Add to core data
+        NSEntityDescription *entitydesc = [NSEntityDescription entityForName:@"Usage" inManagedObjectContext:managedObjectContext];
+        NSManagedObject *newUsage = [[NSManagedObject alloc] initWithEntity:entitydesc insertIntoManagedObjectContext:managedObjectContext];
+        
+        NSDate *today = [NSDate date];
+        NSDateFormatter *dt = [[NSDateFormatter alloc] init];
+        [dt setDateFormat:@"dd/MM/yyyy"]; // for example
+        NSString *dateString = [dt stringFromDate:today];
+        NSDate *date = [dt dateFromString:dateString];
+        [newUsage setValue:date forKey:@"date"];
+        [newUsage setValue:[NSNumber numberWithFloat:(thisWan - lastWanSinceUpdate)] forKey:@"wan"];
+        [newUsage setValue:[NSNumber numberWithFloat:0.0f] forKey:@"wifi"];
+        
+        NSError *error;
+        [managedObjectContext save:&error];
+        */
+        
+        NSDate *today = [NSDate date];
+        NSDateFormatter *dt = [[NSDateFormatter alloc] init];
+        [dt setDateFormat:@"dd/MM/yyyy"]; // for example
+        NSString *dateString = [dt stringFromDate:today];
+        NSDate *date = [dt dateFromString:dateString];
+        
+        //add to core data again
+        NSEntityDescription *entitydesc = [NSEntityDescription entityForName:@"Usage" inManagedObjectContext:managedObjectContext];
+        NSFetchRequest *request = [[NSFetchRequest alloc] init];
+        [request setEntity:entitydesc];
+        
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"date == %@", date];
+        [request setPredicate:predicate];
+        NSError *error;
+        NSArray *matchingData = [managedObjectContext executeFetchRequest:request error:&error];
+        
+        if (matchingData.count <=0) {
+            //Add to core data
+            NSLog(@"NO Items entity. Must create one.");
+            //NSEntityDescription *entitydesc = [NSEntityDescription entityForName:@"" inManagedObjectContext:self.managedObjectContext];
+            NSManagedObject *newUsage = [[NSManagedObject alloc] initWithEntity:entitydesc insertIntoManagedObjectContext:managedObjectContext];
+            
+            NSDate *today = [NSDate date];
+            NSDateFormatter *dt = [[NSDateFormatter alloc] init];
+            [dt setDateFormat:@"dd/MM/yyyy"]; // for example
+            NSString *dateString = [dt stringFromDate:today];
+            NSDate *date = [dt dateFromString:dateString];
+            [newUsage setValue:date forKey:@"date"];
+            [newUsage setValue:[NSNumber numberWithFloat:(thisWan - lastWanSinceUpdate)] forKey:@"wan"];
+            [newUsage setValue:[NSNumber numberWithFloat:0.0f] forKey:@"wifi"];
+            
+            NSError *error;
+            [managedObjectContext save:&error];
+        }
+        else{
+            
+            NSManagedObject *obj = [[managedObjectContext executeFetchRequest:request error:&error] objectAtIndex:0];
+            NSNumber *wan = [obj valueForKey:@"wan"];
+            float value = [wan floatValue];
+            wan = [NSNumber numberWithInt:value + (thisWan - lastWanSinceUpdate)];
+            [obj setValue:wan forKey:@"wan"];
+            NSLog(@"wan Count is: %@ for date: %@", [obj valueForKey:@"wan"], [obj valueForKey:@"date"]);
+            [managedObjectContext save:&error];
+        }
+        
     }
     
-    //[[NSUserDefaults standardUserDefaults] setFloat:lastWanSinceUpdate forKey:@"LastWanSinceUpdate"];
     
     
     // Remove values if the array is too big
@@ -280,6 +382,8 @@ NSArray *usageData2;
         NSLog(@"This wan is: %f. Last Wan is: %f. Difference is: %f", thisWan, lastWanSinceUpdate,thisWan - lastWanSinceUpdate);
     }
 }
+
+#pragma mark -Core Data
 
 
 @end
