@@ -27,11 +27,25 @@
 @property (nonatomic, strong) CLLocationManager *locationManager;
 @property (nonatomic, strong) NSMutableArray *locations;
 @property (strong, nonatomic) IBOutlet KAProgressLabel *myProgressLabel;
+@property (strong, nonatomic) IBOutlet KAProgressLabel *otherProgressLabel;
+//Mini progress bars
+@property (strong, nonatomic) IBOutlet KAProgressLabel *sunProgressLabel;
+@property (strong, nonatomic) IBOutlet KAProgressLabel *monProgressLabel;
+@property (strong, nonatomic) IBOutlet KAProgressLabel *tuesProgressLabel;
+@property (strong, nonatomic) IBOutlet KAProgressLabel *wedProgressLabel;
+@property (strong, nonatomic) IBOutlet KAProgressLabel *thursProgressLabel;
+@property (strong, nonatomic) IBOutlet KAProgressLabel *friProgressLabel;
+@property (strong, nonatomic) IBOutlet KAProgressLabel *satProgressLabel;
+@property (strong, nonatomic) IBOutlet UILabel *dailyUnusedAmount;
+@property (strong, nonatomic) IBOutlet UILabel *dailyLabel;
+
+
 
 #pragma mark - Core Data
 @property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, retain) NSFetchedResultsController *fetchedResultsController;
 - (IBAction)refreshButton:(id)sender;
+- (IBAction)fillAction:(id)sender;
 - (void)addUsageCD;
 @end
 

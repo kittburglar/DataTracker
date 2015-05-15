@@ -24,33 +24,66 @@ NSArray *usageData2;
 
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
+static void dumpAllFonts() {
+    for (NSString *familyName in [UIFont familyNames]) {
+        for (NSString *fontName in [UIFont fontNamesForFamilyName:familyName]) {
+            NSLog(@"%@", fontName);
+        }
+    }
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    dumpAllFonts();
     // Do any additional setup after loading the view, typically from a nib.
     NSLog(@"View loaded");
     usageData2 = [self getDataCounters];
     //NSLog(@"%@", [usageData objectAtIndex:<#(NSUInteger)#>]);
     self.WIFILabel.text = [NSString stringWithFormat:@"%.01f MB", ([[usageData2 objectAtIndex:0] floatValue] + [[usageData2 objectAtIndex:1] floatValue])/1000000];
-    self.WIFILabel.textColor = UIColorFromRGB(0x4d4d4c);
-    
-    //self.WANLabel.text = [NSString stringWithFormat:@"%.01f MB", ([[usageData2 objectAtIndex:2] floatValue] + [[usageData2 objectAtIndex:3] floatValue])/1000000];
     self.WANLabel.text = [NSString stringWithFormat:@"%.01f MB", [self calculateWAN]];
-    self.WANLabel.textColor = UIColorFromRGB(0x4d4d4c);
     
-    //self.navigationItem.title=@"First View";
+    //Navigation Bar
+    //self.navigationItem.title=@"MAIN";
+    /*
+    [[UINavigationBar appearance] setTitleTextAttributes: @{
+                                                            NSForegroundColorAttributeName: UIColorFromRGB(0xd6d6d6),
+                                                            NSFontAttributeName: [UIFont fontWithName:@"OpenSans-Regular" size:20.0f]
+                                                            }];
+    */
+    
+    [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                                    [UIFont fontWithName:@"OpenSans" size:21],
+                                                                    NSFontAttributeName, nil]];
+    self.navigationItem.title=@"MAIN";
     self.percentLabel.text = [NSString stringWithFormat:@"%f", [self calculatePercentage]];
     
     //Circular Progress Bar
     self.myProgressLabel.progressColor = UIColorFromRGB(0x4271ae);
-    self.myProgressLabel.trackColor = UIColorFromRGB(0x8e908c);
+    self.myProgressLabel.trackColor = UIColorFromRGB(0xd6d6d6);
     //self.myProgressLabel.progress = [self calculatePercentage];
     self.myProgressLabel.text = [NSString stringWithFormat:@"%.0f%%", [self calculatePercentage]*100];
-    self.myProgressLabel.textColor = UIColorFromRGB(0x4d4d4c);
+    //self.myProgressLabel.textColor = UIColorFromRGB(0x4d4d4c);
     self.myProgressLabel.trackWidth = 50;         // Defaults to 5.0
     self.myProgressLabel.progressWidth = 50;        // Defaults to 5.0
-    //self.myProgressLabel.roundedCornersWidth = 40; // Defaults to 0
+    self.otherProgressLabel.progressColor = UIColorFromRGB(0xc82829);
+    self.otherProgressLabel.trackColor = UIColorFromRGB(0xd6d6d6);
+    self.otherProgressLabel.trackWidth = 10;
+    self.otherProgressLabel.progressWidth = 10;
+    self.sunProgressLabel.progressColor = UIColorFromRGB(0x718c00);
+    self.sunProgressLabel.trackColor = UIColorFromRGB(0xd6d6d6);
+    self.monProgressLabel.progressColor = UIColorFromRGB(0x718c00);
+    self.monProgressLabel.trackColor = UIColorFromRGB(0xd6d6d6);
+    self.tuesProgressLabel.progressColor = UIColorFromRGB(0x718c00);
+    self.tuesProgressLabel.trackColor = UIColorFromRGB(0xd6d6d6);
+    self.wedProgressLabel.progressColor = UIColorFromRGB(0x718c00);
+    self.wedProgressLabel.trackColor = UIColorFromRGB(0xd6d6d6);
+    self.thursProgressLabel.progressColor = UIColorFromRGB(0x718c00);
+    self.thursProgressLabel.trackColor = UIColorFromRGB(0xd6d6d6);
+    self.friProgressLabel.progressColor = UIColorFromRGB(0x718c00);
+    self.friProgressLabel.trackColor = UIColorFromRGB(0xd6d6d6);
+    self.satProgressLabel.progressColor = UIColorFromRGB(0x718c00);
+    self.satProgressLabel.trackColor = UIColorFromRGB(0xd6d6d6);
     
     //Animation
     self.myProgressLabel.labelVCBlock = ^(KAProgressLabel *label) {
@@ -80,6 +113,7 @@ NSArray *usageData2;
     float thisWan = ([[usageData2 objectAtIndex:2] floatValue] + [[usageData2 objectAtIndex:3] floatValue]);
     [[NSUserDefaults standardUserDefaults] setFloat:thisWan forKey:@"LastWanSinceUpdate"];
     
+     [self fillWeeklyBars];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -102,6 +136,8 @@ NSArray *usageData2;
                                timing:TPPropertyAnimationTimingEaseOut
                              duration:1.0
                                 delay:0.0];
+    [self fillWeeklyBars];
+   
 }
 
 - (float)calculateWAN{
@@ -110,13 +146,11 @@ NSArray *usageData2;
         WANUsage = 0.0;
     }
     else{
-        [[NSUserDefaults standardUserDefaults] setFloat:[[[NSUserDefaults standardUserDefaults] stringForKey:@"CurrentUsage"] floatValue] - fmodf(([[usageData2 objectAtIndex:2] floatValue] + [[usageData2 objectAtIndex:3] floatValue]), [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue]) forKey:@"UsageDifference"];
+        //[[NSUserDefaults standardUserDefaults] setFloat:[[[NSUserDefaults standardUserDefaults] stringForKey:@"CurrentUsage"] floatValue] - fmodf(([[usageData2 objectAtIndex:2] floatValue] + [[usageData2 objectAtIndex:3] floatValue]), [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue]) forKey:@"UsageDifference"];
         
         NSLog(@"Wan usage is: %f. Lower bounds is: %f. Difference is: %f", ([[usageData2 objectAtIndex:2] floatValue] + [[usageData2 objectAtIndex:3] floatValue]),(floorf(([[usageData2 objectAtIndex:2] floatValue] + [[usageData2 objectAtIndex:3] floatValue]) / [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue]) * [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue]),[[[NSUserDefaults standardUserDefaults] stringForKey:@"UsageDifference"] floatValue]);
         
-        WANUsage = (([[usageData2 objectAtIndex:2] floatValue] + [[usageData2 objectAtIndex:3] floatValue]) -
-                    (floorf(([[usageData2 objectAtIndex:2] floatValue] + [[usageData2 objectAtIndex:3] floatValue]) / [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue]) * [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue])
-                    + [[[NSUserDefaults standardUserDefaults] stringForKey:@"UsageDifference"] floatValue])/1000000;
+        WANUsage = (([[usageData2 objectAtIndex:2] floatValue] + [[usageData2 objectAtIndex:3] floatValue]) - (floorf(([[usageData2 objectAtIndex:2] floatValue] + [[usageData2 objectAtIndex:3] floatValue]) / [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue]) * [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue]) + [[[NSUserDefaults standardUserDefaults] stringForKey:@"UsageDifference"] floatValue])/1000000;
     }
     return WANUsage;
 }
@@ -130,8 +164,198 @@ NSArray *usageData2;
 */
 
 - (void)fillWeeklyBars{
+    NSDate *currentDate = [NSDate date];
+    NSDateComponents *dateComponents = [[NSDateComponents alloc] init];
+    [dateComponents setDay:-7];
+    NSDate *sevenDaysAgo = [[NSCalendar currentCalendar] dateByAddingComponents:dateComponents toDate:currentDate options:0];
+    NSLog(@"\ncurrentDate: %@\nseven days ago: %@", currentDate, sevenDaysAgo);
     
+    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    NSDateComponents *comps = [gregorian components:NSWeekdayCalendarUnit fromDate:currentDate];
+    int weekday = [comps weekday];
+    
+    NSLog(@"Weekday is: %d", weekday);
+    
+    
+    
+    NSMutableArray *partPredicates = [NSMutableArray arrayWithCapacity:weekday];
+    //build predicate list
+    for (int i = 1; i <= weekday ; i++) {
+        NSLog(@"\ncurrentDate: %@", currentDate);
+        NSDateFormatter *dt = [[NSDateFormatter alloc] init];
+        [dt setDateFormat:@"dd/MM/yyyy"]; // for example
+        NSString *dateString = [dt stringFromDate:currentDate];
+        NSDate *date = [dt dateFromString:dateString];
+        NSPredicate *currentPartPredicate = [NSPredicate predicateWithFormat:@"date == %@", date];
+        [partPredicates addObject:currentPartPredicate];
+        NSDateComponents *dateComponents = [[NSDateComponents alloc] init];
+        [dateComponents setDay:-1];
+        currentDate = [[NSCalendar currentCalendar] dateByAddingComponents:dateComponents toDate:currentDate options:0];
+    }
+    
+    NSEntityDescription *entitydesc = [NSEntityDescription entityForName:@"Usage" inManagedObjectContext:managedObjectContext];
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    [request setEntity:entitydesc];
+    NSPredicate *fullPredicate = [NSCompoundPredicate orPredicateWithSubpredicates:partPredicates];
+    [request setPredicate:fullPredicate];
+    
+    NSError *error;
+    NSArray *matchingData = [managedObjectContext executeFetchRequest:request error:&error];
+    
+    NSLog(@"Weekday is: %d", weekday);
+    
+    
+    if (matchingData.count <=0) {
+        NSLog(@"No dates match in core data to fill bars.");
+    }
+    else{
+        NSDate *date;
+        float wan;
+        for (NSManagedObjectContext *obj in matchingData) {
+            date = [obj valueForKey:@"date"];
+            NSNumber *wanNum = [obj valueForKey:@"wan"];
+            float wan = [wanNum floatValue];
+            NSLog(@"Date from core data is: %@ with wan: %f", date, wan);
+            
+            //Fill bar
+            NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+            NSDateComponents *comps = [gregorian components:NSWeekdayCalendarUnit fromDate:date];
+            int weekday = [comps weekday];
+            float denominator = [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue] / 30;
+            
+            UIColor *color;
+            if (wan/denominator <= 0.50) {
+                color = UIColorFromRGB(0x718c00);
+            }
+            else if (wan/denominator <= 0.75){
+                color = UIColorFromRGB(0xeab700);
+            }
+            else if (wan/denominator <= 0.90){
+                color = UIColorFromRGB(0xf5871f);
+            }
+            else {
+                color = UIColorFromRGB(0xc82829);
+            }
+            
+            NSDateComponents *comps2 = [gregorian components:NSWeekdayCalendarUnit fromDate:[NSDate date]];
+            int today = [comps2 weekday];
+            
+            switch (weekday) {
+                case 1:
+                    self.sunProgressLabel.progressColor = color;
+                    [self.sunProgressLabel setProgress:wan/denominator
+                                               timing:TPPropertyAnimationTimingEaseOut
+                                             duration:1.0
+                                                delay:0.0];
+                    NSLog(@"wan is: %f and denom is: %f", wan, denominator);
+                    if (weekday == today) {
+                        self.otherProgressLabel.progressColor = color;
+                        [self.otherProgressLabel setProgress:wan/denominator
+                                                    timing:TPPropertyAnimationTimingEaseOut
+                                                  duration:1.0
+                                                     delay:0.0];
+                        self.dailyUnusedAmount.text = [NSString stringWithFormat:@"%.1f MB", (denominator - wan)/1000000];
+                    }
+                    break;
+                case 2:
+                    self.monProgressLabel.progressColor = color;
+                    [self.monProgressLabel setProgress:wan/denominator
+                                                timing:TPPropertyAnimationTimingEaseOut
+                                              duration:1.0
+                                                 delay:0.0];
+                    if (weekday == today) {
+                        self.otherProgressLabel.progressColor = color;
+                        [self.otherProgressLabel setProgress:wan/denominator
+                                                    timing:TPPropertyAnimationTimingEaseOut
+                                                  duration:1.0
+                                                     delay:0.0];
+                        self.dailyUnusedAmount.text = [NSString stringWithFormat:@"%.1f MB", (denominator - wan)/1000000];
+                    }
+                    break;
+                case 3:
+                    self.tuesProgressLabel.progressColor = color;
+                    [self.tuesProgressLabel setProgress:wan/denominator
+                                                timing:TPPropertyAnimationTimingEaseOut
+                                              duration:1.0
+                                                 delay:0.0];
+                    if (weekday == today) {
+                        self.otherProgressLabel.progressColor = color;
+                        [self.otherProgressLabel setProgress:wan/denominator
+                                                    timing:TPPropertyAnimationTimingEaseOut
+                                                  duration:1.0
+                                                     delay:0.0];
+                        self.dailyUnusedAmount.text = [NSString stringWithFormat:@"%.1f MB", (denominator - wan)/1000000];
+                    }
+                    break;
+                case 4:
+                    self.wedProgressLabel.progressColor = color;
+                    [self.wedProgressLabel setProgress:wan/denominator
+                                                timing:TPPropertyAnimationTimingEaseOut
+                                              duration:1.0
+                                                 delay:0.0];
+                    if (weekday == today) {
+                        self.otherProgressLabel.progressColor = color;
+                        [self.otherProgressLabel setProgress:wan/denominator
+                                                    timing:TPPropertyAnimationTimingEaseOut
+                                                  duration:1.0
+                                                     delay:0.0];
+                        self.dailyUnusedAmount.text = [NSString stringWithFormat:@"%.1f MB", (denominator - wan)/1000000];
+                    }
+                    break;
+                case 5:
+                    self.thursProgressLabel.progressColor = color;
+                    [self.thursProgressLabel setProgress:wan/denominator
+                                                timing:TPPropertyAnimationTimingEaseOut
+                                              duration:1.0
+                                                 delay:0.0];
+                    if (weekday == today) {
+                        self.otherProgressLabel.progressColor = color;
+                        [self.otherProgressLabel setProgress:wan/denominator
+                                                    timing:TPPropertyAnimationTimingEaseOut
+                                                  duration:1.0
+                                                     delay:0.0];
+                        self.dailyUnusedAmount.text = [NSString stringWithFormat:@"%.1f MB", (denominator - wan)/1000000];
+                    }
+                    break;
+                case 6:
+                    self.friProgressLabel.progressColor = color;
+                    [self.friProgressLabel setProgress:wan/denominator
+                                                timing:TPPropertyAnimationTimingEaseOut
+                                              duration:1.0
+                                                 delay:0.0];
+                    if (weekday == today) {
+                        self.otherProgressLabel.progressColor = color;
+                        [self.otherProgressLabel setProgress:wan/denominator
+                                                    timing:TPPropertyAnimationTimingEaseOut
+                                                  duration:1.0
+                                                     delay:0.0];
+                        self.dailyUnusedAmount.text = [NSString stringWithFormat:@"%.1f MB", (denominator - wan)/1000000];
+                    }
+                    break;
+                case 7:
+                    self.satProgressLabel.progressColor = color;
+                    [self.satProgressLabel setProgress:wan/denominator
+                                                timing:TPPropertyAnimationTimingEaseOut
+                                              duration:1.0
+                                                 delay:0.0];
+                    if (weekday == today) {
+                        self.otherProgressLabel.progressColor = color;
+                        [self.otherProgressLabel setProgress:wan/denominator
+                                                      timing:TPPropertyAnimationTimingEaseOut
+                                                    duration:1.0
+                                                       delay:0.0];
+                        self.dailyUnusedAmount.text = [NSString stringWithFormat:@"%.1f MB", (denominator - wan)/1000000];
+                    }
+                    break;
+                default:
+                    break;
+            }
+            
+        }
+    }
+
 }
+
 
 - (float)calculatePercentage{
     float percentage = 0.0;
@@ -144,7 +368,7 @@ NSArray *usageData2;
         percentage = 0.0;
     }
     else{
-        [[NSUserDefaults standardUserDefaults] setFloat:[[[NSUserDefaults standardUserDefaults] stringForKey:@"CurrentUsage"] floatValue] - fmodf(([[usageData2 objectAtIndex:2] floatValue] + [[usageData2 objectAtIndex:3] floatValue]), [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue]) forKey:@"UsageDifference"];
+        //[[NSUserDefaults standardUserDefaults] setFloat:[[[NSUserDefaults standardUserDefaults] stringForKey:@"CurrentUsage"] floatValue] - fmodf(([[usageData2 objectAtIndex:2] floatValue] + [[usageData2 objectAtIndex:3] floatValue]), [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue]) forKey:@"UsageDifference"];
        //wan usage - (floor of ((wan usage / montly data usage) * monthly usage)) + difference between current and monthly
        percentage = (([[usageData2 objectAtIndex:2] floatValue] + [[usageData2 objectAtIndex:3] floatValue]) - (floorf(([[usageData2 objectAtIndex:2] floatValue] + [[usageData2 objectAtIndex:3] floatValue]) / [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue]) * [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue]) + [[[NSUserDefaults standardUserDefaults] stringForKey:@"UsageDifference"] floatValue]) / [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue];
     }
@@ -236,6 +460,10 @@ NSArray *usageData2;
                                 delay:0.0];
 }
 
+- (IBAction)fillAction:(id)sender {
+    [self fillWeeklyBars];
+}
+
 - (IBAction)flipView:(id)sender{
     NSLog(@"pressed flip button");
     [self performSegueWithIdentifier:@"SegueToNextPage" sender:self];
@@ -263,24 +491,6 @@ NSArray *usageData2;
         [self.locations addObject:annotation];
         
         [[NSUserDefaults standardUserDefaults] setFloat:thisWan forKey:@"LastWanSinceUpdate"];
-        
-        /*
-        //Add to core data
-        NSEntityDescription *entitydesc = [NSEntityDescription entityForName:@"Usage" inManagedObjectContext:managedObjectContext];
-        NSManagedObject *newUsage = [[NSManagedObject alloc] initWithEntity:entitydesc insertIntoManagedObjectContext:managedObjectContext];
-        
-        NSDate *today = [NSDate date];
-        NSDateFormatter *dt = [[NSDateFormatter alloc] init];
-        [dt setDateFormat:@"dd/MM/yyyy"]; // for example
-        NSString *dateString = [dt stringFromDate:today];
-        NSDate *date = [dt dateFromString:dateString];
-        [newUsage setValue:date forKey:@"date"];
-        [newUsage setValue:[NSNumber numberWithFloat:(thisWan - lastWanSinceUpdate)] forKey:@"wan"];
-        [newUsage setValue:[NSNumber numberWithFloat:0.0f] forKey:@"wifi"];
-        
-        NSError *error;
-        [managedObjectContext save:&error];
-        */
         
         NSDate *today = [NSDate date];
         NSDateFormatter *dt = [[NSDateFormatter alloc] init];
@@ -383,7 +593,7 @@ NSArray *usageData2;
     }
 }
 
-#pragma mark -Core Data
+
 
 
 @end

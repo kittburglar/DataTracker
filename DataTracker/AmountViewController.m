@@ -28,11 +28,11 @@
     // Do any additional setup after loading the view.
     self.navigationItem.title = @"Data Amount";
     if ([[[NSUserDefaults standardUserDefaults] stringForKey:@"UnitType"]  isEqual: @"MB"]) {
-        self.amountText.text = [NSString stringWithFormat:@"%f", [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue]/1000000];
+        self.amountText.text = [NSString stringWithFormat:@"%.0f", [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue]/1000000];
         self.unitLabel.text = @"MB";
     }
     else if ([[[NSUserDefaults standardUserDefaults] stringForKey:@"UnitType"]  isEqual: @"GB"]){
-        self.amountText.text = [NSString stringWithFormat:@"%f", [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue]/1000000000];
+        self.amountText.text = [NSString stringWithFormat:@"%.0f", [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue]/1000000000];
         self.unitLabel.text = @"GB";
     }
     //self.amountText.text = [NSString stringWithFormat:@"%@", [[NSUserDefaults standardUserDefaults]
