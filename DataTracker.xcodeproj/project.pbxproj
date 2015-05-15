@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CE6E8FB08F4FAE665DB2E829 /* Pods_DataTracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BD5F50AAAA7781992033CBD /* Pods_DataTracker.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		F85059EA1AE5D19200BAED40 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F85059E91AE5D19200BAED40 /* main.m */; };
 		F85059ED1AE5D19200BAED40 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F85059EC1AE5D19200BAED40 /* AppDelegate.m */; };
 		F85059F01AE5D19200BAED40 /* DataTracker.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F85059EE1AE5D19200BAED40 /* DataTracker.xcdatamodeld */; };
@@ -55,6 +56,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0BD5F50AAAA7781992033CBD /* Pods_DataTracker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DataTracker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		679B9B672DEF76953F58148F /* Pods-DataTracker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DataTracker.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DataTracker/Pods-DataTracker.debug.xcconfig"; sourceTree = "<group>"; };
+		7ED6FCDEA017147A4B514163 /* Pods-DataTracker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DataTracker.release.xcconfig"; path = "Pods/Target Support Files/Pods-DataTracker/Pods-DataTracker.release.xcconfig"; sourceTree = "<group>"; };
 		F85059E41AE5D19200BAED40 /* DataTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DataTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F85059E81AE5D19200BAED40 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F85059E91AE5D19200BAED40 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -121,6 +125,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F8D988D91AF8241300CA8736 /* MapKit.framework in Frameworks */,
+				CE6E8FB08F4FAE665DB2E829 /* Pods_DataTracker.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -134,6 +139,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		28D02BC1425817C8493DDC47 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0BD5F50AAAA7781992033CBD /* Pods_DataTracker.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		48CB072433EF053F23DC4496 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				679B9B672DEF76953F58148F /* Pods-DataTracker.debug.xcconfig */,
+				7ED6FCDEA017147A4B514163 /* Pods-DataTracker.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		F85059DB1AE5D19100BAED40 = {
 			isa = PBXGroup;
 			children = (
@@ -141,6 +163,8 @@
 				F85059E61AE5D19200BAED40 /* DataTracker */,
 				F8505A031AE5D19300BAED40 /* DataTrackerTests */,
 				F85059E51AE5D19200BAED40 /* Products */,
+				48CB072433EF053F23DC4496 /* Pods */,
+				28D02BC1425817C8493DDC47 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -269,9 +293,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F8505A0A1AE5D19300BAED40 /* Build configuration list for PBXNativeTarget "DataTracker" */;
 			buildPhases = (
+				20B51E4443D8748AFBFDC6D7 /* Check Pods Manifest.lock */,
 				F85059E01AE5D19200BAED40 /* Sources */,
 				F85059E11AE5D19200BAED40 /* Frameworks */,
 				F85059E21AE5D19200BAED40 /* Resources */,
+				C95D1D1FBD7337514FCD4316 /* Embed Pods Frameworks */,
+				8ACD6795E30C76B8323362BC /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -366,6 +393,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		20B51E4443D8748AFBFDC6D7 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		8ACD6795E30C76B8323362BC /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DataTracker/Pods-DataTracker-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C95D1D1FBD7337514FCD4316 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DataTracker/Pods-DataTracker-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		F85059E01AE5D19200BAED40 /* Sources */ = {
@@ -517,6 +592,7 @@
 		};
 		F8505A0B1AE5D19300BAED40 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 679B9B672DEF76953F58148F /* Pods-DataTracker.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = DataTracker/Info.plist;
@@ -527,6 +603,7 @@
 		};
 		F8505A0C1AE5D19300BAED40 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7ED6FCDEA017147A4B514163 /* Pods-DataTracker.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = DataTracker/Info.plist;
