@@ -18,6 +18,34 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.navigationItem.title = @"Start Day";
+    
+    self.calendar = [JTCalendar new];
+    [self.calendar setMenuMonthsView:self.calendarMenuView];
+    [self.calendar setContentView:self.calendarContentView];
+    [self.calendar setDataSource:self];
+    
+    
+    [self.calendar reloadData];
+}
+
+- (void)viewDidAppear:(BOOL)animated{
+    [self.calendar reloadData];
+}
+
+
+- (void)viewDidLayoutSubviews
+{
+    [self.calendar repositionViews];
+}
+
+- (BOOL)calendarHaveEvent:(JTCalendar *)calendar date:(NSDate *)date
+{
+    return NO;
+}
+
+- (void)calendarDidDateSelected:(JTCalendar *)calendar date:(NSDate *)date
+{
+    NSLog(@"%@", date);
 }
 
 - (void)didReceiveMemoryWarning {

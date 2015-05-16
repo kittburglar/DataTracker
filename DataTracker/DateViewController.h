@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <JTCalendar/JTCalendar.h>
 
-@interface DateViewController : UIViewController
+@interface DateViewController : UIViewController<JTCalendarDataSource>
+@property (strong, nonatomic) IBOutlet JTCalendarMenuView *calendarMenuView;
+@property (strong, nonatomic) IBOutlet JTCalendarContentView *calendarContentView;
 
+@property (strong, nonatomic) JTCalendar *calendar;
 @end
