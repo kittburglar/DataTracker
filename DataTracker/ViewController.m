@@ -12,6 +12,8 @@
 #import "FirstTableViewController.h"
 #import "AppDelegate.h"
 
+
+
 NSArray *usageData2;
 
 @interface ViewController ()
@@ -36,13 +38,17 @@ static void dumpAllFonts() {
     [super viewDidLoad];
     
     dumpAllFonts();
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDidBecomeActive:) name:UIApplicationDidBecomeActiveNotification object:nil];
+    
     // Do any additional setup after loading the view, typically from a nib.
     NSLog(@"View loaded");
     usageData2 = [self getDataCounters];
     //NSLog(@"%@", [usageData objectAtIndex:<#(NSUInteger)#>]);
-    self.WIFILabel.text = [NSString stringWithFormat:@"%.01f MB", ([[usageData2 objectAtIndex:0] floatValue] + [[usageData2 objectAtIndex:1] floatValue])/1000000];
-    self.WANLabel.text = [NSString stringWithFormat:@"%.01f MB", [self calculateWAN]];
-    
+    //self.WIFILabel.text = [NSString stringWithFormat:@"%.01f MB", ([[usageData2 objectAtIndex:0] floatValue] + [[usageData2 objectAtIndex:1] floatValue])/1000000];
+    [self.WIFILabel countFrom:0 to:([[usageData2 objectAtIndex:0] floatValue] + [[usageData2 objectAtIndex:1] floatValue])/1000000];
+    //self.WANLabel.text = [NSString stringWithFormat:@"%.01f MB", [self calculateWAN]];
+    [self.WANLabel countFrom:0 to:[self calculateWAN]];
     //Navigation Bar
     //self.navigationItem.title=@"MAIN";
     /*
@@ -84,8 +90,6 @@ static void dumpAllFonts() {
     self.friProgressLabel.trackColor = UIColorFromRGB(0xd6d6d6);
     self.satProgressLabel.progressColor = UIColorFromRGB(0x718c00);
     self.satProgressLabel.trackColor = UIColorFromRGB(0xd6d6d6);
-    
-    //Animation
     self.myProgressLabel.labelVCBlock = ^(KAProgressLabel *label) {
         label.text = [NSString stringWithFormat:@"%.0f%%", (label.progress * 100)];
     };
@@ -93,6 +97,7 @@ static void dumpAllFonts() {
                                timing:TPPropertyAnimationTimingEaseOut
                              duration:1.0
                                 delay:0.0];
+    
     
     //Map stuff
     self.locations = [[NSMutableArray alloc] init];
@@ -106,6 +111,13 @@ static void dumpAllFonts() {
     [self.locationManager startMonitoringSignificantLocationChanges];
     [self.locationManager startUpdatingLocation];
     
+    self.dailyUnusedAmount.format = @"%.01f MB";
+    self.dailyUnusedAmount.animationDuration = 1.0;
+    self.WANLabel.format = @"%.01f MB";
+    self.WANLabel.animationDuration = 1.0;
+    self.WIFILabel.format = @"%.01f MB";
+    self.WIFILabel.animationDuration = 1.0;
+    
     //core data
     AppDelegate *appdelegate = [[UIApplication sharedApplication] delegate];
     managedObjectContext = [appdelegate managedObjectContext];
@@ -117,11 +129,15 @@ static void dumpAllFonts() {
 }
 
 - (void)viewWillAppear:(BOOL)animated{
+    NSLog(@"viewWillAppear");
+    
     usageData2 = [self getDataCounters];
     
-    self.WIFILabel.text = [NSString stringWithFormat:@"%.01f MB", ([[usageData2 objectAtIndex:0] floatValue] + [[usageData2 objectAtIndex:1] floatValue])/1000000];
+    //self.WIFILabel.text = [NSString stringWithFormat:@"%.01f MB", ([[usageData2 objectAtIndex:0] floatValue] + [[usageData2 objectAtIndex:1] floatValue])/1000000];
+    [self.WIFILabel countFrom:0 to:([[usageData2 objectAtIndex:0] floatValue] + [[usageData2 objectAtIndex:1] floatValue])/1000000];
     //self.WANLabel.text = [NSString stringWithFormat:@"%.01f MB", ([[usageData2 objectAtIndex:2] floatValue] + [[usageData2 objectAtIndex:3] floatValue])/1000000];
-    self.WANLabel.text = [NSString stringWithFormat:@"%.01f MB", [self calculateWAN]];
+    //self.WANLabel.text = [NSString stringWithFormat:@"%.01f MB", [self calculateWAN]];
+    [self.WANLabel countFrom:0 to:[self calculateWAN]];
     self.percentLabel.text = [NSString stringWithFormat:@"%f", [self calculatePercentage]];
     
     //Circular Progress Bar
@@ -254,7 +270,8 @@ static void dumpAllFonts() {
                                                     timing:TPPropertyAnimationTimingEaseOut
                                                   duration:1.0
                                                      delay:0.0];
-                        self.dailyUnusedAmount.text = [NSString stringWithFormat:@"%.1f MB", (denominator - wan)/1000000];
+                        //self.dailyUnusedAmount.text = [NSString stringWithFormat:@"%.1f MB", (denominator - wan)/1000000];
+                        [self.dailyUnusedAmount countFrom:[self.dailyUnusedAmount currentValue] to:(denominator - wan)/1000000];
                     }
                     break;
                 case 2:
@@ -269,7 +286,8 @@ static void dumpAllFonts() {
                                                     timing:TPPropertyAnimationTimingEaseOut
                                                   duration:1.0
                                                      delay:0.0];
-                        self.dailyUnusedAmount.text = [NSString stringWithFormat:@"%.1f MB", (denominator - wan)/1000000];
+                        //self.dailyUnusedAmount.text = [NSString stringWithFormat:@"%.1f MB", (denominator - wan)/1000000];
+                        [self.dailyUnusedAmount countFrom:[self.dailyUnusedAmount currentValue] to:(denominator - wan)/1000000];
                     }
                     break;
                 case 3:
@@ -284,7 +302,8 @@ static void dumpAllFonts() {
                                                     timing:TPPropertyAnimationTimingEaseOut
                                                   duration:1.0
                                                      delay:0.0];
-                        self.dailyUnusedAmount.text = [NSString stringWithFormat:@"%.1f MB", (denominator - wan)/1000000];
+                        //self.dailyUnusedAmount.text = [NSString stringWithFormat:@"%.1f MB", (denominator - wan)/1000000];
+                        [self.dailyUnusedAmount countFrom:[self.dailyUnusedAmount currentValue] to:(denominator - wan)/1000000];
                     }
                     break;
                 case 4:
@@ -299,7 +318,8 @@ static void dumpAllFonts() {
                                                     timing:TPPropertyAnimationTimingEaseOut
                                                   duration:1.0
                                                      delay:0.0];
-                        self.dailyUnusedAmount.text = [NSString stringWithFormat:@"%.1f MB", (denominator - wan)/1000000];
+                        //self.dailyUnusedAmount.text = [NSString stringWithFormat:@"%.1f MB", (denominator - wan)/1000000];
+                        [self.dailyUnusedAmount countFrom:[self.dailyUnusedAmount currentValue] to:(denominator - wan)/1000000];
                     }
                     break;
                 case 5:
@@ -314,7 +334,8 @@ static void dumpAllFonts() {
                                                     timing:TPPropertyAnimationTimingEaseOut
                                                   duration:1.0
                                                      delay:0.0];
-                        self.dailyUnusedAmount.text = [NSString stringWithFormat:@"%.1f MB", (denominator - wan)/1000000];
+                        //self.dailyUnusedAmount.text = [NSString stringWithFormat:@"%.1f MB", (denominator - wan)/1000000];
+                        [self.dailyUnusedAmount countFrom:[self.dailyUnusedAmount currentValue] to:(denominator - wan)/1000000];
                     }
                     break;
                 case 6:
@@ -329,7 +350,8 @@ static void dumpAllFonts() {
                                                     timing:TPPropertyAnimationTimingEaseOut
                                                   duration:1.0
                                                      delay:0.0];
-                        self.dailyUnusedAmount.text = [NSString stringWithFormat:@"%.1f MB", (denominator - wan)/1000000];
+                        //self.dailyUnusedAmount.text = [NSString stringWithFormat:@"%.1f MB", (denominator - wan)/1000000];
+                        [self.dailyUnusedAmount countFrom:[self.dailyUnusedAmount currentValue] to:(denominator - wan)/1000000];
                     }
                     break;
                 case 7:
@@ -344,7 +366,8 @@ static void dumpAllFonts() {
                                                       timing:TPPropertyAnimationTimingEaseOut
                                                     duration:1.0
                                                        delay:0.0];
-                        self.dailyUnusedAmount.text = [NSString stringWithFormat:@"%.1f MB", (denominator - wan)/1000000];
+                        //self.dailyUnusedAmount.text = [NSString stringWithFormat:@"%.1f MB", (denominator - wan)/1000000];
+                        [self.dailyUnusedAmount countFrom:[self.dailyUnusedAmount currentValue] to:(denominator - wan)/1000000];
                     }
                     break;
                 default:
@@ -593,7 +616,20 @@ static void dumpAllFonts() {
     }
 }
 
-
+- (void)appDidBecomeActive:(NSNotification *)notification {
+    NSLog(@"did become active notification");
+    [self.myProgressLabel setProgress:[self calculatePercentage]
+                               timing:TPPropertyAnimationTimingEaseOut
+                             duration:1.0
+                                delay:0.0];
+    [self fillWeeklyBars];
+    /*
+    [self.dailyUnusedAmount     countFrom:[self.dailyUnusedAmount currentValue]
+                        to:(denominator - wan)/1000000];
+    */
+    [self.WIFILabel countFrom:[self.WIFILabel currentValue] to:([[usageData2 objectAtIndex:0] floatValue] + [[usageData2 objectAtIndex:1] floatValue])/1000000];
+    [self.WANLabel countFrom:[self.WANLabel currentValue] to:[self calculateWAN]];
+}
 
 
 @end

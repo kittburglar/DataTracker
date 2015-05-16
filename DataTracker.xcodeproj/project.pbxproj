@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		CE6E8FB08F4FAE665DB2E829 /* Pods_DataTracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BD5F50AAAA7781992033CBD /* Pods_DataTracker.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		25EF73B68E1B31889BE5C3BD /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E016C2D93CD9F9F39D81C2AA /* libPods.a */; };
 		F85059EA1AE5D19200BAED40 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F85059E91AE5D19200BAED40 /* main.m */; };
 		F85059ED1AE5D19200BAED40 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F85059EC1AE5D19200BAED40 /* AppDelegate.m */; };
 		F85059F01AE5D19200BAED40 /* DataTracker.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F85059EE1AE5D19200BAED40 /* DataTracker.xcdatamodeld */; };
@@ -57,8 +57,11 @@
 
 /* Begin PBXFileReference section */
 		0BD5F50AAAA7781992033CBD /* Pods_DataTracker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DataTracker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		407793B09910D0516EB88C57 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		679B9B672DEF76953F58148F /* Pods-DataTracker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DataTracker.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DataTracker/Pods-DataTracker.debug.xcconfig"; sourceTree = "<group>"; };
 		7ED6FCDEA017147A4B514163 /* Pods-DataTracker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DataTracker.release.xcconfig"; path = "Pods/Target Support Files/Pods-DataTracker/Pods-DataTracker.release.xcconfig"; sourceTree = "<group>"; };
+		A6D121F3B53A6DA8D8DB6362 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		E016C2D93CD9F9F39D81C2AA /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		F85059E41AE5D19200BAED40 /* DataTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DataTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F85059E81AE5D19200BAED40 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F85059E91AE5D19200BAED40 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -125,7 +128,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F8D988D91AF8241300CA8736 /* MapKit.framework in Frameworks */,
-				CE6E8FB08F4FAE665DB2E829 /* Pods_DataTracker.framework in Frameworks */,
+				25EF73B68E1B31889BE5C3BD /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -143,6 +146,7 @@
 			isa = PBXGroup;
 			children = (
 				0BD5F50AAAA7781992033CBD /* Pods_DataTracker.framework */,
+				E016C2D93CD9F9F39D81C2AA /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -152,6 +156,8 @@
 			children = (
 				679B9B672DEF76953F58148F /* Pods-DataTracker.debug.xcconfig */,
 				7ED6FCDEA017147A4B514163 /* Pods-DataTracker.release.xcconfig */,
+				407793B09910D0516EB88C57 /* Pods.debug.xcconfig */,
+				A6D121F3B53A6DA8D8DB6362 /* Pods.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -297,7 +303,6 @@
 				F85059E01AE5D19200BAED40 /* Sources */,
 				F85059E11AE5D19200BAED40 /* Frameworks */,
 				F85059E21AE5D19200BAED40 /* Resources */,
-				C95D1D1FBD7337514FCD4316 /* Embed Pods Frameworks */,
 				8ACD6795E30C76B8323362BC /* Copy Pods Resources */,
 			);
 			buildRules = (
@@ -422,22 +427,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DataTracker/Pods-DataTracker-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		C95D1D1FBD7337514FCD4316 /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DataTracker/Pods-DataTracker-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -510,6 +500,7 @@
 /* Begin XCBuildConfiguration section */
 		F8505A081AE5D19300BAED40 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 407793B09910D0516EB88C57 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -554,6 +545,7 @@
 		};
 		F8505A091AE5D19300BAED40 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A6D121F3B53A6DA8D8DB6362 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -592,7 +584,7 @@
 		};
 		F8505A0B1AE5D19300BAED40 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 679B9B672DEF76953F58148F /* Pods-DataTracker.debug.xcconfig */;
+			baseConfigurationReference = 407793B09910D0516EB88C57 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = DataTracker/Info.plist;
@@ -603,7 +595,7 @@
 		};
 		F8505A0C1AE5D19300BAED40 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7ED6FCDEA017147A4B514163 /* Pods-DataTracker.release.xcconfig */;
+			baseConfigurationReference = A6D121F3B53A6DA8D8DB6362 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = DataTracker/Info.plist;
@@ -614,6 +606,7 @@
 		};
 		F8505A0E1AE5D19300BAED40 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 407793B09910D0516EB88C57 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -633,6 +626,7 @@
 		};
 		F8505A0F1AE5D19300BAED40 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A6D121F3B53A6DA8D8DB6362 /* Pods.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (
