@@ -16,6 +16,7 @@
 		F85059F81AE5D19200BAED40 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F85059F71AE5D19200BAED40 /* Images.xcassets */; };
 		F85059FB1AE5D19200BAED40 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = F85059F91AE5D19200BAED40 /* LaunchScreen.xib */; };
 		F8505A071AE5D19300BAED40 /* DataTrackerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F8505A061AE5D19300BAED40 /* DataTrackerTests.m */; };
+		F876AA691B075794003B959D /* screenshot1.png in Resources */ = {isa = PBXBuildFile; fileRef = F876AA681B075794003B959D /* screenshot1.png */; };
 		F8913D3E1AF2CABF0027AD9F /* FirstTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F8913D3D1AF2CABF0027AD9F /* FirstTableViewController.m */; };
 		F8913D411AF2EFE50027AD9F /* PlanTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F8913D401AF2EFE50027AD9F /* PlanTableViewController.m */; };
 		F8913D441AF2F65A0027AD9F /* DateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F8913D431AF2F65A0027AD9F /* DateViewController.m */; };
@@ -76,6 +77,7 @@
 		F8505A001AE5D19300BAED40 /* DataTrackerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DataTrackerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8505A051AE5D19300BAED40 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F8505A061AE5D19300BAED40 /* DataTrackerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DataTrackerTests.m; sourceTree = "<group>"; };
+		F876AA681B075794003B959D /* screenshot1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = screenshot1.png; sourceTree = "<group>"; };
 		F8913D3C1AF2CABF0027AD9F /* FirstTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirstTableViewController.h; sourceTree = "<group>"; };
 		F8913D3D1AF2CABF0027AD9F /* FirstTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirstTableViewController.m; sourceTree = "<group>"; };
 		F8913D3F1AF2EFE50027AD9F /* PlanTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlanTableViewController.h; sourceTree = "<group>"; };
@@ -186,6 +188,7 @@
 		F85059E61AE5D19200BAED40 /* DataTracker */ = {
 			isa = PBXGroup;
 			children = (
+				F876AA671B07564A003B959D /* Screenshots */,
 				F8A7B09A1AFF302900E41647 /* Fonts */,
 				F8D988E31AFB3D4400CA8736 /* KAProgressLabel */,
 				F8D988C11AF74EEC00CA8736 /* ECSlidingViewController */,
@@ -242,6 +245,14 @@
 				F8505A051AE5D19300BAED40 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		F876AA671B07564A003B959D /* Screenshots */ = {
+			isa = PBXGroup;
+			children = (
+				F876AA681B075794003B959D /* screenshot1.png */,
+			);
+			name = Screenshots;
 			sourceTree = "<group>";
 		};
 		F8A7B09A1AFF302900E41647 /* Fonts */ = {
@@ -377,6 +388,7 @@
 				F85059F61AE5D19200BAED40 /* Main.storyboard in Resources */,
 				F85059FB1AE5D19200BAED40 /* LaunchScreen.xib in Resources */,
 				F8A7B0A81AFF306E00E41647 /* OpenSans-Light.ttf in Resources */,
+				F876AA691B075794003B959D /* screenshot1.png in Resources */,
 				F8A7B0A51AFF306E00E41647 /* OpenSans-Bold.ttf in Resources */,
 				F8A7B0AB1AFF306E00E41647 /* OpenSans-Semibold.ttf in Resources */,
 				F8A7B0A71AFF306E00E41647 /* OpenSans-Italic.ttf in Resources */,
