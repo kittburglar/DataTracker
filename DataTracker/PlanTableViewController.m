@@ -24,6 +24,21 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     self.navigationItem.title = @"Plan Cycle";
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 10.0f)];
+    
+    
+    int dataPlan = [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataPlan"] integerValue];
+    NSIndexPath *path = [NSIndexPath indexPathForRow:dataPlan inSection:0];
+    [self.tableView cellForRowAtIndexPath:path].accessoryType = UITableViewCellAccessoryCheckmark;
+    switch (dataPlan) {
+        case 0:
+            NSLog(@"Stored plan was monthly");
+            break;
+        case 1:
+            NSLog(@"Stored plan was weekly");
+            break;
+        default:
+            break;
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -45,12 +60,39 @@
     return 0;
 }
 */
+
+
 -(NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSIndexPath *oldIndex = [self.tableView indexPathForSelectedRow];
     [self.tableView cellForRowAtIndexPath:oldIndex].accessoryType = UITableViewCellAccessoryNone;
     [self.tableView cellForRowAtIndexPath:indexPath].accessoryType = UITableViewCellAccessoryCheckmark;
+    switch (indexPath.row) {
+        case 0:
+            NSLog(@"Monthly");
+            [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:@"DataPlan"];
+            break;
+        case 1:
+            NSLog(@"Weekly");
+            [[NSUserDefaults standardUserDefaults] setInteger:1 forKey:@"DataPlan"];
+            break;
+        default:
+            break;
+    }
     return indexPath;
 }
+
+
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath   *)indexPath
+{
+    [tableView cellForRowAtIndexPath:indexPath].accessoryType = UITableViewCellAccessoryCheckmark;
+}
+
+-(void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView cellForRowAtIndexPath:indexPath].accessoryType = UITableViewCellAccessoryNone;
+}
+
 
 /*
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

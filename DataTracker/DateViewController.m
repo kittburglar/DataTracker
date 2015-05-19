@@ -26,6 +26,8 @@
     
     
     [self.calendar reloadData];
+    [self.calendarContentView setScrollEnabled:NO];
+    [self.calendarMenuView setScrollEnabled:NO];
 }
 
 - (void)viewDidAppear:(BOOL)animated{

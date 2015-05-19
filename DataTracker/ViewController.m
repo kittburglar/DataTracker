@@ -238,7 +238,7 @@ static void dumpAllFonts() {
             NSDateComponents *comps = [gregorian components:NSWeekdayCalendarUnit fromDate:date];
             int weekday = [comps weekday];
             float denominator = [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue] / 30;
-            
+            NSLog(@"wan is: %f and denominator is: %f", wan, denominator);
             UIColor *color;
             if (wan/denominator <= 0.50) {
                 color = UIColorFromRGB(0x718c00);
@@ -263,7 +263,7 @@ static void dumpAllFonts() {
                                                timing:TPPropertyAnimationTimingEaseOut
                                              duration:1.0
                                                 delay:0.0];
-                    NSLog(@"wan is: %f and denom is: %f", wan, denominator);
+                    //NSLog(@"wan is: %f and denom is: %f", wan, denominator);
                     if (weekday == today) {
                         self.otherProgressLabel.progressColor = color;
                         [self.otherProgressLabel setProgress:wan/denominator
