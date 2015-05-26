@@ -39,6 +39,9 @@ static void dumpAllFonts() {
     
     dumpAllFonts();
     
+    //Check date and reset if necessary
+    [self checkDate];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDidBecomeActive:) name:UIApplicationDidBecomeActiveNotification object:nil];
     
     // Do any additional setup after loading the view, typically from a nib.
@@ -49,14 +52,6 @@ static void dumpAllFonts() {
     [self.WIFILabel countFrom:0 to:([[usageData2 objectAtIndex:0] floatValue] + [[usageData2 objectAtIndex:1] floatValue])/1000000];
     //self.WANLabel.text = [NSString stringWithFormat:@"%.01f MB", [self calculateWAN]];
     [self.WANLabel countFrom:0 to:[self calculateWAN]];
-    //Navigation Bar
-    //self.navigationItem.title=@"MAIN";
-    /*
-    [[UINavigationBar appearance] setTitleTextAttributes: @{
-                                                            NSForegroundColorAttributeName: UIColorFromRGB(0xd6d6d6),
-                                                            NSFontAttributeName: [UIFont fontWithName:@"OpenSans-Regular" size:20.0f]
-                                                            }];
-    */
     
     [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
                                                                     [UIFont fontWithName:@"OpenSans" size:21],
@@ -131,6 +126,7 @@ static void dumpAllFonts() {
 - (void)viewWillAppear:(BOOL)animated{
     NSLog(@"viewWillAppear");
     
+    [self checkDate];
     usageData2 = [self getDataCounters];
     
     //self.WIFILabel.text = [NSString stringWithFormat:@"%.01f MB", ([[usageData2 objectAtIndex:0] floatValue] + [[usageData2 objectAtIndex:1] floatValue])/1000000];
@@ -624,6 +620,8 @@ static void dumpAllFonts() {
 
 - (void)appDidBecomeActive:(NSNotification *)notification {
     NSLog(@"did become active notification");
+    [self checkDate];
+    
     [self.myProgressLabel setProgress:[self calculatePercentage]
                                timing:TPPropertyAnimationTimingEaseOut
                              duration:1.0
@@ -639,13 +637,32 @@ static void dumpAllFonts() {
 
 - (void)resetData{
     NSLog(@"resettingData!");
-    float totalUsage = ([[usageData2 objectAtIndex:2] floatValue] + [[usageData2 objectAtIndex:3] floatValue]);
-    //WANUsage = (totalUsage - (floorf(totalUsage / [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue]) * [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue]) + [[[NSUserDefaults standardUserDefaults] stringForKey:@"UsageDifference"] floatValue])/1000000;
-    float resetValue = - (totalUsage - (floorf(totalUsage / [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue]) * [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue]));
     
-    NSLog(@"resetValue is: %f", resetValue);
-    
-    [[NSUserDefaults standardUserDefaults] setFloat:resetValue forKey:@"UsageDifference"];
+    [[NSUserDefaults standardUserDefaults] setFloat:0.0f forKey:@"CurrentUsage"];
+    [[NSUserDefaults standardUserDefaults] setFloat:[[[NSUserDefaults standardUserDefaults] stringForKey:@"CurrentUsage"] floatValue] - fmodf(([[usageData2 objectAtIndex:2] floatValue] + [[usageData2 objectAtIndex:3] floatValue]), [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue]) forKey:@"UsageDifference"];
+    //[self calculateWAN];
+}
+
+- (void)checkDate{
+    //Check date and reset if necessary
+    NSDate *today = [NSDate date];
+    NSDate *renewDate = [[NSUserDefaults standardUserDefaults]
+                         objectForKey:@"RenewDate"];
+    switch ([today compare:renewDate]) {
+        {case NSOrderedAscending:
+            NSLog(@"Launched! renewDate in the future");
+            break;}
+            
+        {case NSOrderedDescending:
+            NSLog(@"Launched! renewDate in the past");
+            [self resetData];
+            break;
+        }
+        {case NSOrderedSame:
+            NSLog(@"Launched! renewDate is now");
+            [self resetData];
+            break;}
+    }
 }
 
 
