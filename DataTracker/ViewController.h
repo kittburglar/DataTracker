@@ -47,6 +47,8 @@
 @property (nonatomic, retain) NSFetchedResultsController *fetchedResultsController;
 - (IBAction)refreshButton:(id)sender;
 - (IBAction)fillAction:(id)sender;
+- (IBAction)testButton:(id)sender;
 - (void)addUsageCD;
+- (void)resetData;
 @end
 

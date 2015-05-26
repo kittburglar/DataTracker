@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		25EF73B68E1B31889BE5C3BD /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E016C2D93CD9F9F39D81C2AA /* libPods.a */; };
+		F80419501B14005E00C6C6B2 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8D988D81AF8241300CA8736 /* MapKit.framework */; };
 		F85059EA1AE5D19200BAED40 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F85059E91AE5D19200BAED40 /* main.m */; };
 		F85059ED1AE5D19200BAED40 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F85059EC1AE5D19200BAED40 /* AppDelegate.m */; };
 		F85059F01AE5D19200BAED40 /* DataTracker.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F85059EE1AE5D19200BAED40 /* DataTracker.xcdatamodeld */; };
@@ -40,7 +40,6 @@
 		F8D988D31AF74EEC00CA8736 /* ECSlidingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F8D988CC1AF74EEC00CA8736 /* ECSlidingViewController.m */; };
 		F8D988D41AF74EEC00CA8736 /* UIViewController+ECSlidingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F8D988CE1AF74EEC00CA8736 /* UIViewController+ECSlidingViewController.m */; };
 		F8D988D71AF74F7A00CA8736 /* InitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F8D988D61AF74F7A00CA8736 /* InitViewController.m */; };
-		F8D988D91AF8241300CA8736 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8D988D81AF8241300CA8736 /* MapKit.framework */; };
 		F8D988E21AF84C6900CA8736 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F8D988E11AF84C6900CA8736 /* MapViewController.m */; };
 		F8D988E81AFB3D4400CA8736 /* KAProgressLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = F8D988E51AFB3D4400CA8736 /* KAProgressLabel.m */; };
 		F8D988E91AFB3D4400CA8736 /* TPPropertyAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = F8D988E71AFB3D4400CA8736 /* TPPropertyAnimation.m */; };
@@ -129,8 +128,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F8D988D91AF8241300CA8736 /* MapKit.framework in Frameworks */,
-				25EF73B68E1B31889BE5C3BD /* libPods.a in Frameworks */,
+				F80419501B14005E00C6C6B2 /* MapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

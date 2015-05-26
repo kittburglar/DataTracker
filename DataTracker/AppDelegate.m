@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "ViewController.h"
 
 @interface AppDelegate ()
 
@@ -40,6 +41,27 @@
         [[NSUserDefaults standardUserDefaults] setFloat:0.0f forKey:@"UsageDifference"];
         [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"ShowAnnotation"];
         
+    }
+    
+    NSDate *today = [NSDate date];
+    NSDate *renewDate = [[NSUserDefaults standardUserDefaults]
+     objectForKey:@"RenewDate"];
+    switch ([today compare:renewDate]) {
+        {case NSOrderedAscending:
+            NSLog(@"Launched! renewDate in the future");
+            break;}
+            
+        {case NSOrderedDescending:
+            NSLog(@"Launched! renewDate in the past");
+            ViewController *vc = [[ViewController alloc] init];
+            [vc resetData];
+            break;
+        }
+        {case NSOrderedSame:
+            NSLog(@"Launched! renewDate is now");
+            ViewController *vc = [[ViewController alloc] init];
+            [vc resetData];
+            break;}
     }
     return YES;
 }
@@ -150,5 +172,7 @@
         }
     }
 }
+
+
 
 @end

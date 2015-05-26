@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface PlanTableViewController : UITableViewController
+- (IBAction)testButton:(id)sender;
 
 @end

@@ -166,7 +166,9 @@ static void dumpAllFonts() {
         
         NSLog(@"Wan usage is: %f. Lower bounds is: %f. Difference is: %f", ([[usageData2 objectAtIndex:2] floatValue] + [[usageData2 objectAtIndex:3] floatValue]),(floorf(([[usageData2 objectAtIndex:2] floatValue] + [[usageData2 objectAtIndex:3] floatValue]) / [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue]) * [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue]),[[[NSUserDefaults standardUserDefaults] stringForKey:@"UsageDifference"] floatValue]);
         
-        WANUsage = (([[usageData2 objectAtIndex:2] floatValue] + [[usageData2 objectAtIndex:3] floatValue]) - (floorf(([[usageData2 objectAtIndex:2] floatValue] + [[usageData2 objectAtIndex:3] floatValue]) / [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue]) * [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue]) + [[[NSUserDefaults standardUserDefaults] stringForKey:@"UsageDifference"] floatValue])/1000000;
+        float totalUsage = ([[usageData2 objectAtIndex:2] floatValue] + [[usageData2 objectAtIndex:3] floatValue]);
+        
+        WANUsage = (totalUsage - (floorf(totalUsage / [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue]) * [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue]) + [[[NSUserDefaults standardUserDefaults] stringForKey:@"UsageDifference"] floatValue])/1000000;
     }
     return WANUsage;
 }
@@ -487,6 +489,10 @@ static void dumpAllFonts() {
     [self fillWeeklyBars];
 }
 
+- (IBAction)testButton:(id)sender {
+    [self resetData];
+}
+
 - (IBAction)flipView:(id)sender{
     NSLog(@"pressed flip button");
     [self performSegueWithIdentifier:@"SegueToNextPage" sender:self];
@@ -630,6 +636,19 @@ static void dumpAllFonts() {
     [self.WIFILabel countFrom:[self.WIFILabel currentValue] to:([[usageData2 objectAtIndex:0] floatValue] + [[usageData2 objectAtIndex:1] floatValue])/1000000];
     [self.WANLabel countFrom:[self.WANLabel currentValue] to:[self calculateWAN]];
 }
+
+- (void)resetData{
+    NSLog(@"resettingData!");
+    float totalUsage = ([[usageData2 objectAtIndex:2] floatValue] + [[usageData2 objectAtIndex:3] floatValue]);
+    //WANUsage = (totalUsage - (floorf(totalUsage / [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue]) * [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue]) + [[[NSUserDefaults standardUserDefaults] stringForKey:@"UsageDifference"] floatValue])/1000000;
+    float resetValue = - (totalUsage - (floorf(totalUsage / [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue]) * [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue]));
+    
+    NSLog(@"resetValue is: %f", resetValue);
+    
+    [[NSUserDefaults standardUserDefaults] setFloat:resetValue forKey:@"UsageDifference"];
+}
+
+
 
 
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "PlanTableViewController.h"
+#import "ViewController.h"
 
 @interface PlanTableViewController ()
 
@@ -147,5 +148,13 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+
+
+- (IBAction)testButton:(id)sender {
+}
+
+
+
 
 @end

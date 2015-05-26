@@ -261,6 +261,11 @@
                                 <segue destination="OeF-hE-fna" kind="unwind" unwindAction="unwindToMenuViewController:" id="X7q-Te-but"/>
                             </connections>
                         </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Item" id="GXT-ot-1WE">
+                            <connections>
+                                <action selector="testButton:" destination="BYZ-38-t0r" id="iZm-vJ-77N"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="WANLabel" destination="IR6-6W-m2M" id="hkz-Jo-fnj"/>
@@ -506,6 +511,11 @@
                         <barButtonItem key="leftBarButtonItem" title="Menu" id="TEF-TY-c95">
                             <connections>
                                 <segue destination="QUW-ug-G80" kind="unwind" unwindAction="unwindToMenuViewController:" id="bB2-pQ-ltr"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Item" id="saD-UG-uRz">
+                            <connections>
+                                <action selector="testButton:" destination="ctg-Yx-f33" id="gzO-Gv-yYl"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
