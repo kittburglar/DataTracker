@@ -67,6 +67,7 @@
 - (void)calendarDidDateSelected:(JTCalendar *)calendar date:(NSDate *)date
 {
     NSDate *now = [NSDate date];
+    int dataPlan = [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataPlan"] integerValue];
     switch ([now compare:date]) {
         {case NSOrderedAscending:
             NSLog(@"Date in the future");
@@ -77,21 +78,43 @@
         {case NSOrderedDescending:
             NSLog(@"Date in the past");
             NSDateComponents *dateComponents =[[NSDateComponents alloc] init];
-            [dateComponents setMonth:1];
+            switch (dataPlan) {
+                case 0:
+                    NSLog(@"Monthly");
+                    [dateComponents setMonth:1];
+                    break;
+                case 1:
+                    NSLog(@"Weekly");
+                    [dateComponents setDay:7];
+                    break;
+                default:
+                    break;
+            }
             NSCalendar *calendar = [NSCalendar currentCalendar];
             NSDate *newDate = [calendar dateByAddingComponents:dateComponents toDate:date options:0];
             [[NSUserDefaults standardUserDefaults] setObject:newDate forKey:@"RenewDate"];
-            NSLog(@"Next month date is: %@", newDate);
+            NSLog(@"Next billing date is: %@", newDate);
             break;
         }
         {case NSOrderedSame:
             NSLog(@"Date is now");
             NSDateComponents *dateComponents =[[NSDateComponents alloc] init];
-            [dateComponents setMonth:1];
+            switch (dataPlan) {
+                case 0:
+                    NSLog(@"Monthly");
+                    [dateComponents setMonth:1];
+                    break;
+                case 1:
+                    NSLog(@"Weekly");
+                    [dateComponents setDay:7];
+                    break;
+                default:
+                    break;
+            }
             NSCalendar *calendar = [NSCalendar currentCalendar];
             NSDate *newDate = [calendar dateByAddingComponents:dateComponents toDate:date options:0];
             [[NSUserDefaults standardUserDefaults] setObject:newDate forKey:@"RenewDate"];
-            NSLog(@"Next month date is: %@", newDate);
+            NSLog(@"Next billing date is: %@", newDate);
             break;}
     }
     

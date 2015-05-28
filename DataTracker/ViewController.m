@@ -224,20 +224,53 @@ static void dumpAllFonts() {
     }
     else{
         NSDate *date;
-        float wan;
+        int dataPlan = [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataPlan"] integerValue];
+        int planDays = 0;
+        
+        //Fill each mini progress bar
         for (NSManagedObjectContext *obj in matchingData) {
             date = [obj valueForKey:@"date"];
             NSNumber *wanNum = [obj valueForKey:@"wan"];
             float wan = [wanNum floatValue];
             NSLog(@"Date from core data is: %@ with wan: %f", date, wan);
-            
-            //Fill bar
             NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
             NSDateComponents *comps = [gregorian components:NSWeekdayCalendarUnit fromDate:date];
             int weekday = [comps weekday];
-            float denominator = [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue] / 30;
+            
+            //Budget changes for different plan cycles
+            switch (dataPlan) {
+                {case 0:
+                    
+                    //Find days until next billing period for daily budget suggestions
+                    NSLog(@"Monthly");
+                    NSDateFormatter *f = [[NSDateFormatter alloc] init];
+                    [f setDateFormat:@"yyyy-MM-dd"];
+                    NSDateComponents *dateComponents =[[NSDateComponents alloc] init];
+                    [dateComponents setMonth:-1];
+                    NSCalendar *calendar = [NSCalendar currentCalendar];
+                    NSDate *endDate = [[NSUserDefaults standardUserDefaults] objectForKey:@"RenewDate"];
+                    NSDate *startDate = [calendar dateByAddingComponents:dateComponents toDate:endDate options:0];
+                    NSCalendar *gregorianCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+                    NSDateComponents *components = [gregorianCalendar components:NSDayCalendarUnit
+                                                                        fromDate:startDate
+                                                                          toDate:endDate
+                                                                         options:0];
+                    planDays = [components day];
+                    NSLog(@"planDays is: %d", planDays);
+                    break;}
+                case 1:
+                    NSLog(@"Weekly");
+                    planDays = 7;
+                    break;
+                default:
+                    break;
+            }
+            
+            float denominator = [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue] / planDays;
             NSLog(@"wan is: %f and denominator is: %f", wan, denominator);
             UIColor *color;
+            
+            //Colour progress bars according to budget usage percentage
             if (wan/denominator <= 0.50) {
                 color = UIColorFromRGB(0x718c00);
             }
@@ -254,6 +287,7 @@ static void dumpAllFonts() {
             NSDateComponents *comps2 = [gregorian components:NSWeekdayCalendarUnit fromDate:[NSDate date]];
             int today = [comps2 weekday];
             
+            //Fill each bar with animation
             switch (weekday) {
                 case 1:
                     self.sunProgressLabel.progressColor = color;
@@ -640,6 +674,8 @@ static void dumpAllFonts() {
     
     [[NSUserDefaults standardUserDefaults] setFloat:0.0f forKey:@"CurrentUsage"];
     [[NSUserDefaults standardUserDefaults] setFloat:[[[NSUserDefaults standardUserDefaults] stringForKey:@"CurrentUsage"] floatValue] - fmodf(([[usageData2 objectAtIndex:2] floatValue] + [[usageData2 objectAtIndex:3] floatValue]), [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue]) forKey:@"UsageDifference"];
+    
+    
     //[self calculateWAN];
 }
 
@@ -648,6 +684,7 @@ static void dumpAllFonts() {
     NSDate *today = [NSDate date];
     NSDate *renewDate = [[NSUserDefaults standardUserDefaults]
                          objectForKey:@"RenewDate"];
+    int dataPlan = [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataPlan"] integerValue];
     switch ([today compare:renewDate]) {
         {case NSOrderedAscending:
             NSLog(@"Launched! renewDate in the future");
@@ -656,11 +693,45 @@ static void dumpAllFonts() {
         {case NSOrderedDescending:
             NSLog(@"Launched! renewDate in the past");
             [self resetData];
+            NSDateComponents *dateComponents =[[NSDateComponents alloc] init];
+            switch (dataPlan) {
+                case 0:
+                    NSLog(@"Monthly");
+                    [dateComponents setMonth:1];
+                    break;
+                case 1:
+                    NSLog(@"Weekly");
+                    [dateComponents setDay:7];
+                    break;
+                default:
+                    break;
+            }
+            NSCalendar *calendar = [NSCalendar currentCalendar];
+            NSDate *newDate = [calendar dateByAddingComponents:dateComponents toDate:today options:0];
+            [[NSUserDefaults standardUserDefaults] setObject:newDate forKey:@"RenewDate"];
+            NSLog(@"Next billing date is: %@", newDate);
             break;
         }
         {case NSOrderedSame:
             NSLog(@"Launched! renewDate is now");
             [self resetData];
+            NSDateComponents *dateComponents =[[NSDateComponents alloc] init];
+            switch (dataPlan) {
+                case 0:
+                    NSLog(@"Monthly");
+                    [dateComponents setMonth:1];
+                    break;
+                case 1:
+                    NSLog(@"Weekly");
+                    [dateComponents setDay:7];
+                    break;
+                default:
+                    break;
+            }
+            NSCalendar *calendar = [NSCalendar currentCalendar];
+            NSDate *newDate = [calendar dateByAddingComponents:dateComponents toDate:today options:0];
+            [[NSUserDefaults standardUserDefaults] setObject:newDate forKey:@"RenewDate"];
+            NSLog(@"Next month date is: %@", newDate);
             break;}
     }
 }
