@@ -787,7 +787,10 @@ static void dumpAllFonts() {
         [[NSUserDefaults standardUserDefaults] setFloat:difference forKey:@"totalUsageDifference"];
         currentTotalUsage = ([[usageData2 objectAtIndex:2] floatValue] + [[usageData2 objectAtIndex:3] floatValue]) + [[[NSUserDefaults standardUserDefaults] stringForKey:@"totalUsageDifference"] floatValue];
     }
-    [[NSUserDefaults standardUserDefaults] setFloat:currentTotalUsage forKey:@"totalUsage"];
+    else{
+        NSLog(@"Totalusage is: %f", [[[NSUserDefaults standardUserDefaults] stringForKey:@"totalUsage"] floatValue]);
+        [[NSUserDefaults standardUserDefaults] setFloat:currentTotalUsage forKey:@"totalUsage"];
+    }
     
 }
 
