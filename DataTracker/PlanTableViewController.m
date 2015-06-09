@@ -37,6 +37,12 @@
         case 1:
             NSLog(@"Stored plan was weekly");
             break;
+        case 2:
+            NSLog(@"Stored plan was 30 days");
+            break;
+        case 3:
+            NSLog(@"Stored plan was daily");
+            break;
         default:
             break;
     }
@@ -75,6 +81,14 @@
         case 1:
             NSLog(@"Weekly");
             [[NSUserDefaults standardUserDefaults] setInteger:1 forKey:@"DataPlan"];
+            break;
+        case 2:
+            NSLog(@"30 Days");
+            [[NSUserDefaults standardUserDefaults] setInteger:2 forKey:@"DataPlan"];
+            break;
+        case 3:
+            NSLog(@"Daily");
+            [[NSUserDefaults standardUserDefaults] setInteger:3 forKey:@"DataPlan"];
             break;
         default:
             break;

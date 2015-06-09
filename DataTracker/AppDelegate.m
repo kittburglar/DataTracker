@@ -40,6 +40,8 @@
         
         [[NSUserDefaults standardUserDefaults] setFloat:0.0f forKey:@"UsageDifference"];
         [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"ShowAnnotation"];
+        [[NSUserDefaults standardUserDefaults] setFloat:0.0f forKey:@"totalUsage"];
+        [[NSUserDefaults standardUserDefaults] setFloat:0.0f forKey:@"totalUsageDifference"];
         
     }
     

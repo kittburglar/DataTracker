@@ -117,7 +117,10 @@ static void dumpAllFonts() {
     AppDelegate *appdelegate = [[UIApplication sharedApplication] delegate];
     managedObjectContext = [appdelegate managedObjectContext];
     
-    float thisWan = ([[usageData2 objectAtIndex:2] floatValue] + [[usageData2 objectAtIndex:3] floatValue]);
+    [self calibrateTotalUsage];
+    
+    //float thisWan = ([[usageData2 objectAtIndex:2] floatValue] + [[usageData2 objectAtIndex:3] floatValue]);
+    float thisWan = [[[NSUserDefaults standardUserDefaults] stringForKey:@"totalUsage"] floatValue];
     [[NSUserDefaults standardUserDefaults] setFloat:thisWan forKey:@"LastWanSinceUpdate"];
     
      [self fillWeeklyBars];
@@ -162,7 +165,11 @@ static void dumpAllFonts() {
         
         NSLog(@"Wan usage is: %f. Lower bounds is: %f. Difference is: %f", ([[usageData2 objectAtIndex:2] floatValue] + [[usageData2 objectAtIndex:3] floatValue]),(floorf(([[usageData2 objectAtIndex:2] floatValue] + [[usageData2 objectAtIndex:3] floatValue]) / [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue]) * [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue]),[[[NSUserDefaults standardUserDefaults] stringForKey:@"UsageDifference"] floatValue]);
         
-        float totalUsage = ([[usageData2 objectAtIndex:2] floatValue] + [[usageData2 objectAtIndex:3] floatValue]);
+        [self calibrateTotalUsage];
+        float totalUsage = [[[NSUserDefaults standardUserDefaults] stringForKey:@"totalUsage"] floatValue];
+        
+        
+        //float totalUsage = ([[usageData2 objectAtIndex:2] floatValue] + [[usageData2 objectAtIndex:3] floatValue]);
         
         WANUsage = (totalUsage - (floorf(totalUsage / [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue]) * [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue]) + [[[NSUserDefaults standardUserDefaults] stringForKey:@"UsageDifference"] floatValue])/1000000;
     }
@@ -261,6 +268,14 @@ static void dumpAllFonts() {
                 case 1:
                     NSLog(@"Weekly");
                     planDays = 7;
+                    break;
+                case 2:
+                    NSLog(@"30 Days");
+                    planDays = 30;
+                    break;
+                case 3:
+                    NSLog(@"Daily");
+                    planDays = 1;
                     break;
                 default:
                     break;
@@ -425,7 +440,10 @@ static void dumpAllFonts() {
     else{
         //[[NSUserDefaults standardUserDefaults] setFloat:[[[NSUserDefaults standardUserDefaults] stringForKey:@"CurrentUsage"] floatValue] - fmodf(([[usageData2 objectAtIndex:2] floatValue] + [[usageData2 objectAtIndex:3] floatValue]), [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue]) forKey:@"UsageDifference"];
        //wan usage - (floor of ((wan usage / montly data usage) * monthly usage)) + difference between current and monthly
-       percentage = (([[usageData2 objectAtIndex:2] floatValue] + [[usageData2 objectAtIndex:3] floatValue]) - (floorf(([[usageData2 objectAtIndex:2] floatValue] + [[usageData2 objectAtIndex:3] floatValue]) / [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue]) * [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue]) + [[[NSUserDefaults standardUserDefaults] stringForKey:@"UsageDifference"] floatValue]) / [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue];
+        [self calibrateTotalUsage];
+        float totalUsage = [[[NSUserDefaults standardUserDefaults] stringForKey:@"totalUsage"] floatValue];
+        
+       percentage = (totalUsage - (floorf(totalUsage / [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue]) * [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue]) + [[[NSUserDefaults standardUserDefaults] stringForKey:@"UsageDifference"] floatValue]) / [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue];
     }
     
     //percentage = fmodf(difference + ([[usageData objectAtIndex:2] floatValue] + [[usageData objectAtIndex:3] floatValue]), [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue]) / [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue];
@@ -535,7 +553,11 @@ static void dumpAllFonts() {
     
     usageData2 = [self getDataCounters];
     float lastWanSinceUpdate = [[[NSUserDefaults standardUserDefaults] stringForKey:@"LastWanSinceUpdate"] floatValue];
-    float thisWan = ([[usageData2 objectAtIndex:2] floatValue] + [[usageData2 objectAtIndex:3] floatValue]);
+    
+    [self calibrateTotalUsage];
+    
+    //float thisWan = ([[usageData2 objectAtIndex:2] floatValue] + [[usageData2 objectAtIndex:3] floatValue]);
+    float thisWan = [[[NSUserDefaults standardUserDefaults] stringForKey:@"totalUsage"] floatValue];
     
     // Add another annotation to the map.
     MKPointAnnotation *annotation = [[MKPointAnnotation alloc] init];
@@ -672,8 +694,10 @@ static void dumpAllFonts() {
 - (void)resetData{
     NSLog(@"resettingData!");
     
+    [self calibrateTotalUsage];
+    float totalUsage = [[[NSUserDefaults standardUserDefaults] stringForKey:@"totalUsage"] floatValue];
     [[NSUserDefaults standardUserDefaults] setFloat:0.0f forKey:@"CurrentUsage"];
-    [[NSUserDefaults standardUserDefaults] setFloat:[[[NSUserDefaults standardUserDefaults] stringForKey:@"CurrentUsage"] floatValue] - fmodf(([[usageData2 objectAtIndex:2] floatValue] + [[usageData2 objectAtIndex:3] floatValue]), [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue]) forKey:@"UsageDifference"];
+    [[NSUserDefaults standardUserDefaults] setFloat:[[[NSUserDefaults standardUserDefaults] stringForKey:@"CurrentUsage"] floatValue] - fmodf(totalUsage, [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue]) forKey:@"UsageDifference"];
     
     
     //[self calculateWAN];
@@ -703,6 +727,14 @@ static void dumpAllFonts() {
                     NSLog(@"Weekly");
                     [dateComponents setDay:7];
                     break;
+                case 2:
+                    NSLog(@"30 Days");
+                    [dateComponents setDay:30];
+                    break;
+                case 3:
+                    NSLog(@"Daily");
+                    [dateComponents setDay:1];
+                    break;
                 default:
                     break;
             }
@@ -725,6 +757,14 @@ static void dumpAllFonts() {
                     NSLog(@"Weekly");
                     [dateComponents setDay:7];
                     break;
+                case 2:
+                    NSLog(@"30 Days");
+                    [dateComponents setDay:30];
+                    break;
+                case 3:
+                    NSLog(@"Daily");
+                    [dateComponents setDay:1];
+                    break;
                 default:
                     break;
             }
@@ -734,6 +774,21 @@ static void dumpAllFonts() {
             NSLog(@"Next month date is: %@", newDate);
             break;}
     }
+}
+
+-(void) calibrateTotalUsage{
+    usageData2 = [self getDataCounters];
+    float currentTotalUsage = ([[usageData2 objectAtIndex:2] floatValue] + [[usageData2 objectAtIndex:3] floatValue]) + [[[NSUserDefaults standardUserDefaults] stringForKey:@"totalUsageDifference"] floatValue];
+    float lastTotalUsage = [[[NSUserDefaults standardUserDefaults] stringForKey:@"totalUsage"] floatValue];
+    NSLog(@"Calibrating Total Usage: Current total usage is: %f and last total usage is: %f", currentTotalUsage, lastTotalUsage);
+    if (currentTotalUsage < lastTotalUsage) {
+        NSLog(@"Current usage is less than last time. Must calibrate!");
+        float difference = lastTotalUsage - currentTotalUsage;
+        [[NSUserDefaults standardUserDefaults] setFloat:difference forKey:@"totalUsageDifference"];
+        currentTotalUsage = ([[usageData2 objectAtIndex:2] floatValue] + [[usageData2 objectAtIndex:3] floatValue]) + [[[NSUserDefaults standardUserDefaults] stringForKey:@"totalUsageDifference"] floatValue];
+    }
+    [[NSUserDefaults standardUserDefaults] setFloat:currentTotalUsage forKey:@"totalUsage"];
+    
 }
 
 
