@@ -443,7 +443,7 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Slide" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vwa-Od-7nC">
                                                     <rect key="frame" x="8" y="11" width="42" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -465,7 +465,7 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Record" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a71-C9-clT">
                                                     <rect key="frame" x="8" y="11" width="105" height="24"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -920,7 +920,7 @@
         <!--Swipe-->
         <scene sceneID="2e4-VQ-UDs">
             <objects>
-                <viewController title="Swipe" id="anv-fE-ua0" sceneMemberID="viewController">
+                <viewController title="Swipe" id="anv-fE-ua0" customClass="SwipeViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Z68-zl-k99"/>
                         <viewControllerLayoutGuide type="bottom" id="SKU-6M-nUV"/>
@@ -928,7 +928,21 @@
                     <view key="view" contentMode="scaleToFill" id="2dO-4U-cH3">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="x4A-mR-KVs" customClass="SwipeView">
+                                <rect key="frame" x="150" y="150" width="300" height="300"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="anv-fE-ua0" id="SCA-IC-2mP"/>
+                                    <outlet property="delegate" destination="anv-fE-ua0" id="w4v-uQ-FAR"/>
+                                </connections>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="centerX" secondItem="x4A-mR-KVs" secondAttribute="centerX" id="0Dv-2D-jr0"/>
+                            <constraint firstAttribute="centerY" secondItem="x4A-mR-KVs" secondAttribute="centerY" id="fZC-7s-LWQ"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="9kc-0E-3vD">
                         <barButtonItem key="leftBarButtonItem" title="Item" id="ZG1-bX-140">
@@ -937,6 +951,9 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="swipeView" destination="x4A-mR-KVs" id="ghx-Ei-5Jz"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x0Y-8e-O5n" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="RTA-dE-wm7" userLabel="Exit" sceneMemberID="exit"/>

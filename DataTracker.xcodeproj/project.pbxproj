@@ -17,6 +17,8 @@
 		F85059FB1AE5D19200BAED40 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = F85059F91AE5D19200BAED40 /* LaunchScreen.xib */; };
 		F8505A071AE5D19300BAED40 /* DataTrackerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F8505A061AE5D19300BAED40 /* DataTrackerTests.m */; };
 		F876AA691B075794003B959D /* screenshot1.png in Resources */ = {isa = PBXBuildFile; fileRef = F876AA681B075794003B959D /* screenshot1.png */; };
+		F87A01301B2804B500049280 /* SwipeView.m in Sources */ = {isa = PBXBuildFile; fileRef = F87A012F1B2804B500049280 /* SwipeView.m */; };
+		F87A01331B2809C600049280 /* SwipeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F87A01321B2809C600049280 /* SwipeViewController.m */; };
 		F8913D3E1AF2CABF0027AD9F /* FirstTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F8913D3D1AF2CABF0027AD9F /* FirstTableViewController.m */; };
 		F8913D411AF2EFE50027AD9F /* PlanTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F8913D401AF2EFE50027AD9F /* PlanTableViewController.m */; };
 		F8913D441AF2F65A0027AD9F /* DateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F8913D431AF2F65A0027AD9F /* DateViewController.m */; };
@@ -77,6 +79,10 @@
 		F8505A051AE5D19300BAED40 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F8505A061AE5D19300BAED40 /* DataTrackerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DataTrackerTests.m; sourceTree = "<group>"; };
 		F876AA681B075794003B959D /* screenshot1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = screenshot1.png; sourceTree = "<group>"; };
+		F87A012E1B2804B500049280 /* SwipeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwipeView.h; sourceTree = "<group>"; };
+		F87A012F1B2804B500049280 /* SwipeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SwipeView.m; sourceTree = "<group>"; };
+		F87A01311B2809C600049280 /* SwipeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwipeViewController.h; sourceTree = "<group>"; };
+		F87A01321B2809C600049280 /* SwipeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SwipeViewController.m; sourceTree = "<group>"; };
 		F8913D3C1AF2CABF0027AD9F /* FirstTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirstTableViewController.h; sourceTree = "<group>"; };
 		F8913D3D1AF2CABF0027AD9F /* FirstTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirstTableViewController.m; sourceTree = "<group>"; };
 		F8913D3F1AF2EFE50027AD9F /* PlanTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlanTableViewController.h; sourceTree = "<group>"; };
@@ -188,6 +194,7 @@
 			children = (
 				F876AA671B07564A003B959D /* Screenshots */,
 				F8A7B09A1AFF302900E41647 /* Fonts */,
+				F87A012D1B2804B500049280 /* SwipeView */,
 				F8D988E31AFB3D4400CA8736 /* KAProgressLabel */,
 				F8D988C11AF74EEC00CA8736 /* ECSlidingViewController */,
 				F85059EB1AE5D19200BAED40 /* AppDelegate.h */,
@@ -208,6 +215,8 @@
 				F8913D491AF302A80027AD9F /* UsageViewController.m */,
 				F8D988E01AF84C6900CA8736 /* MapViewController.h */,
 				F8D988E11AF84C6900CA8736 /* MapViewController.m */,
+				F87A01311B2809C600049280 /* SwipeViewController.h */,
+				F87A01321B2809C600049280 /* SwipeViewController.m */,
 				F85059F41AE5D19200BAED40 /* Main.storyboard */,
 				F8A7B0AF1AFF75F600E41647 /* Usage.h */,
 				F8A7B0B01AFF75F600E41647 /* Usage.m */,
@@ -251,6 +260,16 @@
 				F876AA681B075794003B959D /* screenshot1.png */,
 			);
 			name = Screenshots;
+			sourceTree = "<group>";
+		};
+		F87A012D1B2804B500049280 /* SwipeView */ = {
+			isa = PBXGroup;
+			children = (
+				F87A012E1B2804B500049280 /* SwipeView.h */,
+				F87A012F1B2804B500049280 /* SwipeView.m */,
+			);
+			name = SwipeView;
+			path = "../../../Downloads/SwipeView-master/SwipeView";
 			sourceTree = "<group>";
 		};
 		F8A7B09A1AFF302900E41647 /* Fonts */ = {
@@ -456,6 +475,8 @@
 				F8913D4A1AF302A80027AD9F /* UsageViewController.m in Sources */,
 				F85059F31AE5D19200BAED40 /* ViewController.m in Sources */,
 				F8D988D41AF74EEC00CA8736 /* UIViewController+ECSlidingViewController.m in Sources */,
+				F87A01331B2809C600049280 /* SwipeViewController.m in Sources */,
+				F87A01301B2804B500049280 /* SwipeView.m in Sources */,
 				F8913D471AF2F7090027AD9F /* AmountViewController.m in Sources */,
 				F8D988D11AF74EEC00CA8736 /* ECSlidingInteractiveTransition.m in Sources */,
 				F8D988E81AFB3D4400CA8736 /* KAProgressLabel.m in Sources */,
