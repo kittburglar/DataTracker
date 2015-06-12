@@ -18,6 +18,8 @@ NSArray *usageData2;
 
 @interface ViewController ()
 
+
+
 @end
 
 @implementation ViewController
@@ -46,25 +48,33 @@ static void dumpAllFonts() {
     
     // Do any additional setup after loading the view, typically from a nib.
     NSLog(@"View loaded");
-    usageData2 = [self getDataCounters];
-    //NSLog(@"%@", [usageData objectAtIndex:<#(NSUInteger)#>]);
-    //self.WIFILabel.text = [NSString stringWithFormat:@"%.01f MB", ([[usageData2 objectAtIndex:0] floatValue] + [[usageData2 objectAtIndex:1] floatValue])/1000000];
-    [self.WIFILabel countFrom:0 to:([[usageData2 objectAtIndex:0] floatValue] + [[usageData2 objectAtIndex:1] floatValue])/1000000];
-    //self.WANLabel.text = [NSString stringWithFormat:@"%.01f MB", [self calculateWAN]];
-    [self.WANLabel countFrom:0 to:[self calculateWAN]];
     
+    //Get data usage
+    usageData2 = [self getDataCounters];
+    
+    //Set up usage labels
+    [self.WIFILabel countFrom:0 to:([[usageData2 objectAtIndex:0] floatValue] + [[usageData2 objectAtIndex:1] floatValue])/1000000];
+    [self.WANLabel countFrom:0 to:[self calculateWAN]];
+    self.dailyUnusedAmount.format = @"%.01f MB";
+    self.dailyUnusedAmount.animationDuration = 1.0;
+    self.WANLabel.format = @"%.01f MB";
+    self.WANLabel.animationDuration = 1.0;
+    self.WIFILabel.format = @"%.01f MB";
+    self.WIFILabel.animationDuration = 1.0;
+    
+    //Navigation Bar
     [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
                                                                     [UIFont fontWithName:@"OpenSans" size:21],
                                                                     NSFontAttributeName, nil]];
     self.navigationItem.title=@"MAIN";
+    
+    //Set up percentage label
     self.percentLabel.text = [NSString stringWithFormat:@"%f", [self calculatePercentage]];
     
-    //Circular Progress Bar
+    //Setup circular Progress Bars
     self.myProgressLabel.progressColor = UIColorFromRGB(0x4271ae);
     self.myProgressLabel.trackColor = UIColorFromRGB(0xd6d6d6);
-    //self.myProgressLabel.progress = [self calculatePercentage];
     self.myProgressLabel.text = [NSString stringWithFormat:@"%.0f%%", [self calculatePercentage]*100];
-    //self.myProgressLabel.textColor = UIColorFromRGB(0x4d4d4c);
     self.myProgressLabel.trackWidth = 50;         // Defaults to 5.0
     self.myProgressLabel.progressWidth = 50;        // Defaults to 5.0
     self.otherProgressLabel.progressColor = UIColorFromRGB(0xc82829);
@@ -93,7 +103,6 @@ static void dumpAllFonts() {
                              duration:1.0
                                 delay:0.0];
     
-    
     //Map stuff
     self.locations = [[NSMutableArray alloc] init];
     self.locationManager = [[CLLocationManager alloc] init];
@@ -101,46 +110,30 @@ static void dumpAllFonts() {
     self.locationManager.distanceFilter=kCLDistanceFilterNone;
     //self.locationManager.distanceFilter=50;
     self.locationManager.delegate = self;
-    
     [self.locationManager requestAlwaysAuthorization];
     [self.locationManager startMonitoringSignificantLocationChanges];
     [self.locationManager startUpdatingLocation];
-    
-    self.dailyUnusedAmount.format = @"%.01f MB";
-    self.dailyUnusedAmount.animationDuration = 1.0;
-    self.WANLabel.format = @"%.01f MB";
-    self.WANLabel.animationDuration = 1.0;
-    self.WIFILabel.format = @"%.01f MB";
-    self.WIFILabel.animationDuration = 1.0;
     
     //core data
     AppDelegate *appdelegate = [[UIApplication sharedApplication] delegate];
     managedObjectContext = [appdelegate managedObjectContext];
     
     [self calibrateTotalUsage];
-    
-    //float thisWan = ([[usageData2 objectAtIndex:2] floatValue] + [[usageData2 objectAtIndex:3] floatValue]);
     float thisWan = [[[NSUserDefaults standardUserDefaults] stringForKey:@"totalUsage"] floatValue];
     [[NSUserDefaults standardUserDefaults] setFloat:thisWan forKey:@"LastWanSinceUpdate"];
     
-     [self fillWeeklyBars];
+    [self fillWeeklyBars];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
-    NSLog(@"viewWillAppear");
     
     [self checkDate];
     usageData2 = [self getDataCounters];
     
-    //self.WIFILabel.text = [NSString stringWithFormat:@"%.01f MB", ([[usageData2 objectAtIndex:0] floatValue] + [[usageData2 objectAtIndex:1] floatValue])/1000000];
     [self.WIFILabel countFrom:0 to:([[usageData2 objectAtIndex:0] floatValue] + [[usageData2 objectAtIndex:1] floatValue])/1000000];
-    //self.WANLabel.text = [NSString stringWithFormat:@"%.01f MB", ([[usageData2 objectAtIndex:2] floatValue] + [[usageData2 objectAtIndex:3] floatValue])/1000000];
-    //self.WANLabel.text = [NSString stringWithFormat:@"%.01f MB", [self calculateWAN]];
     [self.WANLabel countFrom:0 to:[self calculateWAN]];
     self.percentLabel.text = [NSString stringWithFormat:@"%f", [self calculatePercentage]];
     
-    //Circular Progress Bar
-    //self.myProgressLabel.progress = [self calculatePercentage];
     self.myProgressLabel.text = [NSString stringWithFormat:@"%.0f%%", [self calculatePercentage]*100];
     
     //Animation
@@ -161,16 +154,10 @@ static void dumpAllFonts() {
         WANUsage = 0.0;
     }
     else{
-        //[[NSUserDefaults standardUserDefaults] setFloat:[[[NSUserDefaults standardUserDefaults] stringForKey:@"CurrentUsage"] floatValue] - fmodf(([[usageData2 objectAtIndex:2] floatValue] + [[usageData2 objectAtIndex:3] floatValue]), [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue]) forKey:@"UsageDifference"];
-        
         NSLog(@"Wan usage is: %f. Lower bounds is: %f. Difference is: %f", ([[usageData2 objectAtIndex:2] floatValue] + [[usageData2 objectAtIndex:3] floatValue]),(floorf(([[usageData2 objectAtIndex:2] floatValue] + [[usageData2 objectAtIndex:3] floatValue]) / [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue]) * [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue]),[[[NSUserDefaults standardUserDefaults] stringForKey:@"UsageDifference"] floatValue]);
-        
+    
         [self calibrateTotalUsage];
         float totalUsage = [[[NSUserDefaults standardUserDefaults] stringForKey:@"totalUsage"] floatValue];
-        
-        
-        //float totalUsage = ([[usageData2 objectAtIndex:2] floatValue] + [[usageData2 objectAtIndex:3] floatValue]);
-        
         WANUsage = (totalUsage - (floorf(totalUsage / [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue]) * [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue]) + [[[NSUserDefaults standardUserDefaults] stringForKey:@"UsageDifference"] floatValue])/1000000;
     }
     return WANUsage;
@@ -196,8 +183,6 @@ static void dumpAllFonts() {
     int weekday = [comps weekday];
     
     NSLog(@"Weekday is: %d", weekday);
-    
-    
     
     NSMutableArray *partPredicates = [NSMutableArray arrayWithCapacity:weekday];
     //build predicate list
@@ -430,23 +415,17 @@ static void dumpAllFonts() {
 - (float)calculatePercentage{
     float percentage = 0.0;
     float difference = 0.0;
-    //WAN mod allowed amount
-    //difference =  [[[NSUserDefaults standardUserDefaults] stringForKey:@"CurrentUsage"] floatValue] - fmodf(([[usageData objectAtIndex:2] floatValue] + [[usageData objectAtIndex:3] floatValue]), [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue]);
     NSLog(@"Current usage is:%f.\nThe difference is %f/",[[[NSUserDefaults standardUserDefaults] stringForKey:@"CurrentUsage"] floatValue], difference);
-    //percentage = fmodf([[[NSUserDefaults standardUserDefaults] stringForKey:@"UsageDifference"] floatValue] + ([[usageData2 objectAtIndex:2] floatValue] + [[usageData2 objectAtIndex:3] floatValue]), [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue]) / [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue];
+    
     if ([[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue] == 0) {
         percentage = 0.0;
     }
     else{
-        //[[NSUserDefaults standardUserDefaults] setFloat:[[[NSUserDefaults standardUserDefaults] stringForKey:@"CurrentUsage"] floatValue] - fmodf(([[usageData2 objectAtIndex:2] floatValue] + [[usageData2 objectAtIndex:3] floatValue]), [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue]) forKey:@"UsageDifference"];
-       //wan usage - (floor of ((wan usage / montly data usage) * monthly usage)) + difference between current and monthly
         [self calibrateTotalUsage];
         float totalUsage = [[[NSUserDefaults standardUserDefaults] stringForKey:@"totalUsage"] floatValue];
-        
-       percentage = (totalUsage - (floorf(totalUsage / [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue]) * [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue]) + [[[NSUserDefaults standardUserDefaults] stringForKey:@"UsageDifference"] floatValue]) / [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue];
+        percentage = (totalUsage - (floorf(totalUsage / [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue]) * [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue]) + [[[NSUserDefaults standardUserDefaults] stringForKey:@"UsageDifference"] floatValue]) / [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue];
     }
     
-    //percentage = fmodf(difference + ([[usageData objectAtIndex:2] floatValue] + [[usageData objectAtIndex:3] floatValue]), [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue]) / [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue];
     NSLog(@"The percentage is: %f", percentage);
     return percentage;
 }

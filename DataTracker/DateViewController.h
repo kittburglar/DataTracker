@@ -14,4 +14,6 @@
 @property (strong, nonatomic) IBOutlet JTCalendarContentView *calendarContentView;
 
 @property (strong, nonatomic) JTCalendar *calendar;
+- (IBAction)backButton:(id)sender;
+- (IBAction)nextButton:(id)sender;
 @end

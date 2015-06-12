@@ -13,5 +13,6 @@
 
 @property (nonatomic, weak) IBOutlet SwipeView *swipeView;
 @property (nonatomic, strong) NSMutableArray *items;
+@property (strong, nonatomic) IBOutlet UIView *firstView;
 
 @end

@@ -23,6 +23,9 @@
             <string>OpenSans</string>
             <string>OpenSans</string>
             <string>OpenSans</string>
+            <string>OpenSans</string>
+            <string>OpenSans</string>
+            <string>OpenSans</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -342,27 +345,6 @@
                                             <segue destination="bTv-ak-XPl" kind="custom" customClass="ECSlidingSegue" id="tna-zq-NqU"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="NKV-sN-YZs">
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="NKV-sN-YZs" id="ogm-gn-MeE">
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Start Day" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TsV-8N-dKP">
-                                                    <rect key="frame" x="8" y="11" width="189" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="centerY" secondItem="TsV-8N-dKP" secondAttribute="centerY" id="4Oo-Rs-md9"/>
-                                                <constraint firstItem="TsV-8N-dKP" firstAttribute="leading" secondItem="ogm-gn-MeE" secondAttribute="leadingMargin" id="dZU-qI-Cye"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <segue destination="8VU-nG-RU8" kind="custom" customClass="ECSlidingSegue" id="Nsh-fC-6n8"/>
-                                        </connections>
-                                    </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="IDs-6I-3vn">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="IDs-6I-3vn" id="5wZ-7s-09n">
@@ -498,7 +480,7 @@
         <!--Plan Table View Controller-->
         <scene sceneID="xaa-8R-gIA">
             <objects>
-                <tableViewController id="ctg-Yx-f33" customClass="PlanTableViewController" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="PlanTableViewController" id="ctg-Yx-f33" customClass="PlanTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Svf-kU-Nfh">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -595,12 +577,16 @@
                                 <segue destination="QUW-ug-G80" kind="unwind" unwindAction="unwindToMenuViewController:" id="bB2-pQ-ltr"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Item" id="saD-UG-uRz">
+                        <barButtonItem key="rightBarButtonItem" title="Next" id="saD-UG-uRz">
                             <connections>
                                 <action selector="testButton:" destination="ctg-Yx-f33" id="gzO-Gv-yYl"/>
+                                <segue destination="rAF-Vx-GeD" kind="push" id="Iap-K7-dSp"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="view" destination="Svf-kU-Nfh" id="G8z-jt-mtj"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3nV-cV-4A6" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="QUW-ug-G80" userLabel="Exit" sceneMemberID="exit"/>
@@ -811,15 +797,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Aw3-vR-VrF" customClass="JTCalendarMenuView">
-                                <rect key="frame" x="0.0" y="64" width="600" height="61"/>
+                            <view hidden="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Aw3-vR-VrF" customClass="JTCalendarMenuView">
+                                <rect key="frame" x="16" y="181" width="568" height="61"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="Elg-Vc-Bpo"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C5V-0n-MTS" customClass="JTCalendarContentView">
-                                <rect key="frame" x="0.0" y="124" width="600" height="476"/>
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="C5V-0n-MTS" customClass="JTCalendarContentView">
+                                <rect key="frame" x="16" y="250" width="568" height="304"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="476" id="7OI-k1-69Z"/>
@@ -830,32 +816,93 @@
                                     </mask>
                                 </variation>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CwD-10-ykL">
+                                <rect key="frame" x="48" y="538" width="62" height="30"/>
+                                <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="15"/>
+                                <state key="normal" title="Back">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="backButton:" destination="rAF-Vx-GeD" eventType="touchUpInside" id="bg9-gO-ov9"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Please select the starting date of your plan." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zab-y5-aHt">
+                                <rect key="frame" x="16" y="72" width="568" height="101"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="600" id="JrN-sp-oWE"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="JrN-sp-oWE"/>
+                                    </mask>
+                                </variation>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JGt-Ex-vUv">
+                                <rect key="frame" x="506" y="538" width="46" height="30"/>
+                                <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="15"/>
+                                <state key="normal" title="Next">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="nextButton:" destination="rAF-Vx-GeD" eventType="touchUpInside" id="ami-dC-9O9"/>
+                                    <segue destination="S2a-48-Q6t" kind="push" id="80J-5n-PgR"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="Aw3-vR-VrF" firstAttribute="leading" secondItem="iQ9-Ja-Eck" secondAttribute="leadingMargin" id="1R9-al-xvG"/>
+                            <constraint firstItem="Zab-y5-aHt" firstAttribute="leading" secondItem="iQ9-Ja-Eck" secondAttribute="leadingMargin" constant="-16" id="998-LL-IAd"/>
                             <constraint firstItem="Aw3-vR-VrF" firstAttribute="top" secondItem="hef-bg-CGM" secondAttribute="bottom" id="9yn-PE-g9I"/>
+                            <constraint firstItem="Zab-y5-aHt" firstAttribute="top" secondItem="hef-bg-CGM" secondAttribute="bottom" constant="32" id="D1J-77-cmi"/>
+                            <constraint firstItem="Aw3-vR-VrF" firstAttribute="top" secondItem="Zab-y5-aHt" secondAttribute="bottom" constant="32" id="D8t-OG-DXd"/>
+                            <constraint firstItem="gWu-GX-ixc" firstAttribute="top" secondItem="CwD-10-ykL" secondAttribute="bottom" constant="32" id="JMY-z6-loG"/>
+                            <constraint firstItem="CwD-10-ykL" firstAttribute="top" secondItem="C5V-0n-MTS" secondAttribute="bottom" constant="32" id="JP5-y1-6fe"/>
+                            <constraint firstItem="Zab-y5-aHt" firstAttribute="trailing" secondItem="iQ9-Ja-Eck" secondAttribute="trailingMargin" id="KGH-au-KtE"/>
                             <constraint firstItem="Aw3-vR-VrF" firstAttribute="width" secondItem="iQ9-Ja-Eck" secondAttribute="width" id="Knb-n0-nCl"/>
                             <constraint firstItem="C5V-0n-MTS" firstAttribute="width" secondItem="iQ9-Ja-Eck" secondAttribute="width" id="NYh-YQ-4tP"/>
+                            <constraint firstItem="JGt-Ex-vUv" firstAttribute="top" secondItem="C5V-0n-MTS" secondAttribute="bottom" constant="32" id="Of0-pY-Mb5"/>
+                            <constraint firstItem="C5V-0n-MTS" firstAttribute="trailing" secondItem="iQ9-Ja-Eck" secondAttribute="trailingMargin" id="PP7-kq-wtQ"/>
+                            <constraint firstItem="Zab-y5-aHt" firstAttribute="top" secondItem="hef-bg-CGM" secondAttribute="bottom" id="Tfe-Mz-HUu"/>
                             <constraint firstItem="Aw3-vR-VrF" firstAttribute="leading" secondItem="iQ9-Ja-Eck" secondAttribute="leadingMargin" constant="-16" id="Xmz-Ma-e0b"/>
                             <constraint firstItem="C5V-0n-MTS" firstAttribute="leading" secondItem="iQ9-Ja-Eck" secondAttribute="leadingMargin" constant="-16" id="btH-Pj-HPm"/>
+                            <constraint firstItem="C5V-0n-MTS" firstAttribute="top" secondItem="Zab-y5-aHt" secondAttribute="bottom" constant="32" id="fak-0e-DZa"/>
+                            <constraint firstItem="C5V-0n-MTS" firstAttribute="leading" secondItem="iQ9-Ja-Eck" secondAttribute="leadingMargin" id="gJC-WW-f4B"/>
+                            <constraint firstItem="Zab-y5-aHt" firstAttribute="leading" secondItem="iQ9-Ja-Eck" secondAttribute="leadingMargin" id="j90-Z3-hwd"/>
+                            <constraint firstItem="JGt-Ex-vUv" firstAttribute="trailing" secondItem="iQ9-Ja-Eck" secondAttribute="trailingMargin" constant="-32" id="jPv-ct-gou"/>
                             <constraint firstItem="C5V-0n-MTS" firstAttribute="top" secondItem="Aw3-vR-VrF" secondAttribute="bottom" id="pfQ-ux-fSb"/>
+                            <constraint firstItem="Aw3-vR-VrF" firstAttribute="trailing" secondItem="iQ9-Ja-Eck" secondAttribute="trailingMargin" id="pqV-ws-w9k"/>
+                            <constraint firstItem="Zab-y5-aHt" firstAttribute="width" secondItem="iQ9-Ja-Eck" secondAttribute="width" id="s3d-ca-CsL"/>
+                            <constraint firstItem="CwD-10-ykL" firstAttribute="leading" secondItem="iQ9-Ja-Eck" secondAttribute="leadingMargin" constant="32" id="stG-bK-Jvi"/>
                             <constraint firstItem="gWu-GX-ixc" firstAttribute="top" secondItem="C5V-0n-MTS" secondAttribute="bottom" id="uob-i3-zu1"/>
+                            <constraint firstItem="gWu-GX-ixc" firstAttribute="top" secondItem="JGt-Ex-vUv" secondAttribute="bottom" constant="32" id="xzd-XN-jVA"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="998-LL-IAd"/>
+                                <exclude reference="Tfe-Mz-HUu"/>
+                                <exclude reference="s3d-ca-CsL"/>
+                                <exclude reference="9yn-PE-g9I"/>
+                                <exclude reference="D8t-OG-DXd"/>
+                                <exclude reference="Knb-n0-nCl"/>
+                                <exclude reference="Xmz-Ma-e0b"/>
+                                <exclude reference="NYh-YQ-4tP"/>
+                                <exclude reference="btH-Pj-HPm"/>
+                                <exclude reference="pfQ-ux-fSb"/>
+                                <exclude reference="uob-i3-zu1"/>
+                            </mask>
+                        </variation>
                     </view>
-                    <navigationItem key="navigationItem" id="IHY-qZ-Hnq">
-                        <barButtonItem key="leftBarButtonItem" title="Menu" id="71s-jJ-EMD">
-                            <connections>
-                                <segue destination="F0s-O0-4A7" kind="unwind" unwindAction="unwindToMenuViewController:" id="0Rg-F4-eqJ"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="IHY-qZ-Hnq"/>
                     <connections>
                         <outlet property="calendarContentView" destination="C5V-0n-MTS" id="BiV-oO-7jC"/>
                         <outlet property="calendarMenuView" destination="Aw3-vR-VrF" id="4nJ-x6-iyH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jgm-Xu-oLA" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="F0s-O0-4A7" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1124" y="1028"/>
         </scene>
@@ -929,9 +976,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="x4A-mR-KVs" customClass="SwipeView">
-                                <rect key="frame" x="150" y="150" width="300" height="300"/>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="x4A-mR-KVs" customClass="SwipeView">
+                                <rect key="frame" x="0.0" y="72" width="600" height="528"/>
                                 <connections>
                                     <outlet property="dataSource" destination="anv-fE-ua0" id="SCA-IC-2mP"/>
                                     <outlet property="delegate" destination="anv-fE-ua0" id="w4v-uQ-FAR"/>
@@ -941,8 +987,19 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="centerX" secondItem="x4A-mR-KVs" secondAttribute="centerX" id="0Dv-2D-jr0"/>
+                            <constraint firstAttribute="height" secondItem="x4A-mR-KVs" secondAttribute="height" id="17d-Gd-Yeb"/>
+                            <constraint firstAttribute="width" secondItem="x4A-mR-KVs" secondAttribute="width" id="AmS-wE-vxT"/>
+                            <constraint firstItem="x4A-mR-KVs" firstAttribute="top" secondItem="Z68-zl-k99" secondAttribute="bottom" constant="8" id="PnT-yL-vUe"/>
+                            <constraint firstItem="SKU-6M-nUV" firstAttribute="top" secondItem="x4A-mR-KVs" secondAttribute="bottom" id="cxS-PT-JWn"/>
                             <constraint firstAttribute="centerY" secondItem="x4A-mR-KVs" secondAttribute="centerY" id="fZC-7s-LWQ"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="0Dv-2D-jr0"/>
+                                <exclude reference="17d-Gd-Yeb"/>
+                                <exclude reference="fZC-7s-LWQ"/>
+                            </mask>
+                        </variation>
                     </view>
                     <navigationItem key="navigationItem" id="9kc-0E-3vD">
                         <barButtonItem key="leftBarButtonItem" title="Item" id="ZG1-bX-140">
@@ -1027,4 +1084,8 @@
             <point key="canvasLocation" x="406" y="225"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="80J-5n-PgR"/>
+        <segue reference="Iap-K7-dSp"/>
+    </inferredMetricsTieBreakers>
 </document>

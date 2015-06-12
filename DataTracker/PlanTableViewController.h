@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface PlanTableViewController : UITableViewController
+@property (strong, nonatomic) IBOutlet UITableView *view;
 - (IBAction)testButton:(id)sender;
 
 @end

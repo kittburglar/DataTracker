@@ -17,7 +17,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.navigationItem.title = @"Start Day";
+    //self.navigationItem.title = @"Start Day";
     
     self.calendar = [JTCalendar new];
     [self.calendar setMenuMonthsView:self.calendarMenuView];
@@ -28,6 +28,8 @@
     [self.calendar reloadData];
     [self.calendarContentView setScrollEnabled:NO];
     [self.calendarMenuView setScrollEnabled:NO];
+    self.calendar.calendarAppearance.dayTextFont = [UIFont fontWithName:@"OpenSans" size:[UIFont systemFontSize]];
+    self.calendar.calendarAppearance.weekDayTextFont = [UIFont fontWithName:@"OpenSans" size:11];
     int dataPlan = [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataPlan"] integerValue];
     switch (dataPlan) {
         case 0:
@@ -135,5 +137,12 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+- (IBAction)backButton:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (IBAction)nextButton:(id)sender {
+}
 
 @end
