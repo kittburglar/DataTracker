@@ -9,6 +9,7 @@
 #import "UsageViewController.h"
 #import "UIViewController+ECSlidingViewController.h"
 #import "FirstTableViewController.h"
+#import "ViewController.h"
 
 NSArray *usageData;
 
@@ -22,15 +23,20 @@ NSArray *usageData;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    
     usageData = [self getDataCounters];
     // Do any additional setup after loading the view.
     self.navigationItem.title = @"Current Usage";
+    ViewController *vc = [[ViewController alloc] init];
     
     if ([[[NSUserDefaults standardUserDefaults] stringForKey:@"UnitType2"]  isEqual: @"MB"]) {
+        //self.usageText.text = [NSString stringWithFormat:@"%.1f", [[[NSUserDefaults standardUserDefaults] stringForKey:@"CurrentUsage"] floatValue]/1000000];
+        self.usageText.text = [NSString stringWithFormat:@"%.1f", [vc calculateWAN]];
         self.dataTypeSegment.selectedSegmentIndex = 0;
+        
     }
     else if ([[[NSUserDefaults standardUserDefaults] stringForKey:@"UnitType2"]  isEqual: @"GB"]){
+        //self.usageText.text = [NSString stringWithFormat:@"%.1f", [[[NSUserDefaults standardUserDefaults] stringForKey:@"CurrentUsage"] floatValue]/1000000000];
+        self.usageText.text = [NSString stringWithFormat:@"%.1f", [vc calculateWAN]/1000];
         self.dataTypeSegment.selectedSegmentIndex = 1;
     }
     
@@ -148,6 +154,8 @@ NSArray *usageData;
     // Pass the selected object to the new view controller.
 }
 */
+
+
 
 - (IBAction)nextButton:(id)sender {
     if (self.dataTypeSegment.selectedSegmentIndex == 0) {

@@ -50,5 +50,6 @@
 - (IBAction)testButton:(id)sender;
 - (void)addUsageCD;
 - (void)resetData;
+- (float)calculateWAN;
 @end
 

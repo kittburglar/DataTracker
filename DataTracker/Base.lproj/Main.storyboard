@@ -953,7 +953,7 @@
         <!--View Controller-->
         <scene sceneID="bf8-0v-DWb">
             <objects>
-                <viewController id="bP6-09-McC" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ViewController" id="bP6-09-McC" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="4bJ-y1-d00"/>
                         <viewControllerLayoutGuide type="bottom" id="WzM-M4-PHU"/>
