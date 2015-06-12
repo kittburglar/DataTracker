@@ -20,8 +20,6 @@
 }
 @property (strong, nonatomic) IBOutlet UITextField *usageText;
 @property (nonatomic, retain) UIView *inputAccView;
-@property (nonatomic, retain) UIButton *btnDone;
-@property (nonatomic, retain) UIButton *btnNext;
-@property (nonatomic, retain) UIButton *btnPrev;
-@property (strong, nonatomic) IBOutlet UILabel *unitLabel;
+@property (strong, nonatomic) IBOutlet UISegmentedControl *dataTypeSegment;
+- (IBAction)nextButton:(id)sender;
 @end

@@ -16,9 +16,6 @@
 
 @implementation AmountViewController
 @synthesize inputAccView;
-@synthesize btnDone;
-@synthesize btnNext;
-@synthesize btnPrev;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -26,28 +23,36 @@
     
     [self.view addGestureRecognizer:self.slidingViewController.panGesture];
     // Do any additional setup after loading the view.
-    self.navigationItem.title = @"Data Amount";
+    
+    //self.navigationItem.title = @"Data Amount";
     if ([[[NSUserDefaults standardUserDefaults] stringForKey:@"UnitType"]  isEqual: @"MB"]) {
-        self.amountText.text = [NSString stringWithFormat:@"%.0f", [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue]/1000000];
-        self.unitLabel.text = @"MB";
+        self.amountText.text = [NSString stringWithFormat:@"%.1f", [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue]/1000000];
+        self.dataTypeSegment.selectedSegmentIndex = 0;
     }
     else if ([[[NSUserDefaults standardUserDefaults] stringForKey:@"UnitType"]  isEqual: @"GB"]){
-        self.amountText.text = [NSString stringWithFormat:@"%.0f", [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue]/1000000000];
-        self.unitLabel.text = @"GB";
+        self.amountText.text = [NSString stringWithFormat:@"%.1f", [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue]/1000000000];
+        self.dataTypeSegment.selectedSegmentIndex = 1;
     }
     //self.amountText.text = [NSString stringWithFormat:@"%@", [[NSUserDefaults standardUserDefaults]
     //                        stringForKey:@"DataAmount"]];
-    self.amountText.keyboardType = UIKeyboardTypeNumberPad;
-    [self.amountText becomeFirstResponder];
+    //[self.amountText becomeFirstResponder];
     
-    [self createInputAccessoryView];
+    //[self createInputAccessoryView];
     
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
+                                   initWithTarget:self
+                                   action:@selector(dismissKeyboard)];
     
+    [self.view addGestureRecognizer:tap];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(void)dismissKeyboard {
+    [self.amountText resignFirstResponder];
 }
 
 /*
@@ -93,27 +98,40 @@
     [self.amountText setInputAccessoryView:inputAccView];
 }
 
--(void)MBButtonPressed{
-    NSLog(@"MBButtonPressed");
-    self.unitLabel.text = @"MB";
-}
-
--(void)GBButtonPressed{
-    NSLog(@"GBButtonPressed");
-    self.unitLabel.text = @"GB";
-}
-
 -(void)doneTyping{
     NSLog(@"DoneButtonPressed");
-    if ([self.unitLabel.text  isEqual: @"MB"]) {
+    if (self.dataTypeSegment.selectedSegmentIndex == 0) {
         [[NSUserDefaults standardUserDefaults] setFloat:[self.amountText.text floatValue]*1000000 forKey:@"DataAmount"];
         [[NSUserDefaults standardUserDefaults] setObject:@"MB" forKey:@"UnitType"];
     }
-    else if ([self.unitLabel.text  isEqual: @"GB"]){
+    else if (self.dataTypeSegment.selectedSegmentIndex == 1){
         [[NSUserDefaults standardUserDefaults] setFloat:[self.amountText.text floatValue]*1000000000 forKey:@"DataAmount"];
         [[NSUserDefaults standardUserDefaults] setObject:@"GB" forKey:@"UnitType"];
     }
     [self.amountText resignFirstResponder];
 }
 
+/*
+- (IBAction)segmentValueChanged:(UISegmentedControl *)sender {
+    NSInteger selectedSegment = sender.selectedSegmentIndex;
+    if (selectedSegment == 0) {
+        [[NSUserDefaults standardUserDefaults] setFloat:[self.amountText.text floatValue]*1000000 forKey:@"DataAmount"];
+        [[NSUserDefaults standardUserDefaults] setObject:@"MB" forKey:@"UnitType"];
+    }
+    else{
+        [[NSUserDefaults standardUserDefaults] setFloat:[self.amountText.text floatValue]*1000000000 forKey:@"DataAmount"];
+        [[NSUserDefaults standardUserDefaults] setObject:@"GB" forKey:@"UnitType"];
+    }
+}
+*/
+- (IBAction)nextButton:(id)sender {
+    if (self.dataTypeSegment.selectedSegmentIndex == 0) {
+        [[NSUserDefaults standardUserDefaults] setFloat:[self.amountText.text floatValue]*1000000 forKey:@"DataAmount"];
+        [[NSUserDefaults standardUserDefaults] setObject:@"MB" forKey:@"UnitType"];
+    }
+    else if (self.dataTypeSegment.selectedSegmentIndex == 1){
+        [[NSUserDefaults standardUserDefaults] setFloat:[self.amountText.text floatValue]*1000000000 forKey:@"DataAmount"];
+        [[NSUserDefaults standardUserDefaults] setObject:@"GB" forKey:@"UnitType"];
+    }
+}
 @end

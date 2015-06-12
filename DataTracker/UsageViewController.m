@@ -18,9 +18,6 @@ NSArray *usageData;
 
 @implementation UsageViewController
 @synthesize inputAccView;
-@synthesize btnDone;
-@synthesize btnNext;
-@synthesize btnPrev;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -29,27 +26,30 @@ NSArray *usageData;
     usageData = [self getDataCounters];
     // Do any additional setup after loading the view.
     self.navigationItem.title = @"Current Usage";
-    self.usageText.keyboardType = UIKeyboardTypeNumberPad;
-    [self.usageText becomeFirstResponder];
     
     if ([[[NSUserDefaults standardUserDefaults] stringForKey:@"UnitType2"]  isEqual: @"MB"]) {
-        //self.usageText.text = [NSString stringWithFormat:@"%f", [[[NSUserDefaults standardUserDefaults] stringForKey:@"CurrentUsage"] floatValue]/1000000];
-        //self.usageText.text = [NSString stringWithFormat:@"%f", fmodf([[[NSUserDefaults standardUserDefaults] stringForKey:@"UsageDifference"] floatValue] + ([[usageData objectAtIndex:2] floatValue] + [[usageData objectAtIndex:3] floatValue]), [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue]/1000000)];
-        self.unitLabel.text = @"MB";
+        self.dataTypeSegment.selectedSegmentIndex = 0;
     }
     else if ([[[NSUserDefaults standardUserDefaults] stringForKey:@"UnitType2"]  isEqual: @"GB"]){
-        //self.usageText.text = [NSString stringWithFormat:@"%f", [[[NSUserDefaults standardUserDefaults] stringForKey:@"CurrentUsage"] floatValue]/1000000000];
-        //self.usageText.text = [NSString stringWithFormat:@"%f", fmodf([[[NSUserDefaults standardUserDefaults] stringForKey:@"UsageDifference"] floatValue] + ([[usageData objectAtIndex:2] floatValue] + [[usageData objectAtIndex:3] floatValue]), [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue]/1000000000)];
-        self.unitLabel.text = @"GB";
+        self.dataTypeSegment.selectedSegmentIndex = 1;
     }
     
+    //[self createInputAccessoryView];
     
-    [self createInputAccessoryView];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
+                                   initWithTarget:self
+                                   action:@selector(dismissKeyboard)];
+    
+    [self.view addGestureRecognizer:tap];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(void)dismissKeyboard {
+    [self.usageText resignFirstResponder];
 }
 
 -(void)createInputAccessoryView{
@@ -82,37 +82,6 @@ NSArray *usageData;
     [inputAccView addSubview:btnDone];
     
     [self.usageText setInputAccessoryView:inputAccView];
-}
-
--(void)MBButtonPressed{
-    NSLog(@"MBButtonPressed");
-    self.unitLabel.text = @"MB";
-}
-
--(void)GBButtonPressed{
-    NSLog(@"GBButtonPressed");
-    self.unitLabel.text = @"GB";
-}
-
--(void)doneTyping{
-    NSLog(@"DoneButtonPressed2");
-    
-    if ([self.unitLabel.text  isEqual: @"MB"]) {
-        [[NSUserDefaults standardUserDefaults] setFloat:[self.usageText.text floatValue]*1000000 forKey:@"CurrentUsage"];
-        [[NSUserDefaults standardUserDefaults] setObject:@"MB" forKey:@"UnitType2"];
-    }
-    else if ([self.unitLabel.text  isEqual: @"GB"]){
-        [[NSUserDefaults standardUserDefaults] setFloat:[self.usageText.text floatValue]*1000000000 forKey:@"CurrentUsage"];
-        [[NSUserDefaults standardUserDefaults] setObject:@"MB" forKey:@"UnitType2"];
-    }
-    
-    float totalUsage = [[[NSUserDefaults standardUserDefaults] stringForKey:@"totalUsage"] floatValue];
-    [[NSUserDefaults standardUserDefaults] setFloat:[[[NSUserDefaults standardUserDefaults] stringForKey:@"CurrentUsage"] floatValue] - fmodf(totalUsage, [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue]) forKey:@"UsageDifference"];
-    
-    
-    //difference = [[[NSUserDefaults standardUserDefaults] stringForKey:@"CurrentUsage"] floatValue] - fmodf(([[usageData objectAtIndex:2] floatValue] + [[usageData objectAtIndex:3] floatValue]), [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue]);
-    
-    [self.usageText resignFirstResponder];
 }
 
 - (NSArray *)getDataCounters
@@ -180,4 +149,18 @@ NSArray *usageData;
 }
 */
 
+- (IBAction)nextButton:(id)sender {
+    if (self.dataTypeSegment.selectedSegmentIndex == 0) {
+        [[NSUserDefaults standardUserDefaults] setFloat:[self.usageText.text floatValue]*1000000 forKey:@"CurrentUsage"];
+        [[NSUserDefaults standardUserDefaults] setObject:@"MB" forKey:@"UnitType2"];
+    }
+    else if (self.dataTypeSegment.selectedSegmentIndex == 1){
+        [[NSUserDefaults standardUserDefaults] setFloat:[self.usageText.text floatValue]*1000000000 forKey:@"CurrentUsage"];
+        [[NSUserDefaults standardUserDefaults] setObject:@"GB" forKey:@"UnitType2"];
+    }
+    
+    float totalUsage = [[[NSUserDefaults standardUserDefaults] stringForKey:@"totalUsage"] floatValue];
+    [[NSUserDefaults standardUserDefaults] setFloat:[[[NSUserDefaults standardUserDefaults] stringForKey:@"CurrentUsage"] floatValue] - fmodf(totalUsage, [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue]) forKey:@"UsageDifference"];
+
+}
 @end
