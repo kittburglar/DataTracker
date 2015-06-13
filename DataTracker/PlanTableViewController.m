@@ -18,6 +18,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    for (int section = 0; section < [self.tableView numberOfSections]; section++) {
+        for (int row = 0; row < [self.tableView numberOfRowsInSection:section]; row++) {
+            NSIndexPath* cellPath = [NSIndexPath indexPathForRow:row inSection:section];
+            UITableViewCell* cell = [self.tableView cellForRowAtIndexPath:cellPath];
+            //do stuff with 'cell'
+            cell.accessoryType = UITableViewCellAccessoryNone;
+        }
+    }
+    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
@@ -26,7 +35,7 @@
     //self.navigationItem.title = @"Plan Cycle";
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 10.0f)];
     
-    
+    /*
     int dataPlan = [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataPlan"] integerValue];
     NSIndexPath *path = [NSIndexPath indexPathForRow:dataPlan inSection:0];
     [self.tableView cellForRowAtIndexPath:path].accessoryType = UITableViewCellAccessoryCheckmark;
@@ -46,6 +55,8 @@
         default:
             break;
     }
+     */
+    [self.tableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -68,7 +79,7 @@
 }
 */
 
-
+/*
 -(NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSIndexPath *oldIndex = [self.tableView indexPathForSelectedRow];
     [self.tableView cellForRowAtIndexPath:oldIndex].accessoryType = UITableViewCellAccessoryNone;
@@ -95,23 +106,44 @@
     }
     return indexPath;
 }
-
+*/
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath   *)indexPath
 {
-    [tableView cellForRowAtIndexPath:indexPath].accessoryType = UITableViewCellAccessoryCheckmark;
+    //[tableView cellForRowAtIndexPath:indexPath].accessoryType = UITableViewCellAccessoryCheckmark;
+    //[tableView deselectRowAtIndexPath:indexPath animated:YES];
+    switch (indexPath.row) {
+        case 0:
+            NSLog(@"Monthly");
+            [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:@"DataPlan"];
+            break;
+        case 1:
+            NSLog(@"Weekly");
+            [[NSUserDefaults standardUserDefaults] setInteger:1 forKey:@"DataPlan"];
+            break;
+        case 2:
+            NSLog(@"30 Days");
+            [[NSUserDefaults standardUserDefaults] setInteger:2 forKey:@"DataPlan"];
+            break;
+        case 3:
+            NSLog(@"Daily");
+            [[NSUserDefaults standardUserDefaults] setInteger:3 forKey:@"DataPlan"];
+            break;
+        default:
+            break;
+    }
 }
 
 -(void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [tableView cellForRowAtIndexPath:indexPath].accessoryType = UITableViewCellAccessoryNone;
+    //[tableView cellForRowAtIndexPath:indexPath].accessoryType = UITableViewCellAccessoryNone;
 }
 
 
 /*
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
+    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
     
     // Configure the cell...
     

@@ -24,6 +24,7 @@
 		F8913D441AF2F65A0027AD9F /* DateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F8913D431AF2F65A0027AD9F /* DateViewController.m */; };
 		F8913D471AF2F7090027AD9F /* AmountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F8913D461AF2F7090027AD9F /* AmountViewController.m */; };
 		F8913D4A1AF302A80027AD9F /* UsageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F8913D491AF302A80027AD9F /* UsageViewController.m */; };
+		F892FC511B2C3B2900C38B4F /* PlanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F892FC501B2C3B2900C38B4F /* PlanViewController.m */; };
 		F8A7B0A51AFF306E00E41647 /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F8A7B09B1AFF306E00E41647 /* OpenSans-Bold.ttf */; };
 		F8A7B0A61AFF306E00E41647 /* OpenSans-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F8A7B09C1AFF306E00E41647 /* OpenSans-BoldItalic.ttf */; };
 		F8A7B0A71AFF306E00E41647 /* OpenSans-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F8A7B09D1AFF306E00E41647 /* OpenSans-Italic.ttf */; };
@@ -93,6 +94,8 @@
 		F8913D461AF2F7090027AD9F /* AmountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AmountViewController.m; sourceTree = "<group>"; };
 		F8913D481AF302A80027AD9F /* UsageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UsageViewController.h; sourceTree = "<group>"; };
 		F8913D491AF302A80027AD9F /* UsageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UsageViewController.m; sourceTree = "<group>"; };
+		F892FC4F1B2C3B2900C38B4F /* PlanViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlanViewController.h; sourceTree = "<group>"; };
+		F892FC501B2C3B2900C38B4F /* PlanViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlanViewController.m; sourceTree = "<group>"; };
 		F8A7B09B1AFF306E00E41647 /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Bold.ttf"; sourceTree = "<group>"; };
 		F8A7B09C1AFF306E00E41647 /* OpenSans-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-BoldItalic.ttf"; sourceTree = "<group>"; };
 		F8A7B09D1AFF306E00E41647 /* OpenSans-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Italic.ttf"; sourceTree = "<group>"; };
@@ -218,6 +221,8 @@
 				F87A01311B2809C600049280 /* SwipeViewController.h */,
 				F87A01321B2809C600049280 /* SwipeViewController.m */,
 				F85059F41AE5D19200BAED40 /* Main.storyboard */,
+				F892FC4F1B2C3B2900C38B4F /* PlanViewController.h */,
+				F892FC501B2C3B2900C38B4F /* PlanViewController.m */,
 				F8A7B0AF1AFF75F600E41647 /* Usage.h */,
 				F8A7B0B01AFF75F600E41647 /* Usage.m */,
 				F85059F71AE5D19200BAED40 /* Images.xcassets */,
@@ -470,6 +475,7 @@
 				F85059ED1AE5D19200BAED40 /* AppDelegate.m in Sources */,
 				F8D988D71AF74F7A00CA8736 /* InitViewController.m in Sources */,
 				F85059F01AE5D19200BAED40 /* DataTracker.xcdatamodeld in Sources */,
+				F892FC511B2C3B2900C38B4F /* PlanViewController.m in Sources */,
 				F8913D3E1AF2CABF0027AD9F /* FirstTableViewController.m in Sources */,
 				F8D988CF1AF74EEC00CA8736 /* ECPercentDrivenInteractiveTransition.m in Sources */,
 				F8913D4A1AF302A80027AD9F /* UsageViewController.m in Sources */,
