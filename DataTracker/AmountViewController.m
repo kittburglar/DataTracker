@@ -9,6 +9,7 @@
 #import "AmountViewController.h"
 #import "UIViewController+ECSlidingViewController.h"
 #import "FirstTableViewController.h"
+#import "UsageViewController.h"
 
 @interface AmountViewController ()
 
@@ -19,6 +20,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    //self.renewDate = nil;
+    NSLog(@"renewDate is:%@ and dataPlan is:%ld", self.renewDate, (long)self.dataPlan);
     
     
     [self.view addGestureRecognizer:self.slidingViewController.panGesture];
@@ -41,7 +44,8 @@
     
     [self checkEmpty];
     
-    int dataPlan = [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataPlan"] integerValue];
+    //int dataPlan = [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataPlan"] integerValue];
+    int dataPlan = self.dataPlan;
     switch (dataPlan) {
         case 0:
             NSLog(@"Monthly");
@@ -69,6 +73,18 @@
     
     [self.view addGestureRecognizer:tap];
 }
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    if([segue.identifier isEqualToString:@"amountSegue"]){
+        UsageViewController *controller = (UsageViewController *)segue.destinationViewController;
+        controller.dataPlan = self.dataPlan;
+        NSLog(@"self.rewnewDate is: %@", self.renewDate);
+        NSLog(@"controller.rewnewDate is: %@", controller.renewDate);
+        controller.renewDate = self.renewDate;
+        controller.dataAmount = self.dataAmount;
+    }
+}
+
 
 - (void)checkEmpty{
     if ([[self.amountText text] length] == 0) {
@@ -160,11 +176,13 @@
 */
 - (IBAction)nextButton:(id)sender {
     if (self.dataTypeSegment.selectedSegmentIndex == 0) {
-        [[NSUserDefaults standardUserDefaults] setFloat:[self.amountText.text floatValue]*1000000 forKey:@"DataAmount"];
+        self.dataAmount =[self.amountText.text floatValue]*1000000;
+        //[[NSUserDefaults standardUserDefaults] setFloat:[self.amountText.text floatValue]*1000000 forKey:@"DataAmount"];
         [[NSUserDefaults standardUserDefaults] setObject:@"MB" forKey:@"UnitType"];
     }
     else if (self.dataTypeSegment.selectedSegmentIndex == 1){
-        [[NSUserDefaults standardUserDefaults] setFloat:[self.amountText.text floatValue]*1000000000 forKey:@"DataAmount"];
+        self.dataAmount =[self.amountText.text floatValue]*1000000000;
+        //[[NSUserDefaults standardUserDefaults] setFloat:[self.amountText.text floatValue]*1000000000 forKey:@"DataAmount"];
         [[NSUserDefaults standardUserDefaults] setObject:@"GB" forKey:@"UnitType"];
     }
 }

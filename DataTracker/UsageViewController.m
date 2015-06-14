@@ -26,20 +26,20 @@ NSArray *usageData;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    NSLog(@"dataPlan is:%ld, renewDate is:%@, dataAmount is:%f", (long)self.dataPlan, self.renewDate, self.dataAmount);
+    ViewController *vc = [[ViewController alloc] init];
     usageData = [self getDataCounters];
     // Do any additional setup after loading the view.
     self.navigationItem.title = @"Current Usage";
-    ViewController *vc = [[ViewController alloc] init];
-    
+    //FIXME: textfield unexpected behaviour when data limit is changed
     if ([[[NSUserDefaults standardUserDefaults] stringForKey:@"UnitType2"]  isEqual: @"MB"]) {
-        //self.usageText.text = [NSString stringWithFormat:@"%.1f", [[[NSUserDefaults standardUserDefaults] stringForKey:@"CurrentUsage"] floatValue]/1000000];
         self.usageText.text = [NSString stringWithFormat:@"%.1f", [vc calculateWAN]];
         self.dataTypeSegment.selectedSegmentIndex = 0;
         
     }
     else if ([[[NSUserDefaults standardUserDefaults] stringForKey:@"UnitType2"]  isEqual: @"GB"]){
         //self.usageText.text = [NSString stringWithFormat:@"%.1f", [[[NSUserDefaults standardUserDefaults] stringForKey:@"CurrentUsage"] floatValue]/1000000000];
-        self.usageText.text = [NSString stringWithFormat:@"%.1f", [vc calculateWAN]/1000];
+        self.usageText.text = [NSString stringWithFormat:@"%.1f", [vc calculateWAN]];
         self.dataTypeSegment.selectedSegmentIndex = 1;
     }
     
@@ -198,9 +198,18 @@ NSArray *usageData;
         [[NSUserDefaults standardUserDefaults] setObject:@"GB" forKey:@"UnitType2"];
     }
     
+    //Do plan, date and amount
+    [[NSUserDefaults standardUserDefaults] setInteger:self.dataPlan forKey:@"DataPlan"];
+    [[NSUserDefaults standardUserDefaults] setObject:self.renewDate forKey:@"RenewDate"];
+    [[NSUserDefaults standardUserDefaults] setFloat:self.dataAmount forKey:@"DataAmount"];
+    
     //save total usage
     float totalUsage = [[[NSUserDefaults standardUserDefaults] stringForKey:@"totalUsage"] floatValue];
     [[NSUserDefaults standardUserDefaults] setFloat:[[[NSUserDefaults standardUserDefaults] stringForKey:@"CurrentUsage"] floatValue] - fmodf(totalUsage, [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue]) forKey:@"UsageDifference"];
+    
+    
+    
+    
     
     //Update core data value for today
     NSDate *currentDate = [NSDate date];

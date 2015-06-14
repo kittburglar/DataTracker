@@ -8,6 +8,8 @@
 
 #import "PlanTableViewController.h"
 #import "ViewController.h"
+#import "DateViewController.h"
+#import "AmountViewController.h"
 
 @interface PlanTableViewController ()
 
@@ -64,6 +66,32 @@
     // Dispose of any resources that can be recreated.
 }
 
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    if([segue.identifier isEqualToString:@"monthlySegue"]){
+        DateViewController *dateViewController = (DateViewController *)segue.destinationViewController;
+        dateViewController.dataPlan = 0;
+    }
+    else if([segue.identifier isEqualToString:@"weeklySegue"]){
+        DateViewController *dateViewController = (DateViewController *)segue.destinationViewController;
+        dateViewController.dataPlan = 1;
+    }
+    else if([segue.identifier isEqualToString:@"30DaySegue"]){
+        DateViewController *dateViewController = (DateViewController *)segue.destinationViewController;
+        dateViewController.dataPlan = 2;
+    }
+    else if([segue.identifier isEqualToString:@"dailySegue"]){
+        AmountViewController *amountViewController = (AmountViewController *)segue.destinationViewController;
+        //[[NSUserDefaults standardUserDefaults] setInteger:3 forKey:@"DataPlan"];
+        NSDateComponents *dateComponents =[[NSDateComponents alloc] init];
+        [dateComponents setDay:1];
+        NSDate *now = [NSDate date];
+        NSCalendar *calendar = [NSCalendar currentCalendar];
+        NSDate *newDate = [calendar dateByAddingComponents:dateComponents toDate:now options:0];
+        amountViewController.dataPlan = 3;
+        amountViewController.renewDate = newDate;
+    }
+}
+
 #pragma mark - Table view data source
 /*
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -113,31 +141,34 @@
 {
     //[tableView cellForRowAtIndexPath:indexPath].accessoryType = UITableViewCellAccessoryCheckmark;
     //[tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
     switch (indexPath.row) {
         case 0:
             NSLog(@"Monthly");
-            [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:@"DataPlan"];
+            //[[NSUserDefaults standardUserDefaults] setInteger:0 forKey:@"DataPlan"];
             break;
         case 1:
             NSLog(@"Weekly");
-            [[NSUserDefaults standardUserDefaults] setInteger:1 forKey:@"DataPlan"];
+            //[[NSUserDefaults standardUserDefaults] setInteger:1 forKey:@"DataPlan"];
             break;
         case 2:
             NSLog(@"30 Days");
-            [[NSUserDefaults standardUserDefaults] setInteger:2 forKey:@"DataPlan"];
+            //[[NSUserDefaults standardUserDefaults] setInteger:2 forKey:@"DataPlan"];
             break;
         {case 3:
             NSLog(@"Daily");
-            [[NSUserDefaults standardUserDefaults] setInteger:3 forKey:@"DataPlan"];
+            //[[NSUserDefaults standardUserDefaults] setInteger:3 forKey:@"DataPlan"];
             NSDateComponents *dateComponents =[[NSDateComponents alloc] init];
             [dateComponents setDay:1];
             NSDate *now = [NSDate date];
             NSCalendar *calendar = [NSCalendar currentCalendar];
             NSDate *newDate = [calendar dateByAddingComponents:dateComponents toDate:now options:0];
-            [[NSUserDefaults standardUserDefaults] setObject:newDate forKey:@"RenewDate"];            break;}
+            //[[NSUserDefaults standardUserDefaults] setObject:newDate forKey:@"RenewDate"];            break;
+        }
         default:
             break;
     }
+    
 }
 
 -(void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath

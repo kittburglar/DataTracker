@@ -16,6 +16,8 @@
 
 @property (strong, nonatomic) IBOutlet UIButton *nextButtonOutlet;
 @property (strong, nonatomic) JTCalendar *calendar;
+@property (assign, nonatomic) NSInteger dataPlan;
+@property (strong, nonatomic) NSDate* renewDate;
 - (IBAction)backButton:(id)sender;
 - (IBAction)nextButton:(id)sender;
 @end

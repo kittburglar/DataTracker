@@ -444,7 +444,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="rAF-Vx-GeD" kind="push" id="mgW-dw-PgI"/>
+                                            <segue destination="rAF-Vx-GeD" kind="push" identifier="monthlySegue" id="mgW-dw-PgI"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="vcp-fL-wjb">
@@ -466,7 +466,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="rAF-Vx-GeD" kind="push" id="umI-q3-S4G"/>
+                                            <segue destination="rAF-Vx-GeD" kind="push" identifier="weeklySegue" id="umI-q3-S4G"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="82l-mq-gon">
@@ -488,7 +488,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="rAF-Vx-GeD" kind="push" id="FOg-ap-Kks"/>
+                                            <segue destination="rAF-Vx-GeD" kind="push" identifier="30DaySegue" id="FOg-ap-Kks"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="Rgh-Sl-XiQ">
@@ -510,7 +510,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="S2a-48-Q6t" kind="push" id="3c3-nS-TMe"/>
+                                            <segue destination="S2a-48-Q6t" kind="push" identifier="dailySegue" id="3c3-nS-TMe"/>
                                         </connections>
                                     </tableViewCell>
                                 </cells>
@@ -690,7 +690,7 @@ Please select your plan cycle.</string>
                                 <connections>
                                     <action selector="nextButton:" destination="S2a-48-Q6t" eventType="touchUpInside" id="Xfq-eL-nil"/>
                                     <action selector="nextButton:" destination="rAF-Vx-GeD" eventType="touchUpInside" id="o5F-Vv-BMQ"/>
-                                    <segue destination="9Qa-N1-Ehf" kind="push" id="TOv-Go-3lJ"/>
+                                    <segue destination="9Qa-N1-Ehf" kind="push" identifier="amountSegue" id="TOv-Go-3lJ"/>
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Nh2-7h-ze0">
@@ -962,7 +962,7 @@ Please select your plan cycle.</string>
                                 </state>
                                 <connections>
                                     <action selector="nextButton:" destination="rAF-Vx-GeD" eventType="touchUpInside" id="ami-dC-9O9"/>
-                                    <segue destination="S2a-48-Q6t" kind="push" id="80J-5n-PgR"/>
+                                    <segue destination="S2a-48-Q6t" kind="push" identifier="dateSegue" id="80J-5n-PgR"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -1201,7 +1201,7 @@ Please select your plan cycle.</string>
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="3c3-nS-TMe"/>
-        <segue reference="umI-q3-S4G"/>
+        <segue reference="FOg-ap-Kks"/>
         <segue reference="TOv-Go-3lJ"/>
         <segue reference="rs3-iB-oWS"/>
     </inferredMetricsTieBreakers>

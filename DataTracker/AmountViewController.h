@@ -19,6 +19,10 @@
 @property (strong, nonatomic) IBOutlet UISegmentedControl *dataTypeSegment;
 @property (strong, nonatomic) IBOutlet UILabel *instrLabel;
 @property (strong, nonatomic) IBOutlet UIButton *nextButtonOutlet;
+@property (strong, nonatomic) NSDate* renewDate;
+@property (assign, nonatomic) NSInteger dataPlan;
+@property (assign, nonatomic) float dataAmount;
+
 - (IBAction)segmentValueChanged:(UISegmentedControl *)sender;
 - (IBAction)nextButton:(id)sender;
 

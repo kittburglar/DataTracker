@@ -7,6 +7,7 @@
 //
 
 #import "DateViewController.h"
+#import "AmountViewController.h"
 
 @interface DateViewController ()
 
@@ -16,6 +17,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    NSLog(@"DataPlan is: %ld", (long)self.dataPlan);
     // Do any additional setup after loading the view.
     //self.navigationItem.title = @"Start Day";
     
@@ -30,7 +33,9 @@
     [self.calendarMenuView setScrollEnabled:NO];
     self.calendar.calendarAppearance.dayTextFont = [UIFont fontWithName:@"OpenSans" size:[UIFont systemFontSize]];
     self.calendar.calendarAppearance.weekDayTextFont = [UIFont fontWithName:@"OpenSans" size:11];
-    int dataPlan = [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataPlan"] integerValue];
+    //int dataPlan = [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataPlan"] integerValue];
+    
+    int dataPlan = self.dataPlan;
     switch (dataPlan) {
         case 0:
             NSLog(@"Monthly");
@@ -61,6 +66,15 @@
 
 }
 
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    if([segue.identifier isEqualToString:@"dateSegue"]){
+        AmountViewController *controller = (AmountViewController *)segue.destinationViewController;
+        controller.dataPlan = self.dataPlan;
+        controller.renewDate = self.renewDate;
+    }
+}
+
+
 - (void)viewDidAppear:(BOOL)animated{
     [self.calendar reloadData];
 }
@@ -79,11 +93,13 @@
 - (void)calendarDidDateSelected:(JTCalendar *)calendar date:(NSDate *)date
 {
     NSDate *now = [NSDate date];
-    int dataPlan = [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataPlan"] integerValue];
+    //int dataPlan = [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataPlan"] integerValue];
+    int dataPlan = self.dataPlan;
     switch ([now compare:date]) {
         {case NSOrderedAscending:
             NSLog(@"Date in the future");
-            [[NSUserDefaults standardUserDefaults] setObject:date forKey:@"RenewDate"];
+            self.renewDate = date;
+            //[[NSUserDefaults standardUserDefaults] setObject:date forKey:@"RenewDate"];
             NSLog(@"Stored date: %@", date);
             break;}
             
@@ -108,7 +124,8 @@
             }
             NSCalendar *calendar = [NSCalendar currentCalendar];
             NSDate *newDate = [calendar dateByAddingComponents:dateComponents toDate:date options:0];
-            [[NSUserDefaults standardUserDefaults] setObject:newDate forKey:@"RenewDate"];
+            self.renewDate = newDate;
+            //[[NSUserDefaults standardUserDefaults] setObject:newDate forKey:@"RenewDate"];
             NSLog(@"Next billing date is: %@", newDate);
             break;
         }
@@ -133,7 +150,8 @@
             }
             NSCalendar *calendar = [NSCalendar currentCalendar];
             NSDate *newDate = [calendar dateByAddingComponents:dateComponents toDate:date options:0];
-            [[NSUserDefaults standardUserDefaults] setObject:newDate forKey:@"RenewDate"];
+            self.renewDate = newDate;
+            //[[NSUserDefaults standardUserDefaults] setObject:newDate forKey:@"RenewDate"];
             NSLog(@"Next billing date is: %@", newDate);
             
             break;}

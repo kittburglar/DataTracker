@@ -25,6 +25,10 @@
 @property (strong, nonatomic) IBOutlet UITextField *usageText;
 @property (nonatomic, retain) UIView *inputAccView;
 @property (strong, nonatomic) IBOutlet UISegmentedControl *dataTypeSegment;
+@property (strong, nonatomic) NSDate* renewDate;
+@property (assign, nonatomic) NSInteger dataPlan;
+@property (assign, nonatomic) float dataAmount;
+
 - (IBAction)nextButton:(id)sender;
 
 #pragma mark - Core Data
