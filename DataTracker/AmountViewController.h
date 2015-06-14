@@ -17,6 +17,7 @@
 @property (strong, nonatomic) IBOutlet UITextField *amountText;
 @property (nonatomic, retain) UIView *inputAccView;
 @property (strong, nonatomic) IBOutlet UISegmentedControl *dataTypeSegment;
+@property (strong, nonatomic) IBOutlet UILabel *instrLabel;
 @property (strong, nonatomic) IBOutlet UIButton *nextButtonOutlet;
 - (IBAction)segmentValueChanged:(UISegmentedControl *)sender;
 - (IBAction)nextButton:(id)sender;

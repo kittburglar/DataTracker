@@ -36,16 +36,26 @@
             NSLog(@"Monthly");
             self.calendar.calendarAppearance.isWeekMode = NO;
             [self.calendar reloadAppearance];
-            [self.calendarContentView setScrollEnabled:NO];
-            [self.calendarMenuView setScrollEnabled:NO];
+            [self.instrLabel setText:@"Well done!\nNow select this month's renewal date."];
             break;
             
-        default:
+        case 1:
             NSLog(@"Weekly");
             self.calendar.calendarAppearance.isWeekMode = YES;
             [self.calendar reloadAppearance];
-            [self.calendarContentView setScrollEnabled:NO];
-            [self.calendarMenuView setScrollEnabled:NO];
+            [self.instrLabel setText:@"Well done!\nNow select this week's renewal date."];
+            break;
+        case 2:
+            NSLog(@"30 Days");
+            self.calendar.calendarAppearance.isWeekMode = NO;
+            [self.calendar reloadAppearance];
+            [self.instrLabel setText:@"Well done!\nNow select this month's renewal date."];
+            break;
+        case 3:
+            NSLog(@"Daily");
+            self.calendar.calendarAppearance.isWeekMode = YES;
+            [self.calendar reloadAppearance];
+            [self.instrLabel setText:@"Well done!\nYou have a monthly data renewal period."];
             break;
     }
 
@@ -89,6 +99,10 @@
                     NSLog(@"Weekly");
                     [dateComponents setDay:7];
                     break;
+                case 2:
+                    NSLog(@"30 Day");
+                    [dateComponents setDay:30];
+                    break;
                 default:
                     break;
             }
@@ -109,6 +123,10 @@
                 case 1:
                     NSLog(@"Weekly");
                     [dateComponents setDay:7];
+                    break;
+                case 2:
+                    NSLog(@"30 Day");
+                    [dateComponents setDay:30];
                     break;
                 default:
                     break;

@@ -41,6 +41,27 @@ NSArray *usageData;
     }
     
     //[self createInputAccessoryView];
+    int dataPlan = [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataPlan"] integerValue];
+    switch (dataPlan) {
+        case 0:
+            NSLog(@"Monthly");
+            [self.instrLabel setText:@"Last step!\nPlease enter the amount of data already consumed this period."];
+            break;
+            
+        case 1:
+            NSLog(@"Weekly");
+            [self.instrLabel setText:@"Last step!\nPlease enter the amount of data already consumed this period."];
+            break;
+        case 2:
+            NSLog(@"30 Days");
+            [self.instrLabel setText:@"Last step!\nPlease enter the amount of data already consumed this period."];
+            break;
+        case 3:
+            NSLog(@"Daily");
+            [self.instrLabel setText:@"Last step!\nPlease enter the amount of data already consumed this period."];
+            break;
+    }
+
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
                                    initWithTarget:self

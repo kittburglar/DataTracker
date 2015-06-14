@@ -41,6 +41,28 @@
     
     [self checkEmpty];
     
+    int dataPlan = [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataPlan"] integerValue];
+    switch (dataPlan) {
+        case 0:
+            NSLog(@"Monthly");
+            [self.instrLabel setText:@"Good job!\nNow enter the data limit for this period."];
+            break;
+            
+        case 1:
+            NSLog(@"Weekly");
+            [self.instrLabel setText:@"Good job!\nNow enter the data limit for this period."];
+            break;
+        case 2:
+            NSLog(@"30 Days");
+            [self.instrLabel setText:@"Good job!\nNow enter the data limit for this period."];
+            break;
+        case 3:
+            NSLog(@"Daily");
+            [self.instrLabel setText:@"Good job!\nNow enter the data limit for this period."];
+            break;
+    }
+    
+    
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
                                    initWithTarget:self
                                    action:@selector(dismissKeyboard)];

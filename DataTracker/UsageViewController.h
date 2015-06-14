@@ -18,6 +18,7 @@
     UIButton *btnGB;
     UIButton *btnDone;
 }
+@property (strong, nonatomic) IBOutlet UILabel *instrLabel;
 @property (strong, nonatomic) IBOutlet UITextField *usageText;
 @property (nonatomic, retain) UIView *inputAccView;
 @property (strong, nonatomic) IBOutlet UISegmentedControl *dataTypeSegment;

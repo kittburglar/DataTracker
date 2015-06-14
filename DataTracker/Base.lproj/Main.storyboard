@@ -554,11 +554,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Please select your plan cycle." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DYg-47-rf8">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DYg-47-rf8">
                                 <rect key="frame" x="16" y="72" width="568" height="101"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="600" id="bgz-rh-MqZ"/>
                                 </constraints>
+                                <string key="text">Let's get started! 
+Please select your plan cycle.</string>
                                 <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
@@ -665,7 +667,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                             </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Please enter your data amount per cycle." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dkk-pm-YM6">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Please enter your data amount per cycle." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dkk-pm-YM6">
                                 <rect key="frame" x="16" y="72" width="568" height="101"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="600" id="BSP-eQ-Top"/>
@@ -745,6 +747,7 @@
                     <connections>
                         <outlet property="amountText" destination="Yji-b1-0Dg" id="hoj-gB-uN3"/>
                         <outlet property="dataTypeSegment" destination="qgM-sH-a8i" id="Se9-Uk-hJy"/>
+                        <outlet property="instrLabel" destination="dkk-pm-YM6" id="HPY-kJ-6g5"/>
                         <outlet property="nextButtonOutlet" destination="TCg-lE-Qlz" id="KPT-vb-lpJ"/>
                     </connections>
                 </viewController>
@@ -772,7 +775,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                             </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Please enter your current data amount." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gN0-2Z-5mU">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Please enter your current data amount." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gN0-2Z-5mU">
                                 <rect key="frame" x="16" y="72" width="568" height="101"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="600" id="ac9-6R-C3z"/>
@@ -789,7 +792,7 @@
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sOO-hz-FS7">
                                 <rect key="frame" x="278" y="562" width="46" height="30"/>
                                 <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="15"/>
-                                <state key="normal" title="Next">
+                                <state key="normal" title="Done">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -837,6 +840,7 @@
                     <navigationItem key="navigationItem" id="JDt-iy-xDZ"/>
                     <connections>
                         <outlet property="dataTypeSegment" destination="05K-Kc-TgA" id="Beg-Au-B6I"/>
+                        <outlet property="instrLabel" destination="gN0-2Z-5mU" id="Kdp-Hy-kqF"/>
                         <outlet property="usageText" destination="8TR-Lc-Xlg" id="AX1-2z-0IU"/>
                     </connections>
                 </viewController>
@@ -939,7 +943,7 @@
                                     </mask>
                                 </variation>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Please select the starting date of your plan." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zab-y5-aHt">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Please select the starting date of your plan." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zab-y5-aHt">
                                 <rect key="frame" x="16" y="72" width="568" height="101"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="600" id="JrN-sp-oWE"/>
@@ -1012,6 +1016,7 @@
                     <connections>
                         <outlet property="calendarContentView" destination="C5V-0n-MTS" id="BiV-oO-7jC"/>
                         <outlet property="calendarMenuView" destination="Aw3-vR-VrF" id="4nJ-x6-iyH"/>
+                        <outlet property="instrLabel" destination="Zab-y5-aHt" id="gIp-qv-2E8"/>
                         <outlet property="nextButtonOutlet" destination="JGt-Ex-vUv" id="JIa-PK-gWL"/>
                     </connections>
                 </viewController>
