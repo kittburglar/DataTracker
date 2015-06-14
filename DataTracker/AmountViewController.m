@@ -39,11 +39,22 @@
     
     //[self createInputAccessoryView];
     
+    [self checkEmpty];
+    
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
                                    initWithTarget:self
                                    action:@selector(dismissKeyboard)];
     
     [self.view addGestureRecognizer:tap];
+}
+
+- (void)checkEmpty{
+    if ([[self.amountText text] length] == 0) {
+        self.nextButtonOutlet.hidden = YES;
+    }
+    else{
+        self.nextButtonOutlet.hidden = NO;
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -52,6 +63,7 @@
 }
 
 -(void)dismissKeyboard {
+    [self checkEmpty];
     [self.amountText resignFirstResponder];
 }
 

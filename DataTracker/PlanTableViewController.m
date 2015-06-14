@@ -17,7 +17,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    /*
     for (int section = 0; section < [self.tableView numberOfSections]; section++) {
         for (int row = 0; row < [self.tableView numberOfRowsInSection:section]; row++) {
             NSIndexPath* cellPath = [NSIndexPath indexPathForRow:row inSection:section];
@@ -26,7 +26,7 @@
             cell.accessoryType = UITableViewCellAccessoryNone;
         }
     }
-    
+    */
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
@@ -194,6 +194,24 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+-(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    // Remove seperator inset
+    if ([cell respondsToSelector:@selector(setSeparatorInset:)]) {
+        [cell setSeparatorInset:UIEdgeInsetsZero];
+    }
+    
+    // Prevent the cell from inheriting the Table View's margin settings
+    if ([cell respondsToSelector:@selector(setPreservesSuperviewLayoutMargins:)]) {
+        [cell setPreservesSuperviewLayoutMargins:NO];
+    }
+    
+    // Explictly set your cell's layout margins
+    if ([cell respondsToSelector:@selector(setLayoutMargins:)]) {
+        [cell setLayoutMargins:UIEdgeInsetsZero];
+    }
+}
 
 
 

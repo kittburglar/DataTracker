@@ -420,13 +420,13 @@
             <objects>
                 <tableViewController storyboardIdentifier="PlanTableViewController" id="ctg-Yx-f33" customClass="PlanTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Svf-kU-Nfh">
-                        <rect key="frame" x="0.0" y="0.0" width="568" height="230"/>
+                        <rect key="frame" x="0.0" y="0.0" width="568" height="310"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <sections>
                             <tableViewSection id="Uvt-9P-vOY">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" id="iKj-Ug-CvK">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="iKj-Ug-CvK">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="iKj-Ug-CvK" id="dHZ-45-Dfz">
                                             <autoresizingMask key="autoresizingMask"/>
@@ -540,7 +540,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3nV-cV-4A6" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="QUW-ug-G80" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1108" y="1725"/>
+            <point key="canvasLocation" x="1119" y="1733"/>
         </scene>
         <!--PlanCycle-->
         <scene sceneID="AbG-hv-kLD">
@@ -581,7 +581,7 @@
                                 </connections>
                             </button>
                             <containerView opaque="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6w4-64-JVF">
-                                <rect key="frame" x="16" y="236" width="568" height="230"/>
+                                <rect key="frame" x="16" y="236" width="568" height="310"/>
                                 <connections>
                                     <segue destination="ctg-Yx-f33" kind="embed" id="0Bj-ET-lsZ"/>
                                 </connections>
@@ -600,9 +600,16 @@
                             <constraint firstItem="6w4-64-JVF" firstAttribute="top" secondItem="DYg-47-rf8" secondAttribute="bottom" constant="32" id="lWn-Sq-FAR"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="Kd5-By-TWT"/>
+                    <navigationItem key="navigationItem" id="Kd5-By-TWT">
+                        <barButtonItem key="leftBarButtonItem" title="Menu" id="3nX-3k-IME">
+                            <connections>
+                                <segue destination="y5e-Ys-7Ch" kind="unwind" unwindAction="unwindToMenuViewController:" id="8oQ-iy-KSg"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xa3-Gb-5Te" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="y5e-Ys-7Ch" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="406" y="1671"/>
         </scene>
@@ -738,6 +745,7 @@
                     <connections>
                         <outlet property="amountText" destination="Yji-b1-0Dg" id="hoj-gB-uN3"/>
                         <outlet property="dataTypeSegment" destination="qgM-sH-a8i" id="Se9-Uk-hJy"/>
+                        <outlet property="nextButtonOutlet" destination="TCg-lE-Qlz" id="KPT-vb-lpJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qqR-4L-UTO" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -945,7 +953,7 @@
                                     </mask>
                                 </variation>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JGt-Ex-vUv">
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JGt-Ex-vUv">
                                 <rect key="frame" x="277" y="562" width="46" height="30"/>
                                 <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="15"/>
                                 <state key="normal" title="Next">
@@ -1004,6 +1012,7 @@
                     <connections>
                         <outlet property="calendarContentView" destination="C5V-0n-MTS" id="BiV-oO-7jC"/>
                         <outlet property="calendarMenuView" destination="Aw3-vR-VrF" id="4nJ-x6-iyH"/>
+                        <outlet property="nextButtonOutlet" destination="JGt-Ex-vUv" id="JIa-PK-gWL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jgm-Xu-oLA" userLabel="First Responder" sceneMemberID="firstResponder"/>

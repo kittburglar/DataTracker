@@ -117,9 +117,11 @@
             NSDate *newDate = [calendar dateByAddingComponents:dateComponents toDate:date options:0];
             [[NSUserDefaults standardUserDefaults] setObject:newDate forKey:@"RenewDate"];
             NSLog(@"Next billing date is: %@", newDate);
+            
             break;}
+            
     }
-    
+    self.nextButtonOutlet.hidden = NO;
    
 }
 
