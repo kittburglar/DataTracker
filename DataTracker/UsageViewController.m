@@ -10,6 +10,7 @@
 #import "UIViewController+ECSlidingViewController.h"
 #import "FirstTableViewController.h"
 #import "ViewController.h"
+#import "AppDelegate.h"
 
 NSArray *usageData;
 
@@ -18,6 +19,8 @@ NSArray *usageData;
 @end
 
 @implementation UsageViewController
+
+@synthesize managedObjectContext = _managedObjectContext;
 @synthesize inputAccView;
 
 - (void)viewDidLoad {
@@ -62,6 +65,9 @@ NSArray *usageData;
             break;
     }
 
+    //core data
+    AppDelegate *appdelegate = [[UIApplication sharedApplication] delegate];
+    managedObjectContext = [appdelegate managedObjectContext];
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
                                    initWithTarget:self
@@ -179,17 +185,53 @@ NSArray *usageData;
 
 
 - (IBAction)nextButton:(id)sender {
+    //convert MB or GB to bytes
+    float currentUsage = 0.0f;
     if (self.dataTypeSegment.selectedSegmentIndex == 0) {
-        [[NSUserDefaults standardUserDefaults] setFloat:[self.usageText.text floatValue]*1000000 forKey:@"CurrentUsage"];
+        currentUsage = [self.usageText.text floatValue]*1000000;
+        [[NSUserDefaults standardUserDefaults] setFloat:currentUsage forKey:@"CurrentUsage"];
         [[NSUserDefaults standardUserDefaults] setObject:@"MB" forKey:@"UnitType2"];
     }
     else if (self.dataTypeSegment.selectedSegmentIndex == 1){
-        [[NSUserDefaults standardUserDefaults] setFloat:[self.usageText.text floatValue]*1000000000 forKey:@"CurrentUsage"];
+        currentUsage = [self.usageText.text floatValue]*1000000000;
+        [[NSUserDefaults standardUserDefaults] setFloat:currentUsage forKey:@"CurrentUsage"];
         [[NSUserDefaults standardUserDefaults] setObject:@"GB" forKey:@"UnitType2"];
     }
     
+    //save total usage
     float totalUsage = [[[NSUserDefaults standardUserDefaults] stringForKey:@"totalUsage"] floatValue];
     [[NSUserDefaults standardUserDefaults] setFloat:[[[NSUserDefaults standardUserDefaults] stringForKey:@"CurrentUsage"] floatValue] - fmodf(totalUsage, [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue]) forKey:@"UsageDifference"];
-
+    
+    //Update core data value for today
+    NSDate *currentDate = [NSDate date];
+    NSDateFormatter *dt = [[NSDateFormatter alloc] init];
+    [dt setDateFormat:@"dd/MM/yyyy"];
+    NSString *dateString = [dt stringFromDate:currentDate];
+    NSDate *date = [dt dateFromString:dateString];
+    NSPredicate *currentPartPredicate = [NSPredicate predicateWithFormat:@"date == %@", date];
+    NSEntityDescription *entitydesc = [NSEntityDescription entityForName:@"Usage" inManagedObjectContext:managedObjectContext];
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    [request setEntity:entitydesc];
+    [request setPredicate:currentPartPredicate];
+    NSError *error;
+    NSArray *matchingData = [managedObjectContext executeFetchRequest:request error:&error];
+    if (matchingData.count <=0) {
+        NSLog(@"No dates match in core data. let's create one");
+        NSManagedObject *newUsage = [[NSManagedObject alloc] initWithEntity:entitydesc insertIntoManagedObjectContext:managedObjectContext];
+        [newUsage setValue:date forKey:@"date"];
+        [newUsage setValue:[NSNumber numberWithFloat:currentUsage] forKey:@"wan"];
+        [newUsage setValue:[NSNumber numberWithFloat:0.0f] forKey:@"wifi"];
+        
+        NSError *error;
+        [managedObjectContext save:&error];
+    }
+    else{
+        NSLog(@"Date in core data matched to today. lets update!");
+        NSManagedObject *obj = [[managedObjectContext executeFetchRequest:request error:&error] objectAtIndex:0];
+        NSNumber *wan = [NSNumber numberWithInt:currentUsage];
+        [obj setValue:wan forKey:@"wan"];
+        NSLog(@"wan Count is: %@ for date: %@", [obj valueForKey:@"wan"], [obj valueForKey:@"date"]);
+        [managedObjectContext save:&error];
+    }
 }
 @end

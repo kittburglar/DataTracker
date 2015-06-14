@@ -126,10 +126,15 @@
             NSLog(@"30 Days");
             [[NSUserDefaults standardUserDefaults] setInteger:2 forKey:@"DataPlan"];
             break;
-        case 3:
+        {case 3:
             NSLog(@"Daily");
             [[NSUserDefaults standardUserDefaults] setInteger:3 forKey:@"DataPlan"];
-            break;
+            NSDateComponents *dateComponents =[[NSDateComponents alloc] init];
+            [dateComponents setDay:1];
+            NSDate *now = [NSDate date];
+            NSCalendar *calendar = [NSCalendar currentCalendar];
+            NSDate *newDate = [calendar dateByAddingComponents:dateComponents toDate:now options:0];
+            [[NSUserDefaults standardUserDefaults] setObject:newDate forKey:@"RenewDate"];            break;}
         default:
             break;
     }

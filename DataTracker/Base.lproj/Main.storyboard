@@ -73,7 +73,7 @@
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="568" height="310"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="123 MB" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EdG-In-tLu" customClass="UICountingLabel">
@@ -102,8 +102,8 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="W" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YVw-X0-bmZ" customClass="KAProgressLabel">
-                                <rect key="frame" x="265" y="72" width="72" height="73"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="W" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YVw-X0-bmZ" customClass="KAProgressLabel">
+                                <rect key="frame" x="251" y="72" width="68" height="68"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="YVw-X0-bmZ" secondAttribute="height" multiplier="1:1" id="N1V-f6-u32"/>
                                 </constraints>
@@ -120,8 +120,8 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="T" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="azF-Cf-Qt6" customClass="KAProgressLabel">
-                                <rect key="frame" x="345" y="72" width="73" height="73"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="T" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="azF-Cf-Qt6" customClass="KAProgressLabel">
+                                <rect key="frame" x="327" y="72" width="68" height="68"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="azF-Cf-Qt6" secondAttribute="height" multiplier="1:1" id="EHA-sc-TfB"/>
                                 </constraints>
@@ -510,7 +510,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="rAF-Vx-GeD" kind="push" id="rQ4-cG-APp"/>
+                                            <segue destination="S2a-48-Q6t" kind="push" id="3c3-nS-TMe"/>
                                         </connections>
                                     </tableViewCell>
                                 </cells>
@@ -656,7 +656,7 @@ Please select your plan cycle.</string>
                         <viewControllerLayoutGuide type="bottom" id="wOa-Ze-pOG"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="wh8-Eb-NJO">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="568" height="310"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Yji-b1-0Dg">
@@ -668,7 +668,7 @@ Please select your plan cycle.</string>
                                 <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Please enter your data amount per cycle." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dkk-pm-YM6">
-                                <rect key="frame" x="16" y="72" width="568" height="101"/>
+                                <rect key="frame" x="16" y="72" width="536" height="101"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="600" id="BSP-eQ-Top"/>
                                 </constraints>
@@ -706,9 +706,6 @@ Please select your plan cycle.</string>
                                     <segment title="MB"/>
                                     <segment title="GB"/>
                                 </segments>
-                                <connections>
-                                    <action selector="segmentValueChanged:" destination="S2a-48-Q6t" eventType="valueChanged" id="IPX-j1-0gq"/>
-                                </connections>
                             </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -764,7 +761,7 @@ Please select your plan cycle.</string>
                         <viewControllerLayoutGuide type="bottom" id="YpR-ko-hxK"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="L8U-Lo-DKi">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="568" height="310"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8TR-Lc-Xlg">
@@ -776,7 +773,7 @@ Please select your plan cycle.</string>
                                 <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Please enter your current data amount." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gN0-2Z-5mU">
-                                <rect key="frame" x="16" y="72" width="568" height="101"/>
+                                <rect key="frame" x="16" y="72" width="536" height="101"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="600" id="ac9-6R-C3z"/>
                                 </constraints>
@@ -921,18 +918,18 @@ Please select your plan cycle.</string>
                         <viewControllerLayoutGuide type="bottom" id="gWu-GX-ixc"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="iQ9-Ja-Eck">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="568" height="310"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view hidden="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Aw3-vR-VrF" customClass="JTCalendarMenuView">
-                                <rect key="frame" x="16" y="181" width="568" height="61"/>
+                                <rect key="frame" x="16" y="181" width="536" height="61"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="Elg-Vc-Bpo"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="C5V-0n-MTS" customClass="JTCalendarContentView">
-                                <rect key="frame" x="16" y="250" width="568" height="304"/>
+                                <rect key="frame" x="16" y="250" width="536" height="304"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="476" id="7OI-k1-69Z"/>
@@ -944,7 +941,7 @@ Please select your plan cycle.</string>
                                 </variation>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Please select the starting date of your plan." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zab-y5-aHt">
-                                <rect key="frame" x="16" y="72" width="568" height="101"/>
+                                <rect key="frame" x="16" y="72" width="536" height="101"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="600" id="JrN-sp-oWE"/>
                                 </constraints>
@@ -1203,8 +1200,8 @@ Please select your plan cycle.</string>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="80J-5n-PgR"/>
-        <segue reference="lOz-sV-moi"/>
+        <segue reference="3c3-nS-TMe"/>
+        <segue reference="umI-q3-S4G"/>
         <segue reference="TOv-Go-3lJ"/>
         <segue reference="rs3-iB-oWS"/>
     </inferredMetricsTieBreakers>
