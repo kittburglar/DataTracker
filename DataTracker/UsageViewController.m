@@ -207,10 +207,97 @@ NSArray *usageData;
     float totalUsage = [[[NSUserDefaults standardUserDefaults] stringForKey:@"totalUsage"] floatValue];
     [[NSUserDefaults standardUserDefaults] setFloat:[[[NSUserDefaults standardUserDefaults] stringForKey:@"CurrentUsage"] floatValue] - fmodf(totalUsage, [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue]) forKey:@"UsageDifference"];
     
+    [self checkCoreDataUsage];
+    //[self upDateCoreData:currentUsage];
+
     
+}
+
+//Checks the core data usage since last renwal period
+-(void)checkCoreDataUsage{
+    int dataPlan = [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataPlan"] integerValue];
+    int planDays = 0;
+    NSLog(@"Monthly");
+    NSDateFormatter *f = [[NSDateFormatter alloc] init];
+    [f setDateFormat:@"yyyy-MM-dd"];
+    NSDateComponents *dateComponents =[[NSDateComponents alloc] init];
+    //Get the number of days in plan
+    switch (dataPlan) {
+        {case 0:
+
+            //Find days until next billing period for daily budget suggestions
+            [dateComponents setMonth:-1];
+            break;}
+        case 1:
+            NSLog(@"Weekly");
+            [dateComponents setDay:-7];
+            break;
+        case 2:
+            NSLog(@"30 Days");
+            [dateComponents setDay:-30];
+            break;
+        case 3:
+            NSLog(@"Daily");
+            [dateComponents setDay:-1];
+            break;
+        default:
+            break;
+    }
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSDate *endDate = [[NSUserDefaults standardUserDefaults] objectForKey:@"RenewDate"];
+    NSDate *startDate = [calendar dateByAddingComponents:dateComponents toDate:endDate options:0];
+    NSDate *todayDate = [NSDate date];
+    NSCalendar *gregorianCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
     
+    NSDateComponents *components = [gregorianCalendar components:NSDayCalendarUnit
+                                                        fromDate:startDate
+                                                          toDate:todayDate
+                                                         options:0];
+    planDays = [components day] + 1;
+    NSLog(@"Number of days since last data renewal is: %d", planDays);
     
+    NSMutableArray *partPredicates = [NSMutableArray arrayWithCapacity:planDays];
+    //build predicate list
+    for (int i = 1; i <= planDays ; i++) {
+        NSLog(@"\ncurrentDate: %@", todayDate);
+        NSDateFormatter *dt = [[NSDateFormatter alloc] init];
+        [dt setDateFormat:@"dd/MM/yyyy"]; // for example
+        NSString *dateString = [dt stringFromDate:todayDate];
+        NSDate *date = [dt dateFromString:dateString];
+        NSPredicate *currentPartPredicate = [NSPredicate predicateWithFormat:@"date == %@", date];
+        [partPredicates addObject:currentPartPredicate];
+        NSDateComponents *dateComponents = [[NSDateComponents alloc] init];
+        [dateComponents setDay:-1];
+        todayDate = [[NSCalendar currentCalendar] dateByAddingComponents:dateComponents toDate:todayDate options:0];
+    }
     
+    NSEntityDescription *entitydesc = [NSEntityDescription entityForName:@"Usage" inManagedObjectContext:managedObjectContext];
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    [request setEntity:entitydesc];
+    NSPredicate *fullPredicate = [NSCompoundPredicate orPredicateWithSubpredicates:partPredicates];
+    [request setPredicate:fullPredicate];
+    
+    NSError *error;
+    NSArray *matchingData = [managedObjectContext executeFetchRequest:request error:&error];
+    
+    if (matchingData.count <=0) {
+        NSLog(@"No dates match in core data to fill bars.");
+    }
+    else{
+        NSDate *date;
+        float wanTotal = 0.0f;
+        for (NSManagedObjectContext *obj in matchingData) {
+            NSNumber *wanNum = [obj valueForKey:@"wan"];
+            date = [obj valueForKey:@"date"];
+            float wan = [wanNum floatValue];
+            wanTotal = wanTotal + wan;
+            NSLog(@"Date from core data is: %@ with wan: %f", date, wan);
+        }
+        NSLog(@"Total core data usage since last renwal period is: %f", wanTotal);
+    }
+}
+
+-(void)upDateCoreData:(float)currentUsage{
     //Update core data value for today
     NSDate *currentDate = [NSDate date];
     NSDateFormatter *dt = [[NSDateFormatter alloc] init];
