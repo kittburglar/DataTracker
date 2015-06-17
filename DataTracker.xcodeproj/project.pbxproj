@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		76F4F25C33C324E5600FACB8 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E016C2D93CD9F9F39D81C2AA /* libPods.a */; };
 		F80419501B14005E00C6C6B2 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8D988D81AF8241300CA8736 /* MapKit.framework */; };
 		F85059EA1AE5D19200BAED40 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F85059E91AE5D19200BAED40 /* main.m */; };
 		F85059ED1AE5D19200BAED40 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F85059EC1AE5D19200BAED40 /* AppDelegate.m */; };
@@ -36,6 +37,7 @@
 		F8A7B0AD1AFF306E00E41647 /* OpenSans-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F8A7B0A31AFF306E00E41647 /* OpenSans-ExtraBold.ttf */; };
 		F8A7B0AE1AFF306E00E41647 /* OpenSans-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F8A7B0A41AFF306E00E41647 /* OpenSans-ExtraBoldItalic.ttf */; };
 		F8A7B0B11AFF75F600E41647 /* Usage.m in Sources */ = {isa = PBXBuildFile; fileRef = F8A7B0B01AFF75F600E41647 /* Usage.m */; };
+		F8AA03EA1B315631008C1642 /* HistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F8AA03E91B315631008C1642 /* HistoryViewController.m */; };
 		F8D988CF1AF74EEC00CA8736 /* ECPercentDrivenInteractiveTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = F8D988C31AF74EEC00CA8736 /* ECPercentDrivenInteractiveTransition.m */; };
 		F8D988D01AF74EEC00CA8736 /* ECSlidingAnimationController.m in Sources */ = {isa = PBXBuildFile; fileRef = F8D988C51AF74EEC00CA8736 /* ECSlidingAnimationController.m */; };
 		F8D988D11AF74EEC00CA8736 /* ECSlidingInteractiveTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = F8D988C81AF74EEC00CA8736 /* ECSlidingInteractiveTransition.m */; };
@@ -108,6 +110,8 @@
 		F8A7B0A41AFF306E00E41647 /* OpenSans-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-ExtraBoldItalic.ttf"; sourceTree = "<group>"; };
 		F8A7B0AF1AFF75F600E41647 /* Usage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Usage.h; sourceTree = "<group>"; };
 		F8A7B0B01AFF75F600E41647 /* Usage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Usage.m; sourceTree = "<group>"; };
+		F8AA03E81B315631008C1642 /* HistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryViewController.h; sourceTree = "<group>"; };
+		F8AA03E91B315631008C1642 /* HistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryViewController.m; sourceTree = "<group>"; };
 		F8D988C21AF74EEC00CA8736 /* ECPercentDrivenInteractiveTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECPercentDrivenInteractiveTransition.h; sourceTree = "<group>"; };
 		F8D988C31AF74EEC00CA8736 /* ECPercentDrivenInteractiveTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECPercentDrivenInteractiveTransition.m; sourceTree = "<group>"; };
 		F8D988C41AF74EEC00CA8736 /* ECSlidingAnimationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECSlidingAnimationController.h; sourceTree = "<group>"; };
@@ -138,6 +142,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F80419501B14005E00C6C6B2 /* MapKit.framework in Frameworks */,
+				76F4F25C33C324E5600FACB8 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -208,6 +213,8 @@
 				F8D988D61AF74F7A00CA8736 /* InitViewController.m */,
 				F8913D3C1AF2CABF0027AD9F /* FirstTableViewController.h */,
 				F8913D3D1AF2CABF0027AD9F /* FirstTableViewController.m */,
+				F892FC4F1B2C3B2900C38B4F /* PlanViewController.h */,
+				F892FC501B2C3B2900C38B4F /* PlanViewController.m */,
 				F8913D3F1AF2EFE50027AD9F /* PlanTableViewController.h */,
 				F8913D401AF2EFE50027AD9F /* PlanTableViewController.m */,
 				F8913D421AF2F65A0027AD9F /* DateViewController.h */,
@@ -220,11 +227,11 @@
 				F8D988E11AF84C6900CA8736 /* MapViewController.m */,
 				F87A01311B2809C600049280 /* SwipeViewController.h */,
 				F87A01321B2809C600049280 /* SwipeViewController.m */,
-				F85059F41AE5D19200BAED40 /* Main.storyboard */,
-				F892FC4F1B2C3B2900C38B4F /* PlanViewController.h */,
-				F892FC501B2C3B2900C38B4F /* PlanViewController.m */,
+				F8AA03E81B315631008C1642 /* HistoryViewController.h */,
+				F8AA03E91B315631008C1642 /* HistoryViewController.m */,
 				F8A7B0AF1AFF75F600E41647 /* Usage.h */,
 				F8A7B0B01AFF75F600E41647 /* Usage.m */,
+				F85059F41AE5D19200BAED40 /* Main.storyboard */,
 				F85059F71AE5D19200BAED40 /* Images.xcassets */,
 				F85059F91AE5D19200BAED40 /* LaunchScreen.xib */,
 				F85059EE1AE5D19200BAED40 /* DataTracker.xcdatamodeld */,
@@ -482,6 +489,7 @@
 				F85059F31AE5D19200BAED40 /* ViewController.m in Sources */,
 				F8D988D41AF74EEC00CA8736 /* UIViewController+ECSlidingViewController.m in Sources */,
 				F87A01331B2809C600049280 /* SwipeViewController.m in Sources */,
+				F8AA03EA1B315631008C1642 /* HistoryViewController.m in Sources */,
 				F87A01301B2804B500049280 /* SwipeView.m in Sources */,
 				F8913D471AF2F7090027AD9F /* AmountViewController.m in Sources */,
 				F8D988D11AF74EEC00CA8736 /* ECSlidingInteractiveTransition.m in Sources */,

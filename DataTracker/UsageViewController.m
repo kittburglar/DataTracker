@@ -31,7 +31,6 @@ NSArray *usageData;
     usageData = [self getDataCounters];
     // Do any additional setup after loading the view.
     self.navigationItem.title = @"Current Usage";
-    //FIXME: textfield unexpected behaviour when data limit is changed
     if ([[[NSUserDefaults standardUserDefaults] stringForKey:@"UnitType2"]  isEqual: @"MB"]) {
         self.usageText.text = [NSString stringWithFormat:@"%.1f", [vc calculateWAN]];
         self.dataTypeSegment.selectedSegmentIndex = 0;
@@ -322,6 +321,7 @@ NSArray *usageData;
         [managedObjectContext save:&error];
     }
     else{
+        //TODO: Implement better update functionality
         NSLog(@"Date in core data matched to today. lets update!");
         NSManagedObject *obj = [[managedObjectContext executeFetchRequest:request error:&error] objectAtIndex:0];
         NSNumber *wan = [NSNumber numberWithInt:currentUsage];
