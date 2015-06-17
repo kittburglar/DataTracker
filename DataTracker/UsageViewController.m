@@ -11,8 +11,8 @@
 #import "FirstTableViewController.h"
 #import "ViewController.h"
 #import "AppDelegate.h"
+#import "DataManagement.h"
 
-NSArray *usageData;
 
 @interface UsageViewController ()
 
@@ -27,18 +27,20 @@ NSArray *usageData;
     [super viewDidLoad];
     
     NSLog(@"dataPlan is:%ld, renewDate is:%@, dataAmount is:%f", (long)self.dataPlan, self.renewDate, self.dataAmount);
-    ViewController *vc = [[ViewController alloc] init];
-    usageData = [self getDataCounters];
+    
+    //Get data
+    [[DataManagement sharedInstance] setUsageData:[[DataManagement sharedInstance] getDataCounters]];
+    
     // Do any additional setup after loading the view.
     self.navigationItem.title = @"Current Usage";
     if ([[[NSUserDefaults standardUserDefaults] stringForKey:@"UnitType2"]  isEqual: @"MB"]) {
-        self.usageText.text = [NSString stringWithFormat:@"%.1f", [vc calculateWAN]];
+        self.usageText.text = [NSString stringWithFormat:@"%.1f", [[DataManagement sharedInstance] calculateWAN]];
         self.dataTypeSegment.selectedSegmentIndex = 0;
         
     }
     else if ([[[NSUserDefaults standardUserDefaults] stringForKey:@"UnitType2"]  isEqual: @"GB"]){
         //self.usageText.text = [NSString stringWithFormat:@"%.1f", [[[NSUserDefaults standardUserDefaults] stringForKey:@"CurrentUsage"] floatValue]/1000000000];
-        self.usageText.text = [NSString stringWithFormat:@"%.1f", [vc calculateWAN]];
+        self.usageText.text = [NSString stringWithFormat:@"%.1f", [[DataManagement sharedInstance] calculateWAN]];
         self.dataTypeSegment.selectedSegmentIndex = 1;
     }
     

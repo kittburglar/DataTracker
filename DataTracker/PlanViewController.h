@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface PlanViewController : UIViewController
+- (IBAction)testButton:(id)sender;
 
 @end

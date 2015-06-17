@@ -38,6 +38,7 @@
 		F8A7B0AE1AFF306E00E41647 /* OpenSans-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F8A7B0A41AFF306E00E41647 /* OpenSans-ExtraBoldItalic.ttf */; };
 		F8A7B0B11AFF75F600E41647 /* Usage.m in Sources */ = {isa = PBXBuildFile; fileRef = F8A7B0B01AFF75F600E41647 /* Usage.m */; };
 		F8AA03EA1B315631008C1642 /* HistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F8AA03E91B315631008C1642 /* HistoryViewController.m */; };
+		F8AA03ED1B31749E008C1642 /* DataManagement.m in Sources */ = {isa = PBXBuildFile; fileRef = F8AA03EC1B31749E008C1642 /* DataManagement.m */; };
 		F8D988CF1AF74EEC00CA8736 /* ECPercentDrivenInteractiveTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = F8D988C31AF74EEC00CA8736 /* ECPercentDrivenInteractiveTransition.m */; };
 		F8D988D01AF74EEC00CA8736 /* ECSlidingAnimationController.m in Sources */ = {isa = PBXBuildFile; fileRef = F8D988C51AF74EEC00CA8736 /* ECSlidingAnimationController.m */; };
 		F8D988D11AF74EEC00CA8736 /* ECSlidingInteractiveTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = F8D988C81AF74EEC00CA8736 /* ECSlidingInteractiveTransition.m */; };
@@ -112,6 +113,8 @@
 		F8A7B0B01AFF75F600E41647 /* Usage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Usage.m; sourceTree = "<group>"; };
 		F8AA03E81B315631008C1642 /* HistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryViewController.h; sourceTree = "<group>"; };
 		F8AA03E91B315631008C1642 /* HistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryViewController.m; sourceTree = "<group>"; };
+		F8AA03EB1B31749E008C1642 /* DataManagement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataManagement.h; sourceTree = "<group>"; };
+		F8AA03EC1B31749E008C1642 /* DataManagement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataManagement.m; sourceTree = "<group>"; };
 		F8D988C21AF74EEC00CA8736 /* ECPercentDrivenInteractiveTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECPercentDrivenInteractiveTransition.h; sourceTree = "<group>"; };
 		F8D988C31AF74EEC00CA8736 /* ECPercentDrivenInteractiveTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECPercentDrivenInteractiveTransition.m; sourceTree = "<group>"; };
 		F8D988C41AF74EEC00CA8736 /* ECSlidingAnimationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECSlidingAnimationController.h; sourceTree = "<group>"; };
@@ -207,6 +210,8 @@
 				F8D988C11AF74EEC00CA8736 /* ECSlidingViewController */,
 				F85059EB1AE5D19200BAED40 /* AppDelegate.h */,
 				F85059EC1AE5D19200BAED40 /* AppDelegate.m */,
+				F8AA03EB1B31749E008C1642 /* DataManagement.h */,
+				F8AA03EC1B31749E008C1642 /* DataManagement.m */,
 				F85059F11AE5D19200BAED40 /* ViewController.h */,
 				F85059F21AE5D19200BAED40 /* ViewController.m */,
 				F8D988D51AF74F7A00CA8736 /* InitViewController.h */,
@@ -486,6 +491,7 @@
 				F8913D3E1AF2CABF0027AD9F /* FirstTableViewController.m in Sources */,
 				F8D988CF1AF74EEC00CA8736 /* ECPercentDrivenInteractiveTransition.m in Sources */,
 				F8913D4A1AF302A80027AD9F /* UsageViewController.m in Sources */,
+				F8AA03ED1B31749E008C1642 /* DataManagement.m in Sources */,
 				F85059F31AE5D19200BAED40 /* ViewController.m in Sources */,
 				F8D988D41AF74EEC00CA8736 /* UIViewController+ECSlidingViewController.m in Sources */,
 				F87A01331B2809C600049280 /* SwipeViewController.m in Sources */,

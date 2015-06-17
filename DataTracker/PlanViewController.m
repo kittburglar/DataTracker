@@ -7,6 +7,7 @@
 //
 
 #import "PlanViewController.h"
+#import "DataManagement.h"
 
 @interface PlanViewController ()
 
@@ -35,5 +36,8 @@
 */
 
 - (IBAction)nextAction:(id)sender {
+}
+- (IBAction)testButton:(id)sender {
+    NSLog(@"DataManagment object is: %@", [[DataManagement sharedInstance] object]);
 }
 @end
