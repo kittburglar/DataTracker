@@ -105,18 +105,6 @@ static void dumpAllFonts() {
                                 delay:0.0];
     
     //Map stuff
-    /*
-    self.locations = [[NSMutableArray alloc] init];
-    self.locationManager = [[CLLocationManager alloc] init];
-    self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-    self.locationManager.distanceFilter=kCLDistanceFilterNone;
-    //self.locationManager.distanceFilter=50;
-    self.locationManager.delegate = self;
-    [self.locationManager requestAlwaysAuthorization];
-    [self.locationManager startMonitoringSignificantLocationChanges];
-    [self.locationManager startUpdatingLocation];
-    */
-     
     [[DataManagement sharedInstance] setLocations:[[NSMutableArray alloc] init]];
     [[DataManagement sharedInstance] setLocationManager:[[CLLocationManager alloc] init]];
     [DataManagement sharedInstance].locationManager.desiredAccuracy = kCLLocationAccuracyBest;
@@ -205,57 +193,21 @@ static void dumpAllFonts() {
         NSLog(@"No dates match in core data to fill bars.");
     }
     else{
-        NSDate *date;
-        int dataPlan = [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataPlan"] integerValue];
-        int planDays = 0;
-        
         //Fill each mini progress bar
         for (NSManagedObjectContext *obj in matchingData) {
-            date = [obj valueForKey:@"date"];
+            NSDate *date = [obj valueForKey:@"date"];
             NSNumber *wanNum = [obj valueForKey:@"wan"];
             float wan = [wanNum floatValue];
-            NSLog(@"Date from core data is: %@ with wan: %f", date, wan);
+            int dataPlan = [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataPlan"] integerValue];
+            //NSLog(@"Date from core data is: %@ with wan: %f", date, wan);
             NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
             NSDateComponents *comps = [gregorian components:NSWeekdayCalendarUnit fromDate:date];
             int weekday = [comps weekday];
             
-            //Budget changes for different plan cycles
-            switch (dataPlan) {
-                {case 0:
-                    
-                    //Find days until next billing period for daily budget suggestions
-                    NSLog(@"Monthly");
-                    NSDateFormatter *f = [[NSDateFormatter alloc] init];
-                    [f setDateFormat:@"yyyy-MM-dd"];
-                    NSDateComponents *dateComponents =[[NSDateComponents alloc] init];
-                    [dateComponents setMonth:-1];
-                    NSCalendar *calendar = [NSCalendar currentCalendar];
-                    NSDate *endDate = [[NSUserDefaults standardUserDefaults] objectForKey:@"RenewDate"];
-                    NSDate *startDate = [calendar dateByAddingComponents:dateComponents toDate:endDate options:0];
-                    NSCalendar *gregorianCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
-                    NSDateComponents *components = [gregorianCalendar components:NSDayCalendarUnit
-                                                                        fromDate:startDate
-                                                                          toDate:endDate
-                                                                         options:0];
-                    planDays = [components day];
-                    NSLog(@"planDays is: %d", planDays);
-                    break;}
-                case 1:
-                    NSLog(@"Weekly");
-                    planDays = 7;
-                    break;
-                case 2:
-                    NSLog(@"30 Days");
-                    planDays = 30;
-                    break;
-                case 3:
-                    NSLog(@"Daily");
-                    planDays = 1;
-                    break;
-                default:
-                    break;
-            }
+            //Get the number of days in the full renewal period.
+            int planDays = [self renewalPeriodDays:date withWan:wanNum withDataPlan:dataPlan];
             
+            //Calculate the total daily usage amount
             float denominator = [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue] / planDays;
             NSLog(@"wan is: %f and denominator is: %f", wan, denominator);
             UIColor *color;
@@ -274,130 +226,92 @@ static void dumpAllFonts() {
                 color = UIColorFromRGB(0xc82829);
             }
             
+            //Get today's day of the week
             NSDateComponents *comps2 = [gregorian components:NSWeekdayCalendarUnit fromDate:[NSDate date]];
             int today = [comps2 weekday];
-            
+
             //Fill each bar with animation
             switch (weekday) {
                 case 1:
-                    self.sunProgressLabel.progressColor = color;
-                    [self.sunProgressLabel setProgress:wan/denominator
-                                               timing:TPPropertyAnimationTimingEaseOut
-                                             duration:1.0
-                                                delay:0.0];
-                    //NSLog(@"wan is: %f and denom is: %f", wan, denominator);
-                    if (weekday == today) {
-                        self.otherProgressLabel.progressColor = color;
-                        [self.otherProgressLabel setProgress:wan/denominator
-                                                    timing:TPPropertyAnimationTimingEaseOut
-                                                  duration:1.0
-                                                     delay:0.0];
-                        //self.dailyUnusedAmount.text = [NSString stringWithFormat:@"%.1f MB", (denominator - wan)/1000000];
-                        [self.dailyUnusedAmount countFrom:[self.dailyUnusedAmount currentValue] to:(denominator - wan)/1000000];
-                    }
+                    [self progressBarFill:self.sunProgressLabel withColor:color withProgress:wan/denominator];
                     break;
                 case 2:
-                    self.monProgressLabel.progressColor = color;
-                    [self.monProgressLabel setProgress:wan/denominator
-                                                timing:TPPropertyAnimationTimingEaseOut
-                                              duration:1.0
-                                                 delay:0.0];
-                    if (weekday == today) {
-                        self.otherProgressLabel.progressColor = color;
-                        [self.otherProgressLabel setProgress:wan/denominator
-                                                    timing:TPPropertyAnimationTimingEaseOut
-                                                  duration:1.0
-                                                     delay:0.0];
-                        //self.dailyUnusedAmount.text = [NSString stringWithFormat:@"%.1f MB", (denominator - wan)/1000000];
-                        [self.dailyUnusedAmount countFrom:[self.dailyUnusedAmount currentValue] to:(denominator - wan)/1000000];
-                    }
+                    [self progressBarFill:self.monProgressLabel withColor:color withProgress:wan/denominator];
                     break;
                 case 3:
-                    self.tuesProgressLabel.progressColor = color;
-                    [self.tuesProgressLabel setProgress:wan/denominator
-                                                timing:TPPropertyAnimationTimingEaseOut
-                                              duration:1.0
-                                                 delay:0.0];
-                    if (weekday == today) {
-                        self.otherProgressLabel.progressColor = color;
-                        [self.otherProgressLabel setProgress:wan/denominator
-                                                    timing:TPPropertyAnimationTimingEaseOut
-                                                  duration:1.0
-                                                     delay:0.0];
-                        //self.dailyUnusedAmount.text = [NSString stringWithFormat:@"%.1f MB", (denominator - wan)/1000000];
-                        [self.dailyUnusedAmount countFrom:[self.dailyUnusedAmount currentValue] to:(denominator - wan)/1000000];
-                    }
+                    [self progressBarFill:self.tuesProgressLabel withColor:color withProgress:wan/denominator];
                     break;
                 case 4:
-                    self.wedProgressLabel.progressColor = color;
-                    [self.wedProgressLabel setProgress:wan/denominator
-                                                timing:TPPropertyAnimationTimingEaseOut
-                                              duration:1.0
-                                                 delay:0.0];
-                    if (weekday == today) {
-                        self.otherProgressLabel.progressColor = color;
-                        [self.otherProgressLabel setProgress:wan/denominator
-                                                    timing:TPPropertyAnimationTimingEaseOut
-                                                  duration:1.0
-                                                     delay:0.0];
-                        //self.dailyUnusedAmount.text = [NSString stringWithFormat:@"%.1f MB", (denominator - wan)/1000000];
-                        [self.dailyUnusedAmount countFrom:[self.dailyUnusedAmount currentValue] to:(denominator - wan)/1000000];
-                    }
+                    [self progressBarFill:self.wedProgressLabel withColor:color withProgress:wan/denominator];
                     break;
                 case 5:
-                    self.thursProgressLabel.progressColor = color;
-                    [self.thursProgressLabel setProgress:wan/denominator
-                                                timing:TPPropertyAnimationTimingEaseOut
-                                              duration:1.0
-                                                 delay:0.0];
-                    if (weekday == today) {
-                        self.otherProgressLabel.progressColor = color;
-                        [self.otherProgressLabel setProgress:wan/denominator
-                                                    timing:TPPropertyAnimationTimingEaseOut
-                                                  duration:1.0
-                                                     delay:0.0];
-                        //self.dailyUnusedAmount.text = [NSString stringWithFormat:@"%.1f MB", (denominator - wan)/1000000];
-                        [self.dailyUnusedAmount countFrom:[self.dailyUnusedAmount currentValue] to:(denominator - wan)/1000000];
-                    }
+                    [self progressBarFill:self.thursProgressLabel withColor:color withProgress:wan/denominator];
                     break;
                 case 6:
-                    self.friProgressLabel.progressColor = color;
-                    [self.friProgressLabel setProgress:wan/denominator
-                                                timing:TPPropertyAnimationTimingEaseOut
-                                              duration:1.0
-                                                 delay:0.0];
-                    if (weekday == today) {
-                        self.otherProgressLabel.progressColor = color;
-                        [self.otherProgressLabel setProgress:wan/denominator
-                                                    timing:TPPropertyAnimationTimingEaseOut
-                                                  duration:1.0
-                                                     delay:0.0];
-                        //self.dailyUnusedAmount.text = [NSString stringWithFormat:@"%.1f MB", (denominator - wan)/1000000];
-                        [self.dailyUnusedAmount countFrom:[self.dailyUnusedAmount currentValue] to:(denominator - wan)/1000000];
-                    }
+                    [self progressBarFill:self.friProgressLabel withColor:color withProgress:wan/denominator];
                     break;
                 case 7:
-                    self.satProgressLabel.progressColor = color;
-                    [self.satProgressLabel setProgress:wan/denominator
-                                                timing:TPPropertyAnimationTimingEaseOut
-                                              duration:1.0
-                                                 delay:0.0];
-                    if (weekday == today) {
-                        self.otherProgressLabel.progressColor = color;
-                        [self.otherProgressLabel setProgress:wan/denominator
-                                                      timing:TPPropertyAnimationTimingEaseOut
-                                                    duration:1.0
-                                                       delay:0.0];
-                        //self.dailyUnusedAmount.text = [NSString stringWithFormat:@"%.1f MB", (denominator - wan)/1000000];
-                        [self.dailyUnusedAmount countFrom:[self.dailyUnusedAmount currentValue] to:(denominator - wan)/1000000];
-                    }
+                    [self progressBarFill:self.satProgressLabel withColor:color withProgress:wan/denominator];
                     break;
                 default:
                     break;
             }
-            
+            if (weekday == today) {
+                [self progressBarFill:self.otherProgressLabel withColor:color withProgress:wan/denominator];
+                [self.dailyUnusedAmount countFrom:[self.dailyUnusedAmount currentValue] to:(denominator - wan)/1000000];
+            }
         }
     }
+
+}
+
+- (int)renewalPeriodDays:(NSDate *)date withWan:(NSNumber *)wanNum withDataPlan:(int)dataPlan{
+    //Budget changes for different plan cycles
+    int planDays = 0;
+    switch (dataPlan) {
+        {case 0:
+            
+            //Find days until next billing period for daily budget suggestions
+            NSLog(@"Monthly");
+            NSDateFormatter *f = [[NSDateFormatter alloc] init];
+            [f setDateFormat:@"yyyy-MM-dd"];
+            NSDateComponents *dateComponents =[[NSDateComponents alloc] init];
+            [dateComponents setMonth:-1];
+            NSCalendar *calendar = [NSCalendar currentCalendar];
+            NSDate *endDate = [[NSUserDefaults standardUserDefaults] objectForKey:@"RenewDate"];
+            NSDate *startDate = [calendar dateByAddingComponents:dateComponents toDate:endDate options:0];
+            NSCalendar *gregorianCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+            NSDateComponents *components = [gregorianCalendar components:NSDayCalendarUnit
+                                                                fromDate:startDate
+                                                                  toDate:endDate
+                                                                 options:0];
+            planDays = [components day];
+            NSLog(@"planDays is: %d", planDays);
+            break;}
+        case 1:
+            NSLog(@"Weekly");
+            planDays = 7;
+            break;
+        case 2:
+            NSLog(@"30 Days");
+            planDays = 30;
+            break;
+        case 3:
+            NSLog(@"Daily");
+            planDays = 1;
+            break;
+        default:
+            break;
+    }
+    return planDays;
+}
+
+- (void)progressBarFill:(KAProgressLabel*)label withColor:(UIColor*)color withProgress:(float)progress{
+    label.progressColor = color;
+    [label setProgress:progress
+                timing:TPPropertyAnimationTimingEaseOut
+              duration:1.0
+                 delay:0.0];
 
 }
 
@@ -410,134 +324,7 @@ static void dumpAllFonts() {
     NSLog(@"DataManagement is: %@", [[DataManagement sharedInstance] object]);
 }
 
-/*
-- (void)locationManager:(CLLocationManager *)manager
-    didUpdateToLocation:(CLLocation *)newLocation
-           fromLocation:(CLLocation *)oldLocation
-{
-    NSLog(@"locationManager didUpdateToLocation");
-    [[DataManagement sharedInstance] setUsageData:[[DataManagement sharedInstance] getDataCounters]];
-    float lastWanSinceUpdate = [[[NSUserDefaults standardUserDefaults] stringForKey:@"LastWanSinceUpdate"] floatValue];
-    
-    [[DataManagement sharedInstance] calibrateTotalUsage];
-    
-    float thisWan = [[[NSUserDefaults standardUserDefaults] stringForKey:@"totalUsage"] floatValue];
-    
-    // Add another annotation to the map.
-    MKPointAnnotation *annotation = [[MKPointAnnotation alloc] init];
-    annotation.coordinate = newLocation.coordinate;
-    annotation.title = [NSString stringWithFormat:@"%f MB", (thisWan - lastWanSinceUpdate)/100000];
-    //annotation.subtitle = @"World";
-    
-    if ((thisWan - lastWanSinceUpdate) > 100000) {
-        NSLog(@"(thisWan - lastWanSinceUpdate) > 100000");
-        //[self.map addAnnotation:annotation];
-        // Also add to our map so we can remove old values later
-        [self.locations addObject:annotation];
-        
-        [[NSUserDefaults standardUserDefaults] setFloat:thisWan forKey:@"LastWanSinceUpdate"];
-        
-        NSDate *today = [NSDate date];
-        NSDateFormatter *dt = [[NSDateFormatter alloc] init];
-        [dt setDateFormat:@"dd/MM/yyyy"]; // for example
-        NSString *dateString = [dt stringFromDate:today];
-        NSDate *date = [dt dateFromString:dateString];
-        
-        //add to core data again
-        NSEntityDescription *entitydesc = [NSEntityDescription entityForName:@"Usage" inManagedObjectContext:managedObjectContext];
-        NSFetchRequest *request = [[NSFetchRequest alloc] init];
-        [request setEntity:entitydesc];
-        
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"date == %@", date];
-        [request setPredicate:predicate];
-        NSError *error;
-        NSArray *matchingData = [managedObjectContext executeFetchRequest:request error:&error];
-        
-        if (matchingData.count <=0) {
-            //Add to core data
-            NSLog(@"NO Items entity. Must create one.");
-            //NSEntityDescription *entitydesc = [NSEntityDescription entityForName:@"" inManagedObjectContext:self.managedObjectContext];
-            NSManagedObject *newUsage = [[NSManagedObject alloc] initWithEntity:entitydesc insertIntoManagedObjectContext:managedObjectContext];
-            
-            NSDate *today = [NSDate date];
-            NSDateFormatter *dt = [[NSDateFormatter alloc] init];
-            [dt setDateFormat:@"dd/MM/yyyy"]; // for example
-            NSString *dateString = [dt stringFromDate:today];
-            NSDate *date = [dt dateFromString:dateString];
-            [newUsage setValue:date forKey:@"date"];
-            [newUsage setValue:[NSNumber numberWithFloat:(thisWan - lastWanSinceUpdate)] forKey:@"wan"];
-            [newUsage setValue:[NSNumber numberWithFloat:0.0f] forKey:@"wifi"];
-            
-            NSError *error;
-            [managedObjectContext save:&error];
-        }
-        else{
-            
-            NSManagedObject *obj = [[managedObjectContext executeFetchRequest:request error:&error] objectAtIndex:0];
-            NSNumber *wan = [obj valueForKey:@"wan"];
-            float value = [wan floatValue];
-            wan = [NSNumber numberWithInt:value + (thisWan - lastWanSinceUpdate)];
-            [obj setValue:wan forKey:@"wan"];
-            NSLog(@"wan Count is: %@ for date: %@", [obj valueForKey:@"wan"], [obj valueForKey:@"date"]);
-            [managedObjectContext save:&error];
-        }
-        
-    }
-    
-    
-    
-    // Remove values if the array is too big
-    while (self.locations.count > 100)
-    {
-        annotation = [self.locations objectAtIndex:0];
-        [self.locations removeObjectAtIndex:0];
-        
-        // Also remove from the map
-        //[self.map removeAnnotation:annotation];
-    }
-    
-    if (UIApplication.sharedApplication.applicationState == UIApplicationStateActive)
-    {
-        // determine the region the points span so we can update our map's zoom.
-        double maxLat = -91;
-        double minLat =  91;
-        double maxLon = -181;
-        double minLon =  181;
-        
-        for (MKPointAnnotation *annotation in self.locations)
-        {
-            CLLocationCoordinate2D coordinate = annotation.coordinate;
-            
-            if (coordinate.latitude > maxLat)
-                maxLat = coordinate.latitude;
-            if (coordinate.latitude < minLat)
-                minLat = coordinate.latitude;
-            
-            if (coordinate.longitude > maxLon)
-                maxLon = coordinate.longitude;
-            if (coordinate.longitude < minLon)
-                minLon = coordinate.longitude;
-        }
-        
-        MKCoordinateRegion region;
-        region.span.latitudeDelta  = (maxLat +  90) - (minLat +  90);
-        region.span.longitudeDelta = (maxLon + 180) - (minLon + 180);
-        
-        // the center point is the average of the max and mins
-        region.center.latitude  = minLat + region.span.latitudeDelta / 2;
-        region.center.longitude = minLon + region.span.longitudeDelta / 2;
-        
-        // Set the region of the map.
-        
-        
-    }
-    else
-    {
-        NSLog(@"App is backgrounded. New location is %@", newLocation);
-        NSLog(@"This wan is: %f. Last Wan is: %f. Difference is: %f", thisWan, lastWanSinceUpdate,thisWan - lastWanSinceUpdate);
-    }
-}
- */
+
 
 - (void)appDidBecomeActive:(NSNotification *)notification {
     NSLog(@"did become active notification");
