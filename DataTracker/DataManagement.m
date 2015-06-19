@@ -9,6 +9,7 @@
 #import "DataManagement.h"
 
 @implementation DataManagement
+@synthesize managedObjectContext = _managedObjectContext;
 
 + (DataManagement*)sharedInstance
 {
@@ -140,6 +141,136 @@
     
     NSLog(@"The percentage is: %f", percentage);
     return percentage;
+}
+
+- (void)locationManager:(CLLocationManager *)manager
+    didUpdateToLocation:(CLLocation *)newLocation
+           fromLocation:(CLLocation *)oldLocation
+{
+    NSLog(@"DataMangement: locationManager didUpdateToLocation");
+    [[DataManagement sharedInstance] setUsageData:[[DataManagement sharedInstance] getDataCounters]];
+    float lastWanSinceUpdate = [[[NSUserDefaults standardUserDefaults] stringForKey:@"LastWanSinceUpdate"] floatValue];
+    
+    [[DataManagement sharedInstance] calibrateTotalUsage];
+    
+    float thisWan = [[[NSUserDefaults standardUserDefaults] stringForKey:@"totalUsage"] floatValue];
+    
+    // Add another annotation to the map.
+    MKPointAnnotation *annotation = [[MKPointAnnotation alloc] init];
+    annotation.coordinate = newLocation.coordinate;
+    annotation.title = [NSString stringWithFormat:@"%f MB", (thisWan - lastWanSinceUpdate)/100000];
+    //annotation.subtitle = @"World";
+    
+    if ((thisWan - lastWanSinceUpdate) > 100000) {
+        NSLog(@"(thisWan - lastWanSinceUpdate) > 100000");
+        //[self.map addAnnotation:annotation];
+        // Also add to our map so we can remove old values later
+        [self.locations addObject:annotation];
+        
+        [[NSUserDefaults standardUserDefaults] setFloat:thisWan forKey:@"LastWanSinceUpdate"];
+        
+        NSDate *today = [NSDate date];
+        NSDateFormatter *dt = [[NSDateFormatter alloc] init];
+        [dt setDateFormat:@"dd/MM/yyyy"]; // for example
+        NSString *dateString = [dt stringFromDate:today];
+        NSDate *date = [dt dateFromString:dateString];
+        
+        //add to core data again
+        AppDelegate *appdelegate = [[UIApplication sharedApplication] delegate];
+        managedObjectContext = [appdelegate managedObjectContext];
+        
+        NSEntityDescription *entitydesc = [NSEntityDescription entityForName:@"Usage" inManagedObjectContext:managedObjectContext];
+        NSFetchRequest *request = [[NSFetchRequest alloc] init];
+        [request setEntity:entitydesc];
+        
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"date == %@", date];
+        [request setPredicate:predicate];
+        NSError *error;
+        NSArray *matchingData = [managedObjectContext executeFetchRequest:request error:&error];
+        
+        if (matchingData.count <=0) {
+            //Add to core data
+            NSLog(@"NO Items entity. Must create one.");
+            //NSEntityDescription *entitydesc = [NSEntityDescription entityForName:@"" inManagedObjectContext:self.managedObjectContext];
+            NSManagedObject *newUsage = [[NSManagedObject alloc] initWithEntity:entitydesc insertIntoManagedObjectContext:managedObjectContext];
+            
+            NSDate *today = [NSDate date];
+            NSDateFormatter *dt = [[NSDateFormatter alloc] init];
+            [dt setDateFormat:@"dd/MM/yyyy"]; // for example
+            NSString *dateString = [dt stringFromDate:today];
+            NSDate *date = [dt dateFromString:dateString];
+            [newUsage setValue:date forKey:@"date"];
+            [newUsage setValue:[NSNumber numberWithFloat:(thisWan - lastWanSinceUpdate)] forKey:@"wan"];
+            [newUsage setValue:[NSNumber numberWithFloat:0.0f] forKey:@"wifi"];
+            
+            NSError *error;
+            [managedObjectContext save:&error];
+        }
+        else{
+            
+            NSManagedObject *obj = [[managedObjectContext executeFetchRequest:request error:&error] objectAtIndex:0];
+            NSNumber *wan = [obj valueForKey:@"wan"];
+            float value = [wan floatValue];
+            wan = [NSNumber numberWithInt:value + (thisWan - lastWanSinceUpdate)];
+            [obj setValue:wan forKey:@"wan"];
+            NSLog(@"wan Count is: %@ for date: %@", [obj valueForKey:@"wan"], [obj valueForKey:@"date"]);
+            [managedObjectContext save:&error];
+        }
+        
+    }
+    
+    
+    
+    // Remove values if the array is too big
+    while (self.locations.count > 100)
+    {
+        annotation = [self.locations objectAtIndex:0];
+        [self.locations removeObjectAtIndex:0];
+        
+        // Also remove from the map
+        //[self.map removeAnnotation:annotation];
+    }
+    
+    if (UIApplication.sharedApplication.applicationState == UIApplicationStateActive)
+    {
+        // determine the region the points span so we can update our map's zoom.
+        double maxLat = -91;
+        double minLat =  91;
+        double maxLon = -181;
+        double minLon =  181;
+        
+        for (MKPointAnnotation *annotation in self.locations)
+        {
+            CLLocationCoordinate2D coordinate = annotation.coordinate;
+            
+            if (coordinate.latitude > maxLat)
+                maxLat = coordinate.latitude;
+            if (coordinate.latitude < minLat)
+                minLat = coordinate.latitude;
+            
+            if (coordinate.longitude > maxLon)
+                maxLon = coordinate.longitude;
+            if (coordinate.longitude < minLon)
+                minLon = coordinate.longitude;
+        }
+        
+        MKCoordinateRegion region;
+        region.span.latitudeDelta  = (maxLat +  90) - (minLat +  90);
+        region.span.longitudeDelta = (maxLon + 180) - (minLon + 180);
+        
+        // the center point is the average of the max and mins
+        region.center.latitude  = minLat + region.span.latitudeDelta / 2;
+        region.center.longitude = minLon + region.span.longitudeDelta / 2;
+        
+        // Set the region of the map.
+        
+        
+    }
+    else
+    {
+        NSLog(@"App is backgrounded. New location is %@", newLocation);
+        NSLog(@"This wan is: %f. Last Wan is: %f. Difference is: %f", thisWan, lastWanSinceUpdate,thisWan - lastWanSinceUpdate);
+    }
 }
 
 @end

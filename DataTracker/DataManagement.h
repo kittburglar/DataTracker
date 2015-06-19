@@ -11,16 +11,26 @@
 #include <net/if.h>
 #include <ifaddrs.h>
 #include <net/if_dl.h>
+#import <MapKit/MapKit.h>
+#import <CoreData/CoreData.h>
+#import "AppDelegate.h"
 
-@interface DataManagement : NSObject
+@interface DataManagement : NSObject <CLLocationManagerDelegate>{
+    NSFetchedResultsController *fetchedResultsController;
+    NSManagedObjectContext *managedObjectContext;
+}
 
 @property (nonatomic, strong) NSObject* object;
 @property (nonatomic, strong) NSArray* usageData;
+@property (nonatomic, strong) CLLocationManager *locationManager;
+@property (nonatomic, strong) NSMutableArray *locations;
+@property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic, retain) NSFetchedResultsController *fetchedResultsController;
 
 + (DataManagement*)sharedInstance;
 - (NSArray *)getDataCounters;
 - (float)calculateWAN;
--(void)calibrateTotalUsage;
+- (void)calibrateTotalUsage;
 - (void)resetData;
 - (float)calculatePercentage;
 

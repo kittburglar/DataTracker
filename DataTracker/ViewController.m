@@ -105,6 +105,7 @@ static void dumpAllFonts() {
                                 delay:0.0];
     
     //Map stuff
+    /*
     self.locations = [[NSMutableArray alloc] init];
     self.locationManager = [[CLLocationManager alloc] init];
     self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
@@ -114,6 +115,15 @@ static void dumpAllFonts() {
     [self.locationManager requestAlwaysAuthorization];
     [self.locationManager startMonitoringSignificantLocationChanges];
     [self.locationManager startUpdatingLocation];
+    */
+     
+    [[DataManagement sharedInstance] setLocations:[[NSMutableArray alloc] init]];
+    [[DataManagement sharedInstance] setLocationManager:[[CLLocationManager alloc] init]];
+    [DataManagement sharedInstance].locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    [DataManagement sharedInstance].locationManager.delegate = [DataManagement sharedInstance];
+    [[DataManagement sharedInstance].locationManager requestAlwaysAuthorization];
+    [[DataManagement sharedInstance].locationManager startMonitoringSignificantLocationChanges];
+    [[DataManagement sharedInstance].locationManager startUpdatingLocation];
     
     //core data
     AppDelegate *appdelegate = [[UIApplication sharedApplication] delegate];
@@ -400,11 +410,12 @@ static void dumpAllFonts() {
     NSLog(@"DataManagement is: %@", [[DataManagement sharedInstance] object]);
 }
 
+/*
 - (void)locationManager:(CLLocationManager *)manager
     didUpdateToLocation:(CLLocation *)newLocation
            fromLocation:(CLLocation *)oldLocation
 {
-    
+    NSLog(@"locationManager didUpdateToLocation");
     [[DataManagement sharedInstance] setUsageData:[[DataManagement sharedInstance] getDataCounters]];
     float lastWanSinceUpdate = [[[NSUserDefaults standardUserDefaults] stringForKey:@"LastWanSinceUpdate"] floatValue];
     
@@ -526,6 +537,7 @@ static void dumpAllFonts() {
         NSLog(@"This wan is: %f. Last Wan is: %f. Difference is: %f", thisWan, lastWanSinceUpdate,thisWan - lastWanSinceUpdate);
     }
 }
+ */
 
 - (void)appDidBecomeActive:(NSNotification *)notification {
     NSLog(@"did become active notification");
