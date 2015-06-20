@@ -98,20 +98,34 @@
  */
 
 -(void) calibrateTotalUsage{
+    
+    float addrUsage = ([[[self usageData] objectAtIndex:2] floatValue] + [[[self usageData] objectAtIndex:3] floatValue]);
+    [[NSUserDefaults standardUserDefaults] setFloat:addrUsage forKey:@"totalUsage"];
+    NSLog(@"totalUsage is: %f", [[[NSUserDefaults standardUserDefaults] stringForKey:@"totalUsage"] floatValue]);
+    NSLog(@"currentUsage is: %f", [[[NSUserDefaults standardUserDefaults] stringForKey:@"CurrentUsage"] floatValue]);
+    NSLog(@"UsageDifference is: %f", [[[NSUserDefaults standardUserDefaults] stringForKey:@"UsageDifference"] floatValue]);
+    float totalUsage = [[[NSUserDefaults standardUserDefaults] stringForKey:@"totalUsage"] floatValue];
+    [[NSUserDefaults standardUserDefaults] setFloat:[[[NSUserDefaults standardUserDefaults] stringForKey:@"CurrentUsage"] floatValue] - fmodf(totalUsage, [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue]) forKey:@"UsageDifference"];
+    /*
     [self setUsageData:[self getDataCounters]];
-    float currentTotalUsage = ([[[self usageData] objectAtIndex:2] floatValue] + [[[self usageData] objectAtIndex:3] floatValue]) + [[[NSUserDefaults standardUserDefaults] stringForKey:@"totalUsageDifference"] floatValue];
+    float addrUsage = ([[[self usageData] objectAtIndex:2] floatValue] + [[[self usageData] objectAtIndex:3] floatValue]);
+    float currentTotalUsage = addrUsage + [[[NSUserDefaults standardUserDefaults] stringForKey:@"totalUsageDifference"] floatValue];
     float lastTotalUsage = [[[NSUserDefaults standardUserDefaults] stringForKey:@"totalUsage"] floatValue];
+    
     NSLog(@"Calibrating Total Usage: Current total usage is: %f and last total usage is: %f", currentTotalUsage, lastTotalUsage);
     if (currentTotalUsage < lastTotalUsage) {
         NSLog(@"Current usage is less than last time. Must calibrate!");
         float difference = lastTotalUsage - currentTotalUsage;
+        NSLog(@"Difference is %f", difference);
         [[NSUserDefaults standardUserDefaults] setFloat:difference forKey:@"totalUsageDifference"];
-        currentTotalUsage = ([[[self usageData] objectAtIndex:2] floatValue] + [[[self usageData] objectAtIndex:3] floatValue]) + [[[NSUserDefaults standardUserDefaults] stringForKey:@"totalUsageDifference"] floatValue];
+        //currentTotalUsage = currentTotalUsage + [[[NSUserDefaults standardUserDefaults] stringForKey:@"totalUsageDifference"] floatValue];
+        NSLog(@"New current total usage is: %f", currentTotalUsage + [[[NSUserDefaults standardUserDefaults] stringForKey:@"totalUsageDifference"] floatValue]);
     }
     else{
         NSLog(@"Totalusage is: %f", [[[NSUserDefaults standardUserDefaults] stringForKey:@"totalUsage"] floatValue]);
         [[NSUserDefaults standardUserDefaults] setFloat:currentTotalUsage forKey:@"totalUsage"];
     }
+    */
     
 }
 
