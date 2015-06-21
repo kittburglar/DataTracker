@@ -20,6 +20,7 @@
     // Override point for customization after application launch.
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"HasLaunchedOnce"])
     {
+        
         // app already launched
     }
     else
@@ -41,7 +42,7 @@
         [[NSUserDefaults standardUserDefaults] setFloat:0.0f forKey:@"UsageDifference"];
         [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"ShowAnnotation"];
         [[NSUserDefaults standardUserDefaults] setFloat:0.0f forKey:@"totalUsage"];
-        [[NSUserDefaults standardUserDefaults] setFloat:0.0f forKey:@"totalUsageDifference"];
+        [[NSUserDefaults standardUserDefaults] setFloat:0.0f forKey:@"lastUsage"];
         
     }
     

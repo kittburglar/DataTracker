@@ -98,14 +98,52 @@
  */
 
 -(void) calibrateTotalUsage{
+    //totalUsage(past) should be less the addrUsage(unless a reboot occured)
     
+    //THIS IS HOW WE CALCULATE THE WAN USAGE ON DEVICE
+    NSLog(@"lastUsage is: %f", [[NSUserDefaults standardUserDefaults] floatForKey:@"lastUsage"]);
     float addrUsage = ([[[self usageData] objectAtIndex:2] floatValue] + [[[self usageData] objectAtIndex:3] floatValue]);
-    [[NSUserDefaults standardUserDefaults] setFloat:addrUsage forKey:@"totalUsage"];
-    NSLog(@"totalUsage is: %f", [[[NSUserDefaults standardUserDefaults] stringForKey:@"totalUsage"] floatValue]);
-    NSLog(@"currentUsage is: %f", [[[NSUserDefaults standardUserDefaults] stringForKey:@"CurrentUsage"] floatValue]);
-    NSLog(@"UsageDifference is: %f", [[[NSUserDefaults standardUserDefaults] stringForKey:@"UsageDifference"] floatValue]);
-    float totalUsage = [[[NSUserDefaults standardUserDefaults] stringForKey:@"totalUsage"] floatValue];
-    [[NSUserDefaults standardUserDefaults] setFloat:[[[NSUserDefaults standardUserDefaults] stringForKey:@"CurrentUsage"] floatValue] - fmodf(totalUsage, [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue]) forKey:@"UsageDifference"];
+    
+    //HERE IS WHERE WE ADD THE DIFFERENCE
+    float totalUsage = [[NSUserDefaults standardUserDefaults] floatForKey:@"totalUsage"];
+    float lastUsage = [[NSUserDefaults standardUserDefaults] floatForKey:@"lastUsage"];
+    //CHECK IF REBOOTED!!
+    if (addrUsage < lastUsage) {
+        NSLog(@"WE REBOOTED MUST ADJUST!");
+        //totalUsage = totalUsage + addrUsage;
+        NSLog(@"totalUsage is: %f, addrUsage is: %f, lastUsage is: %f", totalUsage, addrUsage, lastUsage
+              );
+    }
+    else{
+        NSLog(@"NO REBOOT NEEDED! ADD TO TOTALUSAGE!");
+        totalUsage = totalUsage + (addrUsage - lastUsage);
+        NSLog(@"totalUsage is: %f, addrUsage is: %f, lastUsage is: %f", totalUsage, addrUsage, lastUsage);
+    }
+    
+    [[NSUserDefaults standardUserDefaults] setFloat:totalUsage forKey:@"totalUsage"];
+    
+    //HERE IS WHERE WE SET LASTUSAGE FOR NEXT CALL
+    //addrUsage = ([[[self usageData] objectAtIndex:2] floatValue] + [[[self usageData] objectAtIndex:3] floatValue]);
+    [[NSUserDefaults standardUserDefaults] setFloat:addrUsage forKey:@"lastUsage"];
+    NSLog(@"addrUsage is: %f", addrUsage);
+
+    /*
+    float lastUsage = [[[NSUserDefaults standardUserDefaults] stringForKey:@"lastUsage"] floatValue];
+
+    if (addrUsage < lastUsage) {
+        totalUsage = 0;
+    }
+    else{
+        lastUsage = [[[NSUserDefaults standardUserDefaults] stringForKey:@"totalUsage"] floatValue];
+    }
+    
+    totalUsage = [[[NSUserDefaults standardUserDefaults] stringForKey:@"totalUsage"] floatValue] + (addrUsage - totalUsage);
+    
+    NSLog(@"new totalUsage is: %f", totalUsage);
+    [[NSUserDefaults standardUserDefaults] setFloat:totalUsage forKey:@"totalUsage"];
+    */
+    
+    
     /*
     [self setUsageData:[self getDataCounters]];
     float addrUsage = ([[[self usageData] objectAtIndex:2] floatValue] + [[[self usageData] objectAtIndex:3] floatValue]);
@@ -162,10 +200,10 @@
            fromLocation:(CLLocation *)oldLocation
 {
     NSLog(@"DataMangement: locationManager didUpdateToLocation");
-    [[DataManagement sharedInstance] setUsageData:[[DataManagement sharedInstance] getDataCounters]];
+    [self setUsageData:[self getDataCounters]];
     float lastWanSinceUpdate = [[[NSUserDefaults standardUserDefaults] stringForKey:@"LastWanSinceUpdate"] floatValue];
     
-    [[DataManagement sharedInstance] calibrateTotalUsage];
+    [self calibrateTotalUsage];
     
     float thisWan = [[[NSUserDefaults standardUserDefaults] stringForKey:@"totalUsage"] floatValue];
     
