@@ -7,12 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <JBChartView.h>
-#import <JBBarChartView.h>
-#import <JBLineChartView.h>
+#import <PNChart.h>
 
-@interface HistoryViewController : UIViewController <JBChartViewDataSource, JBChartViewDelegate, JBBarChartViewDataSource, JBBarChartViewDelegate>
-@property (strong, nonatomic) IBOutlet JBBarChartView *barChartView;
-@property (nonatomic, strong) NSArray *chartData;
+@interface HistoryViewController : UIViewController
 
 @end

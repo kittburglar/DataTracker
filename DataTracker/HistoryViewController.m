@@ -9,79 +9,38 @@
 #import <UIKit/UIKit.h>
 #import "HistoryViewController.h"
 
-CGFloat const kJBBarChartViewControllerChartHeight = 250.0f;
-CGFloat const kJBBarChartViewControllerChartPadding = 10.0f;
-CGFloat const kJBBarChartViewControllerChartHeaderHeight = 80.0f;
-CGFloat const kJBBarChartViewControllerChartHeaderPadding = 20.0f;
-CGFloat const kJBBarChartViewControllerChartFooterHeight = 25.0f;
-CGFloat const kJBBarChartViewControllerChartFooterPadding = 5.0f;
-CGFloat const kJBBarChartViewControllerBarPadding = 1.0f;
-NSInteger const kJBBarChartViewControllerNumBars = 12;
-NSInteger const kJBBarChartViewControllerMaxBarHeight = 10;
-NSInteger const kJBBarChartViewControllerMinBarHeight = 5;
 
-@interface HistoryViewController () <JBBarChartViewDelegate, JBBarChartViewDataSource>
+#define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
+
+@interface HistoryViewController ()
 @end
 
 @implementation HistoryViewController
 
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [self initFakeData];
     
-    self.barChartView = [[JBBarChartView alloc] init];
-    self.barChartView.dataSource = self;
-    self.barChartView.delegate = self;
     
-    self.barChartView.frame = CGRectMake(kJBBarChartViewControllerChartPadding, kJBBarChartViewControllerChartPadding, self.view.bounds.size.width - (kJBBarChartViewControllerChartPadding * 2), kJBBarChartViewControllerChartHeight);
-    [self.view addSubview:self.barChartView];
-    [self.barChartView reloadData];
-}
+    
+    PNBarChart * barChart = [[PNBarChart alloc] initWithFrame:CGRectMake(0, 135.0, SCREEN_WIDTH, 200.0)];
+    barChart.yLabelFormatter = ^(CGFloat yValue){
+        CGFloat yValueParsed = yValue;
+        NSString * labelText = [NSString stringWithFormat:@"%1.f",yValueParsed];
+        return labelText;
+    };
+    [barChart setXLabels:@[@"SEP 1",@"SEP 2",@"SEP 3",@"SEP 4",@"SEP 5",@"SEP 6",@"SEP 7",@"SEP 8",@"SEP 9",@"SEP 10",@"SEP 11",@"SEP 12",@"SEP 13",@"SEP 14",@"SEP 15",@"SEP 16",@"SEP 17",@"SEP 18",@"SEP 19",@"SEP 20",@"SEP 21",@"SEP 22",@"SEP 23",@"SEP 24",@"SEP 25",@"SEP 26",@"SEP 27",@"SEP 28",@"SEP 29",@"SEP 30",@"SEP 31"]];
+    [barChart setYValues:@[@1,  @10, @2, @6, @3,@1,  @10, @2, @6, @3,@1,  @10, @2, @6, @3,@1,  @10, @2, @6, @3,@1,  @10, @2, @6, @3,@1,  @10, @2, @6, @3,@1]];
+    [barChart strokeChart];
+
+    [self.view addSubview:barChart];
+    
+    }
 
 - (void)dealloc
 {
-    //JBBarChartView *barChartView = ...; // i.e. _barChartView
-    self.barChartView.delegate = nil;
-    self.barChartView.dataSource = nil;
-}
-
-- (void)initFakeData
-{
-    NSMutableArray *mutableChartData = [NSMutableArray array];
-    for (int i=0; i<kJBBarChartViewControllerNumBars; i++)
-    {
-        NSInteger delta = (kJBBarChartViewControllerNumBars - labs((kJBBarChartViewControllerNumBars - i) - i)) + 2;
-        [mutableChartData addObject:[NSNumber numberWithFloat:MAX((delta * kJBBarChartViewControllerMinBarHeight), arc4random() % (delta * kJBBarChartViewControllerMaxBarHeight))]];
-        
-    }
-    _chartData = [NSArray arrayWithArray:mutableChartData];
-    //_monthlySymbols = [[[NSDateFormatter alloc] init] shortMonthSymbols];
-}
-
-- (NSUInteger)numberOfBarsInBarChartView:(JBBarChartView *)barChartView
-{
-    return kJBBarChartViewControllerNumBars; // number of bars in chart
-}
-
-- (CGFloat)barChartView:(JBBarChartView *)barChartView heightForBarViewAtIndex:(NSUInteger)index
-{
-    return [[self.chartData objectAtIndex:index] floatValue];; // height of bar at index
-}
-
-- (UIColor *)barSelectionColorForBarChartView:(JBBarChartView *)barChartView
-{
-    return [UIColor whiteColor];
-}
-
-- (CGFloat)barPaddingForBarChartView:(JBBarChartView *)barChartView
-{
-    return kJBBarChartViewControllerBarPadding;
-}
-
-- (UIColor *)barChartView:(JBBarChartView *)barChartView colorForBarViewAtIndex:(NSUInteger)index
-{
-    return [UIColor blueColor];
+    
 }
 
 

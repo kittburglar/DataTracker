@@ -52,16 +52,22 @@ static void dumpAllFonts() {
     //usageData2 = [self getDataCounters];
     [[DataManagement sharedInstance] setUsageData:[[DataManagement sharedInstance] getDataCounters]];
     
-    //Set up usage labels
-    [self.WIFILabel countFrom:0 to:([[[[DataManagement sharedInstance] usageData] objectAtIndex:0] floatValue] + [[[[DataManagement sharedInstance] usageData] objectAtIndex:1] floatValue])/1000000];
     
+    //Animations
+    /*
+    [self.WIFILabel countFrom:0 to:([[[[DataManagement sharedInstance] usageData] objectAtIndex:0] floatValue] + [[[[DataManagement sharedInstance] usageData] objectAtIndex:1] floatValue])/1000000];
     [self.WANLabel countFrom:0 to:[[DataManagement sharedInstance] calculateWAN]];
-    self.dailyUnusedAmount.format = @"%.01f MB";
-    self.dailyUnusedAmount.animationDuration = 1.0;
-    self.WANLabel.format = @"%.01f MB";
-    self.WANLabel.animationDuration = 1.0;
-    self.WIFILabel.format = @"%.01f MB";
-    self.WIFILabel.animationDuration = 1.0;
+     self.dailyUnusedAmount.format = @"%.01f MB";
+     self.dailyUnusedAmount.animationDuration = 1.0;
+     self.WANLabel.format = @"%.01f MB";
+     self.WANLabel.animationDuration = 1.0;
+     self.WIFILabel.format = @"%.01f MB";
+     self.WIFILabel.animationDuration = 1.0;
+     */
+    self.WIFILabel.text = [NSString stringWithFormat:@"%.01f MB", ([[[[DataManagement sharedInstance] usageData] objectAtIndex:0] floatValue] + [[[[DataManagement sharedInstance] usageData] objectAtIndex:1] floatValue])/1000000];
+    self.WANLabel.text = [NSString stringWithFormat:@"%.01f MB", [[DataManagement sharedInstance] calculateWAN]];
+    
+    
     
     //Navigation Bar
     [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
@@ -99,10 +105,12 @@ static void dumpAllFonts() {
     self.myProgressLabel.labelVCBlock = ^(KAProgressLabel *label) {
         label.text = [NSString stringWithFormat:@"%.0f%%", (label.progress * 100)];
     };
+    /*
     [self.myProgressLabel setProgress:[[DataManagement sharedInstance] calculatePercentage]
                                timing:TPPropertyAnimationTimingEaseOut
                              duration:1.0
-                                delay:0.0];
+                                delay:1.0];
+    */
     
     //Map stuff
     [[DataManagement sharedInstance] setLocations:[[NSMutableArray alloc] init]];
@@ -120,16 +128,21 @@ static void dumpAllFonts() {
     [[DataManagement sharedInstance] calibrateTotalUsage];
     float thisWan = [[[NSUserDefaults standardUserDefaults] stringForKey:@"totalUsage"] floatValue];
     [[NSUserDefaults standardUserDefaults] setFloat:thisWan forKey:@"LastWanSinceUpdate"];
-    [self fillWeeklyBars];
+    //[self fillWeeklyBars];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
     
     [self checkDate];
     [[DataManagement sharedInstance] setUsageData:[[DataManagement sharedInstance] getDataCounters]];
-    
+    /*
     [self.WIFILabel countFrom:0 to:([[[[DataManagement sharedInstance] usageData] objectAtIndex:0] floatValue] + [[[[DataManagement sharedInstance] usageData] objectAtIndex:1] floatValue])/1000000];
     [self.WANLabel countFrom:0 to:[[DataManagement sharedInstance] calculateWAN]];
+    */
+    self.WIFILabel.text = [NSString stringWithFormat:@"%.01f MB", ([[[[DataManagement sharedInstance] usageData] objectAtIndex:0] floatValue] + [[[[DataManagement sharedInstance] usageData] objectAtIndex:1] floatValue])/1000000];
+    self.WANLabel.text = [NSString stringWithFormat:@"%.01f MB", [[DataManagement sharedInstance] calculateWAN]];
+    
+    
     self.percentLabel.text = [NSString stringWithFormat:@"%f", [[DataManagement sharedInstance] calculatePercentage]];
     
     self.myProgressLabel.text = [NSString stringWithFormat:@"%.0f%%", [[DataManagement sharedInstance] calculatePercentage]*100];
@@ -213,13 +226,13 @@ static void dumpAllFonts() {
             UIColor *color;
             
             //Colour progress bars according to budget usage percentage
-            if (wan/denominator <= 0.50) {
+            if ([self calculateProgress:wan withTotal:denominator] <= 0.50) {
                 color = UIColorFromRGB(0x718c00);
             }
-            else if (wan/denominator <= 0.75){
+            else if ([self calculateProgress:wan withTotal:denominator] <= 0.75){
                 color = UIColorFromRGB(0xeab700);
             }
-            else if (wan/denominator <= 0.90){
+            else if ([self calculateProgress:wan withTotal:denominator] <= 0.90){
                 color = UIColorFromRGB(0xf5871f);
             }
             else {
@@ -233,37 +246,43 @@ static void dumpAllFonts() {
             //Fill each bar with animation
             switch (weekday) {
                 case 1:
-                    [self progressBarFill:self.sunProgressLabel withColor:color withProgress:wan/denominator];
+                    [self progressBarFill:self.sunProgressLabel withColor:color withProgress:[self calculateProgress:wan withTotal:denominator]];
                     break;
                 case 2:
-                    [self progressBarFill:self.monProgressLabel withColor:color withProgress:wan/denominator];
+                    [self progressBarFill:self.monProgressLabel withColor:color withProgress:[self calculateProgress:wan withTotal:denominator]];
                     break;
                 case 3:
-                    [self progressBarFill:self.tuesProgressLabel withColor:color withProgress:wan/denominator];
+                    [self progressBarFill:self.tuesProgressLabel withColor:color withProgress:[self calculateProgress:wan withTotal:denominator]];
                     break;
                 case 4:
-                    [self progressBarFill:self.wedProgressLabel withColor:color withProgress:wan/denominator];
+                    [self progressBarFill:self.wedProgressLabel withColor:color withProgress:[self calculateProgress:wan withTotal:denominator]];
                     break;
                 case 5:
-                    [self progressBarFill:self.thursProgressLabel withColor:color withProgress:wan/denominator];
+                    [self progressBarFill:self.thursProgressLabel withColor:color withProgress:[self calculateProgress:wan withTotal:denominator]];
                     break;
                 case 6:
-                    [self progressBarFill:self.friProgressLabel withColor:color withProgress:wan/denominator];
+                    [self progressBarFill:self.friProgressLabel withColor:color withProgress:[self calculateProgress:wan withTotal:denominator]];
                     break;
                 case 7:
-                    [self progressBarFill:self.satProgressLabel withColor:color withProgress:wan/denominator];
+                    [self progressBarFill:self.satProgressLabel withColor:color withProgress:[self calculateProgress:wan withTotal:denominator]];
                     break;
                 default:
                     break;
             }
             if (weekday == today) {
-                [self progressBarFill:self.otherProgressLabel withColor:color withProgress:wan/denominator];
-                [self.dailyUnusedAmount countFrom:[self.dailyUnusedAmount currentValue] to:(denominator - wan)/1000000];
+                [self progressBarFill:self.otherProgressLabel withColor:color withProgress:[self calculateProgress:wan withTotal:denominator]];
+                //[self.dailyUnusedAmount countFrom:[self.dailyUnusedAmount currentValue] to:(denominator - wan)/1000000];
+                self.dailyUnusedAmount.text = [NSString stringWithFormat:@"%.01f MB", (denominator - wan)/1000000];
             }
         }
     }
 
 }
+
+- (float)calculateProgress:(float)wan withTotal:(float)total{
+    return fminf(wan/total, 1);
+}
+
 
 - (int)renewalPeriodDays:(NSDate *)date withWan:(NSNumber *)wanNum withDataPlan:(int)dataPlan{
     //Budget changes for different plan cycles
@@ -315,6 +334,8 @@ static void dumpAllFonts() {
 
 }
 
+
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -339,8 +360,13 @@ static void dumpAllFonts() {
     [self.dailyUnusedAmount     countFrom:[self.dailyUnusedAmount currentValue]
                         to:(denominator - wan)/1000000];
     */
+    
+    /*
     [self.WIFILabel countFrom:[self.WIFILabel currentValue] to:([[[[DataManagement sharedInstance] usageData] objectAtIndex:0] floatValue] + [[[[DataManagement sharedInstance] usageData] objectAtIndex:1] floatValue])/1000000];
     [self.WANLabel countFrom:[self.WANLabel currentValue] to:[[DataManagement sharedInstance] calculateWAN]];
+     */
+    self.WIFILabel.text = [NSString stringWithFormat:@"%.01f MB", ([[[[DataManagement sharedInstance] usageData] objectAtIndex:0] floatValue] + [[[[DataManagement sharedInstance] usageData] objectAtIndex:1] floatValue])/1000000];
+    self.WANLabel.text = [NSString stringWithFormat:@"%.01f MB", [[DataManagement sharedInstance] calculateWAN]];
 }
 
 
