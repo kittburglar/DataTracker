@@ -10,5 +10,6 @@
 #import <PNChart.h>
 
 @interface HistoryViewController : UIViewController
+@property (strong, nonatomic) IBOutlet UILabel *titleLabel;
 
 @end

@@ -39,6 +39,7 @@
             <string>OpenSans</string>
             <string>OpenSans</string>
             <string>OpenSans</string>
+            <string>OpenSans</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -1037,7 +1038,23 @@ Please select your plan cycle.</string>
                     <view key="view" contentMode="scaleToFill" id="Tww-MS-w8D">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mk9-xa-tu3">
+                                <rect key="frame" x="16" y="72" width="568" height="65"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="32" id="VUe-FT-P9d"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="mk9-xa-tu3" firstAttribute="top" secondItem="4bJ-y1-d00" secondAttribute="bottom" constant="32" id="bVb-5t-aQu"/>
+                            <constraint firstItem="mk9-xa-tu3" firstAttribute="leading" secondItem="Tww-MS-w8D" secondAttribute="leadingMargin" id="mHO-y1-8c4"/>
+                            <constraint firstItem="mk9-xa-tu3" firstAttribute="trailing" secondItem="Tww-MS-w8D" secondAttribute="trailingMargin" id="rxD-BE-0mS"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="7vz-10-agw">
                         <barButtonItem key="leftBarButtonItem" title="Item" id="icl-W5-axa">
@@ -1046,6 +1063,9 @@ Please select your plan cycle.</string>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="titleLabel" destination="mk9-xa-tu3" id="2Rn-oE-ac7"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pR8-uq-xCf" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="67k-Cv-3oW" userLabel="Exit" sceneMemberID="exit"/>

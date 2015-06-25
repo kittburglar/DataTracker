@@ -33,5 +33,6 @@
 - (void)calibrateTotalUsage;
 - (void)resetData;
 - (float)calculatePercentage;
+-(NSArray *)CDDataUsage:(NSDate *)startDate withEndDate:(NSDate *)endDate;
 
 @end

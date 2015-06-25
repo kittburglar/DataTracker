@@ -126,45 +126,6 @@
     //addrUsage = ([[[self usageData] objectAtIndex:2] floatValue] + [[[self usageData] objectAtIndex:3] floatValue]);
     [[NSUserDefaults standardUserDefaults] setFloat:addrUsage forKey:@"lastUsage"];
     NSLog(@"addrUsage is: %f", addrUsage);
-
-    /*
-    float lastUsage = [[[NSUserDefaults standardUserDefaults] stringForKey:@"lastUsage"] floatValue];
-
-    if (addrUsage < lastUsage) {
-        totalUsage = 0;
-    }
-    else{
-        lastUsage = [[[NSUserDefaults standardUserDefaults] stringForKey:@"totalUsage"] floatValue];
-    }
-    
-    totalUsage = [[[NSUserDefaults standardUserDefaults] stringForKey:@"totalUsage"] floatValue] + (addrUsage - totalUsage);
-    
-    NSLog(@"new totalUsage is: %f", totalUsage);
-    [[NSUserDefaults standardUserDefaults] setFloat:totalUsage forKey:@"totalUsage"];
-    */
-    
-    
-    /*
-    [self setUsageData:[self getDataCounters]];
-    float addrUsage = ([[[self usageData] objectAtIndex:2] floatValue] + [[[self usageData] objectAtIndex:3] floatValue]);
-    float currentTotalUsage = addrUsage + [[[NSUserDefaults standardUserDefaults] stringForKey:@"totalUsageDifference"] floatValue];
-    float lastTotalUsage = [[[NSUserDefaults standardUserDefaults] stringForKey:@"totalUsage"] floatValue];
-    
-    NSLog(@"Calibrating Total Usage: Current total usage is: %f and last total usage is: %f", currentTotalUsage, lastTotalUsage);
-    if (currentTotalUsage < lastTotalUsage) {
-        NSLog(@"Current usage is less than last time. Must calibrate!");
-        float difference = lastTotalUsage - currentTotalUsage;
-        NSLog(@"Difference is %f", difference);
-        [[NSUserDefaults standardUserDefaults] setFloat:difference forKey:@"totalUsageDifference"];
-        //currentTotalUsage = currentTotalUsage + [[[NSUserDefaults standardUserDefaults] stringForKey:@"totalUsageDifference"] floatValue];
-        NSLog(@"New current total usage is: %f", currentTotalUsage + [[[NSUserDefaults standardUserDefaults] stringForKey:@"totalUsageDifference"] floatValue]);
-    }
-    else{
-        NSLog(@"Totalusage is: %f", [[[NSUserDefaults standardUserDefaults] stringForKey:@"totalUsage"] floatValue]);
-        [[NSUserDefaults standardUserDefaults] setFloat:currentTotalUsage forKey:@"totalUsage"];
-    }
-    */
-    
 }
 
 - (void)resetData{
@@ -194,6 +155,79 @@
     NSLog(@"The percentage is: %f", percentage);
     return percentage;
 }
+
+- (NSInteger)daysBetweenDate:(NSDate*)fromDateTime andDate:(NSDate*)toDateTime
+{
+    NSDate *fromDate;
+    NSDate *toDate;
+    
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    
+    [calendar rangeOfUnit:NSCalendarUnitDay startDate:&fromDate
+                 interval:NULL forDate:fromDateTime];
+    [calendar rangeOfUnit:NSCalendarUnitDay startDate:&toDate
+                 interval:NULL forDate:toDateTime];
+    
+    NSDateComponents *difference = [calendar components:NSCalendarUnitDay
+                                               fromDate:fromDate toDate:toDate options:0];
+    
+    return [difference day];
+}
+
+-(NSMutableArray *)CDDataUsage:(NSDate *)startDate withEndDate:(NSDate *)endDate{
+    //core data
+    AppDelegate *appdelegate = [[UIApplication sharedApplication] delegate];
+    managedObjectContext = [appdelegate managedObjectContext];
+    
+    NSInteger daysBetweenDate = [self daysBetweenDate:startDate andDate:endDate];
+    NSMutableArray * usageArray = [[NSMutableArray alloc] initWithCapacity:daysBetweenDate];
+    
+    NSLog(@"Number of days between %@ and %@ is %d", startDate, endDate, daysBetweenDate);
+    
+    //Form Predicate to search in core data
+    NSMutableArray *partPredicates = [NSMutableArray arrayWithCapacity:daysBetweenDate];
+    NSDate *usageDate = startDate;
+    for (int i = 0; i < daysBetweenDate + 1; i++) {
+        NSLog(@"CDDataUsage: usageDate is: %@", usageDate);
+        NSDateFormatter *dt = [[NSDateFormatter alloc] init];
+        [dt setDateFormat:@"dd/MM/yyyy"]; // for example
+        NSString *dateString = [dt stringFromDate:usageDate];
+        NSDate *date = [dt dateFromString:dateString];
+        NSPredicate *currentPartPredicate = [NSPredicate predicateWithFormat:@"date == %@", date];
+        [partPredicates addObject:currentPartPredicate];
+        NSDateComponents *dateComponents = [[NSDateComponents alloc] init];
+        [dateComponents setDay:+1];
+        usageDate = [[NSCalendar currentCalendar] dateByAddingComponents:dateComponents toDate:usageDate options:0];
+    }
+    
+    NSEntityDescription *entitydesc = [NSEntityDescription entityForName:@"Usage" inManagedObjectContext:managedObjectContext];
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    [request setEntity:entitydesc];
+    NSPredicate *fullPredicate = [NSCompoundPredicate orPredicateWithSubpredicates:partPredicates];
+    [request setPredicate:fullPredicate];
+    
+    NSError *error;
+    NSArray *matchingData = [managedObjectContext executeFetchRequest:request error:&error];
+    
+    //Find the core data objects by date
+    if (matchingData.count <=0) {
+        NSLog(@"No dates match in core data to fill bars.");
+    }
+    else{
+        //Fill each mini progress bar
+        for (NSManagedObjectContext *obj in matchingData) {
+            NSDate *date = [obj valueForKey:@"date"];
+            NSNumber *wanNum = [obj valueForKey:@"wan"];
+            float wan = [wanNum floatValue]/1000000;
+            NSLog(@"The usage for date %@ is %f", date, wan);
+            [usageArray addObject:[NSNumber numberWithFloat:wan]];
+        }
+    }
+    
+    return usageArray;
+}
+
+
 
 - (void)locationManager:(CLLocationManager *)manager
     didUpdateToLocation:(CLLocation *)newLocation
