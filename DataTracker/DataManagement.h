@@ -34,5 +34,6 @@
 - (void)resetData;
 - (float)calculatePercentage;
 -(NSArray *)CDDataUsage:(NSDate *)startDate withEndDate:(NSDate *)endDate;
+- (NSInteger)daysBetweenDate:(NSDate*)fromDateTime andDate:(NSDate*)toDateTime;
 
 @end

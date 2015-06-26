@@ -224,6 +224,13 @@
         }
     }
     
+    NSInteger dayOfTheWeek = [self daysBetweenDate:startDate andDate:[NSDate date]];
+    NSLog(@"dayOfTheWeek is: %ld", (long)dayOfTheWeek);
+    for (int i = dayOfTheWeek; i < daysBetweenDate; i++) {
+        NSLog(@"date left");
+        [usageArray addObject:[NSNumber numberWithFloat:0]];
+    }
+    
     return usageArray;
 }
 

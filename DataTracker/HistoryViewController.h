@@ -8,8 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import <PNChart.h>
+#import "JBChartView.h"
+#import "JBBarChartView.h"
 
-@interface HistoryViewController : UIViewController
+@interface HistoryViewController : UIViewController{
+}
 @property (strong, nonatomic) IBOutlet UILabel *titleLabel;
 
 @end
