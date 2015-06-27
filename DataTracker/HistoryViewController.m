@@ -11,6 +11,7 @@
 #import "DataManagement.h"
 #import "JBChartView.h"
 #import "JBBarChartView.h"
+#import "DataManagement.h"
 
 
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
@@ -26,32 +27,44 @@
     // Do any additional setup after loading the view.
     NSDate *today = [NSDate date];
     
-    NSArray *usageData = [[DataManagement sharedInstance] CDDataUsage:[self getBeginningOfWeek] withEndDate:[self getEndOfWeek]];
+    //Get usage data from core data for history data
+    self.usageData = [[DataManagement sharedInstance] CDDataUsage:[self getBeginningOfWeek:today] withEndDate:[self getEndOfWeek:today]];
     
-    NSArray *usageDate = [self getDates:[self getBeginningOfWeek] withEndDate:[self getEndOfWeek]];
+    //Get usage date for history labels
+    self.usageDate = [self getDateLabelsBetween:[self getBeginningOfWeek:today] withEndDate:[self getEndOfWeek:today]];
     
-    for (NSNumber *object in usageData) {
+    for (NSNumber *object in self.usageData) {
         NSLog(@"Number is %@", object);
     }
     
-    
-    PNBarChart * barChart = [[PNBarChart alloc] initWithFrame:CGRectMake(0, 32.0 + self.titleLabel.bounds.size.height + self.navigationController.navigationBar.frame.size.height, SCREEN_WIDTH, 200.0)];
-    barChart.yLabelFormatter = ^(CGFloat yValue){
+    //Chart View
+    float chartSize = 200.0f;
+    float chartBottomSpace = 8.0f;
+    float wifiToWifiLabel = 4.0f;
+    self.barChart = [[PNBarChart alloc] initWithFrame:CGRectMake(0, [[UIScreen mainScreen] bounds].size.height - chartBottomSpace - self.wifiLabel.bounds.size.height - wifiToWifiLabel - self.wifiLabelAmount.bounds.size.height - chartBottomSpace - chartSize, SCREEN_WIDTH, chartSize)];
+    self.barChart.yLabelFormatter = ^(CGFloat yValue){
         CGFloat yValueParsed = yValue;
         NSString * labelText = [NSString stringWithFormat:@"%1.f MB",yValueParsed];
         return labelText;
     };
-    //[barChart setXLabels:@[@"JAN 20",@"JAN 21",@"JAN 22",@"JAN 23",@"JAN 24",@"JAN 25",@"JAN 26"]];
-    //[barChart setYValues:@[@1,  @10, @2, @6]];
-    NSNumber* max = [usageData valueForKeyPath:@"@max.self"];
-    [barChart setYMaxValue:10.0 * floor(([max floatValue]/10.0)+0.5)];
-    [barChart setXLabels:usageDate];
-    [barChart setYValues:usageData];
-    [barChart strokeChart];
-    [self.view addSubview:barChart];
+    NSNumber* max = [self.usageData valueForKeyPath:@"@max.self"];
+    [self.barChart setYMaxValue:10.0 * floor(([max floatValue]/10.0)+0.5)];
+    [self.barChart setXLabels:self.usageDate];
+    [self.barChart setYValues:self.usageData];
     
+    self.usageColor = [NSMutableArray arrayWithObjects:PNGreen,PNGreen,PNGreen,PNGreen,PNGreen,PNGreen,PNGreen, nil];
+    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    NSDateComponents *comps = [gregorian components:NSWeekdayCalendarUnit fromDate:[NSDate date]];
+    int weekday = [comps weekday];
+    self.usageColor[weekday-1] = PNBlue;
+    [self.barChart setStrokeColors:self.usageColor];
+    //[self.barChart setStrokeColor:[[[DataManagement sharedInstance] getColors] objectAtIndex:1]];
+    
+    [self.barChart strokeChart];
+    [self.view addSubview:self.barChart];
+    
+    //Other Chart View (JBBarChartView)
     /*
-    
     JBBarChartView *barChartView = [[JBBarChartView alloc] init];
     barChartView.frame = CGRectMake(0, 32.0 + self.titleLabel.bounds.size.height + self.navigationController.navigationBar.frame.size.height, SCREEN_WIDTH, 200.0);
     barChartView.dataSource = self;
@@ -60,10 +73,92 @@
     
     [barChartView reloadData];
     */
+
+    //Calendar
+    self.calendar = [JTCalendar new];
+    [self.calendar setMenuMonthsView:self.calendarMenuView];
+    [self.calendar setContentView:self.calendarContentView];
+    [self.calendar setDataSource:self];
+    [self.calendar reloadData];
+    self.calendar.calendarAppearance.dayTextFont = [UIFont fontWithName:@"OpenSans" size:[UIFont systemFontSize]];
+    self.calendar.calendarAppearance.menuMonthTextFont = [UIFont fontWithName:@"OpenSans" size:16];
+    self.calendar.calendarAppearance.weekDayTextFont = [UIFont fontWithName:@"OpenSans" size:11];
+    self.calendar.calendarAppearance.isWeekMode = YES;
+    [self.calendar reloadAppearance];
 }
 
+#pragma mark -JTCalendar Delegate
+-(void)scrollViewDidEndDecelerating:(JTCalendarContentView *)calendar
+{
+    NSLog(@"scrollViewDidEndDecelerating");
+}
 
--(NSMutableArray *)getDates:(NSDate *)startDate withEndDate:(NSDate *)endDate{
+- (BOOL)calendarHaveEvent:(JTCalendar *)calendar date:(NSDate *)date
+{
+    return NO;
+}
+
+- (void)calendarDidDateSelected:(JTCalendar *)calendar date:(NSDate *)date
+{
+    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    NSLog(@"Selected date: %@", date);
+    //Get usage data from core data for history data
+    self.usageData = [[DataManagement sharedInstance] CDDataUsage:[self getBeginningOfWeek:date] withEndDate:[self getEndOfWeek:date]];
+    
+    //Get usage date for history labels
+    self.usageDate = [self getDateLabelsBetween:[self getBeginningOfWeek:date] withEndDate:[self getEndOfWeek:date]];
+    
+    NSNumber* max = [self.usageData valueForKeyPath:@"@max.self"];
+    
+    [self.barChart setYMaxValue:10.0 * floor(([max floatValue]/10.0)+0.5)];
+    [self.barChart setXLabels:self.usageDate];
+    [self.barChart setYValues:self.usageData];
+    
+    self.usageColor = [NSMutableArray arrayWithObjects:PNGreen,PNGreen,PNGreen,PNGreen,PNGreen,PNGreen,PNGreen, nil];
+    
+    NSLog(@"Today's date is %@", [NSDate date]);
+    NSDate *today = [NSDate date];
+    NSArray *datesArray = [self getDatesBetween:[self getBeginningOfWeek:date] withEndDate:[self getEndOfWeek:date]];
+    
+    if ([self dateInDateArray:today dateArray:datesArray]) {
+        NSLog(@"Today is in the array");
+        NSDateComponents *comps = [gregorian components:NSWeekdayCalendarUnit fromDate:today];
+        int weekday = [comps weekday];
+        self.usageColor[weekday-1] = PNBlue;
+    }
+    
+   
+    NSDateComponents *comps = [gregorian components:NSWeekdayCalendarUnit fromDate:date];
+    int weekday = [comps weekday];
+    self.usageColor[weekday-1] = PNRed;
+    [self.barChart setStrokeColors:self.usageColor];
+    
+    [self.barChart strokeChart];
+    
+    return;
+}
+
+- (BOOL)dateInDateArray:(NSDate *)date dateArray:(NSArray *)dateArray{
+    NSLog(@"dateInDateArray");
+    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    for (NSDate * dateObj in dateArray) {
+        if ([gregorian isDate:date inSameDayAsDate:dateObj]) {
+            return true;
+        }
+    }
+    return false;
+}
+
+- (void)viewDidAppear:(BOOL)animated{
+    [self.calendar reloadData];
+}
+
+- (void)viewDidLayoutSubviews
+{
+    [self.calendar repositionViews];
+}
+
+-(NSMutableArray *)getDateLabelsBetween:(NSDate *)startDate withEndDate:(NSDate *)endDate{
     
     NSInteger daysBetweenDate = [[DataManagement sharedInstance] daysBetweenDate:startDate andDate:endDate];
     NSMutableArray *dateArray = [[NSMutableArray alloc] initWithCapacity:daysBetweenDate];
@@ -91,12 +186,31 @@
     return dateArray;
 }
 
--(NSDate *)getEndOfWeek{
-    NSDate *today = [NSDate date];
+-(NSMutableArray *)getDatesBetween:(NSDate *)startDate withEndDate:(NSDate *)endDate{
+    
+    NSInteger daysBetweenDate = [[DataManagement sharedInstance] daysBetweenDate:startDate andDate:endDate];
+    NSMutableArray *dateArray = [[NSMutableArray alloc] initWithCapacity:daysBetweenDate];
+    NSDate *usageDate = startDate;
+    NSLog(@"CDDateUsage: daysBetweenDate is: %d", daysBetweenDate);
+    for (int i = 0; i < daysBetweenDate + 1; i++) {
+        NSLog(@"getDatesBetween: date added is %@", usageDate);
+        [dateArray addObject:usageDate];
+        
+        NSDateComponents *dateComponents = [[NSDateComponents alloc] init];
+        [dateComponents setDay:+1];
+        usageDate = [[NSCalendar currentCalendar] dateByAddingComponents:dateComponents toDate:usageDate options:0];
+    }
+    
+    return dateArray;
+}
+
+
+-(NSDate *)getEndOfWeek:(NSDate *)date{
+    //NSDate *today = [NSDate date];
     NSCalendar *gregorian = [NSCalendar currentCalendar];
     
     // Get the weekday component of the current date
-    NSDateComponents *weekdayComponents = [gregorian components:NSWeekdayCalendarUnit fromDate:today];
+    NSDateComponents *weekdayComponents = [gregorian components:NSWeekdayCalendarUnit fromDate:date];
     /*
      Create a date components to represent the number of days to subtract
      from the current date.
@@ -108,7 +222,7 @@
     NSDateComponents *componentsToSubtract = [[NSDateComponents alloc] init];
     /* Substract [gregorian firstWeekday] to handle first day of the week being something else than Sunday */
     [componentsToSubtract setDay: 7 - ([weekdayComponents weekday] - [gregorian firstWeekday] + 1)];
-    NSDate *endOfWeek = [gregorian dateByAddingComponents:componentsToSubtract toDate:today options:0];
+    NSDate *endOfWeek = [gregorian dateByAddingComponents:componentsToSubtract toDate:date options:0];
     
     /*
      Optional step:
@@ -124,12 +238,12 @@
 }
 
 
--(NSDate *)getBeginningOfWeek{
-    NSDate *today = [NSDate date];
+-(NSDate *)getBeginningOfWeek:(NSDate *)date{
+    //NSDate *today = [NSDate date];
     NSCalendar *gregorian = [NSCalendar currentCalendar];
     
     // Get the weekday component of the current date
-    NSDateComponents *weekdayComponents = [gregorian components:NSWeekdayCalendarUnit fromDate:today];
+    NSDateComponents *weekdayComponents = [gregorian components:NSWeekdayCalendarUnit fromDate:date];
     /*
      Create a date components to represent the number of days to subtract
      from the current date.
@@ -141,7 +255,7 @@
     NSDateComponents *componentsToSubtract = [[NSDateComponents alloc] init];
     /* Substract [gregorian firstWeekday] to handle first day of the week being something else than Sunday */
     [componentsToSubtract setDay: - ([weekdayComponents weekday] - [gregorian firstWeekday])];
-    NSDate *beginningOfWeek = [gregorian dateByAddingComponents:componentsToSubtract toDate:today options:0];
+    NSDate *beginningOfWeek = [gregorian dateByAddingComponents:componentsToSubtract toDate:date options:0];
     
     /*
      Optional step:
@@ -175,8 +289,9 @@
 
 - (CGFloat)barChartView:(JBBarChartView *)barChartView heightForBarViewAtIndex:(NSUInteger)index
 {
-    NSArray *usageData = [[DataManagement sharedInstance] CDDataUsage:[self getBeginningOfWeek] withEndDate:[self getEndOfWeek]];
-    return [[usageData objectAtIndex:index] floatValue]; // height of bar at index
+    //NSDate *today = [NSDate date];
+    //NSArray *usageData = [[DataManagement sharedInstance] CDDataUsage:[self getBeginningOfWeek:today] withEndDate:[self getEndOfWeek:today]];
+    return [[self.usageData objectAtIndex:index] floatValue]; // height of bar at index
 }
 
 /*

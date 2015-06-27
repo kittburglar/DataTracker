@@ -12,8 +12,11 @@
             <string>OpenSans-Bold</string>
             <string>OpenSans-Bold</string>
             <string>OpenSans-Bold</string>
+            <string>OpenSans-Bold</string>
+            <string>OpenSans-Bold</string>
         </mutableArray>
         <mutableArray key="OpenSans-Regular.ttf">
+            <string>OpenSans</string>
             <string>OpenSans</string>
             <string>OpenSans</string>
             <string>OpenSans</string>
@@ -166,12 +169,6 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="WI-FI" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wZM-Nk-62x">
-                                <rect key="frame" x="26" y="542" width="68" height="21"/>
-                                <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="18"/>
-                                <color key="textColor" red="0.30196078431372547" green="0.30196078431372547" blue="0.29803921568627451" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="MOBILE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kQm-Ml-8eu">
                                 <rect key="frame" x="500" y="544" width="63" height="21"/>
                                 <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="18"/>
@@ -187,6 +184,12 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="6.4 MB" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LIp-YS-Xfx" customClass="UICountingLabel">
                                 <rect key="frame" x="294" y="541" width="75" height="21"/>
                                 <fontDescription key="fontDescription" name="OpenSans-Bold" family="Open Sans" pointSize="20"/>
+                                <color key="textColor" red="0.30196078431372547" green="0.30196078431372547" blue="0.29803921568627451" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="WI-FI" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wZM-Nk-62x">
+                                <rect key="frame" x="24" y="542" width="68" height="21"/>
+                                <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="18"/>
                                 <color key="textColor" red="0.30196078431372547" green="0.30196078431372547" blue="0.29803921568627451" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -1039,22 +1042,82 @@ Please select your plan cycle.</string>
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mk9-xa-tu3">
-                                <rect key="frame" x="16" y="72" width="568" height="65"/>
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="74c-8j-OVH" customClass="JTCalendarMenuView">
+                                <rect key="frame" x="16" y="72" width="568" height="61"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="32" id="VUe-FT-P9d"/>
+                                    <constraint firstAttribute="height" constant="32" id="4zU-ck-lRR"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            </view>
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KHs-Sd-U8y" customClass="JTCalendarContentView">
+                                <rect key="frame" x="16" y="141" width="568" height="65"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="476" id="KT2-eJ-f1x"/>
+                                    <constraint firstAttribute="height" constant="65" id="ZnT-tj-wV9"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="KT2-eJ-f1x"/>
+                                    </mask>
+                                </variation>
+                            </view>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="123 MB" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rKm-jg-okE" customClass="UICountingLabel">
+                                <rect key="frame" x="16" y="559" width="84" height="21"/>
+                                <fontDescription key="fontDescription" name="OpenSans-Bold" family="Open Sans" pointSize="20"/>
+                                <color key="textColor" red="0.30196078430000001" green="0.30196078430000001" blue="0.29803921570000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="456 MB" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JUN-UU-pVB" customClass="UICountingLabel">
+                                <rect key="frame" x="500" y="559" width="84" height="21"/>
+                                <fontDescription key="fontDescription" name="OpenSans-Bold" family="Open Sans" pointSize="20"/>
+                                <color key="textColor" red="0.30196078430000001" green="0.30196078430000001" blue="0.29803921570000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="WI-FI" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yo4-yr-r4G">
+                                <rect key="frame" x="24" y="530" width="68" height="21"/>
+                                <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="18"/>
+                                <color key="textColor" red="0.30196078430000001" green="0.30196078430000001" blue="0.29803921570000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="MOBILE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dQY-n6-Ng8">
+                                <rect key="frame" x="500" y="532" width="63" height="21"/>
+                                <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="18"/>
+                                <color key="textColor" red="0.30196078430000001" green="0.30196078430000001" blue="0.29803921570000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="11V-Ay-fqw" customClass="PNBarChart">
+                                <rect key="frame" x="150" y="240" width="300" height="210"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="mk9-xa-tu3" firstAttribute="top" secondItem="4bJ-y1-d00" secondAttribute="bottom" constant="32" id="bVb-5t-aQu"/>
-                            <constraint firstItem="mk9-xa-tu3" firstAttribute="leading" secondItem="Tww-MS-w8D" secondAttribute="leadingMargin" id="mHO-y1-8c4"/>
-                            <constraint firstItem="mk9-xa-tu3" firstAttribute="trailing" secondItem="Tww-MS-w8D" secondAttribute="trailingMargin" id="rxD-BE-0mS"/>
+                            <constraint firstItem="74c-8j-OVH" firstAttribute="top" secondItem="4bJ-y1-d00" secondAttribute="bottom" constant="8" id="0ie-wI-Yvn"/>
+                            <constraint firstItem="JUN-UU-pVB" firstAttribute="top" secondItem="dQY-n6-Ng8" secondAttribute="bottom" constant="4" id="8F2-Bk-vwZ"/>
+                            <constraint firstItem="rKm-jg-okE" firstAttribute="leading" secondItem="Tww-MS-w8D" secondAttribute="leadingMargin" id="8N9-mU-dKW"/>
+                            <constraint firstItem="rKm-jg-okE" firstAttribute="top" secondItem="yo4-yr-r4G" secondAttribute="bottom" constant="4" id="9lr-1K-N2Z"/>
+                            <constraint firstItem="yo4-yr-r4G" firstAttribute="centerX" secondItem="rKm-jg-okE" secondAttribute="centerX" id="GmE-lh-fm8"/>
+                            <constraint firstItem="KHs-Sd-U8y" firstAttribute="top" secondItem="74c-8j-OVH" secondAttribute="bottom" id="KUl-9q-W1f"/>
+                            <constraint firstItem="WzM-M4-PHU" firstAttribute="top" secondItem="KHs-Sd-U8y" secondAttribute="bottom" constant="32" id="LE9-ua-sho"/>
+                            <constraint firstItem="KHs-Sd-U8y" firstAttribute="top" secondItem="74c-8j-OVH" secondAttribute="top" constant="69" id="NTZ-Hb-aIW"/>
+                            <constraint firstItem="KHs-Sd-U8y" firstAttribute="trailing" secondItem="Tww-MS-w8D" secondAttribute="trailingMargin" id="Upu-p1-6go"/>
+                            <constraint firstItem="KHs-Sd-U8y" firstAttribute="leading" secondItem="Tww-MS-w8D" secondAttribute="leadingMargin" id="XwM-ba-xjH"/>
+                            <constraint firstItem="KHs-Sd-U8y" firstAttribute="top" secondItem="74c-8j-OVH" secondAttribute="bottom" constant="8" id="huv-I8-YUD"/>
+                            <constraint firstItem="74c-8j-OVH" firstAttribute="leading" secondItem="Tww-MS-w8D" secondAttribute="leadingMargin" id="i1g-A3-ge3"/>
+                            <constraint firstItem="JUN-UU-pVB" firstAttribute="centerX" secondItem="dQY-n6-Ng8" secondAttribute="centerX" id="itt-FZ-jkp"/>
+                            <constraint firstItem="74c-8j-OVH" firstAttribute="trailing" secondItem="Tww-MS-w8D" secondAttribute="trailingMargin" id="nV7-Vd-gV0"/>
+                            <constraint firstItem="JUN-UU-pVB" firstAttribute="trailing" secondItem="Tww-MS-w8D" secondAttribute="trailingMargin" id="qY4-yQ-etf"/>
+                            <constraint firstItem="WzM-M4-PHU" firstAttribute="top" secondItem="rKm-jg-okE" secondAttribute="bottom" constant="8" id="uKc-lV-INI"/>
+                            <constraint firstItem="WzM-M4-PHU" firstAttribute="top" secondItem="JUN-UU-pVB" secondAttribute="bottom" constant="8" id="wv9-4P-b0W"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="NTZ-Hb-aIW"/>
+                                <exclude reference="huv-I8-YUD"/>
+                                <exclude reference="LE9-ua-sho"/>
+                            </mask>
+                        </variation>
                     </view>
                     <navigationItem key="navigationItem" id="7vz-10-agw">
                         <barButtonItem key="leftBarButtonItem" title="Item" id="icl-W5-axa">
@@ -1064,7 +1127,13 @@ Please select your plan cycle.</string>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="titleLabel" destination="mk9-xa-tu3" id="2Rn-oE-ac7"/>
+                        <outlet property="barChart" destination="11V-Ay-fqw" id="51v-Hh-C3y"/>
+                        <outlet property="calendarContentView" destination="KHs-Sd-U8y" id="OZ8-fm-aKx"/>
+                        <outlet property="calendarMenuView" destination="74c-8j-OVH" id="VXI-Iq-Hvj"/>
+                        <outlet property="wanLabel" destination="dQY-n6-Ng8" id="SF5-x1-m3e"/>
+                        <outlet property="wanLabelAmount" destination="JUN-UU-pVB" id="FXh-BN-xMy"/>
+                        <outlet property="wifiLabel" destination="yo4-yr-r4G" id="g6A-mT-KfX"/>
+                        <outlet property="wifiLabelAmount" destination="rKm-jg-okE" id="jnG-Nx-zrh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pR8-uq-xCf" userLabel="First Responder" sceneMemberID="firstResponder"/>

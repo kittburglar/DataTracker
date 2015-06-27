@@ -15,6 +15,7 @@
 #import <MapKit/MapKit.h>
 #import <CoreData/CoreData.h>
 #import <UICountingLabel/UICountingLabel.h>
+#import <PNChart.h>
 
 
 @interface ViewController : UIViewController <CLLocationManagerDelegate>{

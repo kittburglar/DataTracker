@@ -8,6 +8,8 @@
 
 #import "DataManagement.h"
 
+#define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
+
 @implementation DataManagement
 @synthesize managedObjectContext = _managedObjectContext;
 
@@ -172,6 +174,13 @@
                                                fromDate:fromDate toDate:toDate options:0];
     
     return [difference day];
+}
+
+-(NSArray *)getColors{
+    //Blue, Green, Yellow, Orange, Red
+    NSArray* colorArray = [NSArray arrayWithObjects:UIColorFromRGB(0x4271ae), UIColorFromRGB(0x718c00),UIColorFromRGB(0xeab700),UIColorFromRGB(0xf5871f), UIColorFromRGB(0xc82829), nil];
+    return colorArray;
+    
 }
 
 -(NSMutableArray *)CDDataUsage:(NSDate *)startDate withEndDate:(NSDate *)endDate{
