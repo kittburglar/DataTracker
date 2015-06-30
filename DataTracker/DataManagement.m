@@ -189,7 +189,9 @@
     managedObjectContext = [appdelegate managedObjectContext];
     
     NSInteger daysBetweenDate = [self daysBetweenDate:startDate andDate:endDate];
-    NSMutableArray * usageArray = [[NSMutableArray alloc] initWithCapacity:daysBetweenDate];
+    //NSMutableArray * usageArray = [[NSMutableArray alloc] initWithCapacity:daysBetweenDate];
+    NSNumber *initialNumber = [NSNumber numberWithFloat:0];
+    NSMutableArray * usageArray = [NSMutableArray arrayWithObjects:initialNumber,initialNumber,initialNumber,initialNumber,initialNumber,initialNumber,initialNumber, nil];
     
     NSLog(@"Number of days between %@ and %@ is %d", startDate, endDate, daysBetweenDate);
     
@@ -224,22 +226,16 @@
     }
     else{
         //Fill each mini progress bar
+        int i = 0;
         for (NSManagedObjectContext *obj in matchingData) {
             NSDate *date = [obj valueForKey:@"date"];
             NSNumber *wanNum = [obj valueForKey:@"wan"];
             float wan = [wanNum floatValue]/1000000;
             NSLog(@"The usage for date %@ is %f", date, wan);
-            [usageArray addObject:[NSNumber numberWithFloat:wan]];
+            usageArray[i] = [NSNumber numberWithFloat:wan];
+            i++;
         }
     }
-    
-    NSInteger dayOfTheWeek = [self daysBetweenDate:startDate andDate:[NSDate date]];
-    NSLog(@"dayOfTheWeek is: %ld", (long)dayOfTheWeek);
-    for (int i = dayOfTheWeek; i < daysBetweenDate; i++) {
-        NSLog(@"date left");
-        [usageArray addObject:[NSNumber numberWithFloat:0]];
-    }
-    
     return usageArray;
 }
 

@@ -25,6 +25,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    //Navigation Bar
+    [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                                     [UIFont fontWithName:@"OpenSans" size:21],
+                                                                     NSFontAttributeName, nil]];
+    self.navigationItem.title=@"HISTORY";
+
+    
+    
     NSDate *today = [NSDate date];
     
     //Get usage data from core data for history data
@@ -41,7 +49,7 @@
     float chartSize = 200.0f;
     float chartBottomSpace = 8.0f;
     float wifiToWifiLabel = 4.0f;
-    self.barChart = [[PNBarChart alloc] initWithFrame:CGRectMake(0, [[UIScreen mainScreen] bounds].size.height - chartBottomSpace - self.wifiLabel.bounds.size.height - wifiToWifiLabel - self.wifiLabelAmount.bounds.size.height - chartBottomSpace - chartSize, SCREEN_WIDTH, chartSize)];
+    self.barChart = [[PNBarChart alloc] initWithFrame:CGRectMake(4, [[UIScreen mainScreen] bounds].size.height - chartBottomSpace - self.wifiLabel.bounds.size.height - wifiToWifiLabel - self.wifiLabelAmount.bounds.size.height - chartBottomSpace - chartSize, SCREEN_WIDTH-4, chartSize)];
     self.barChart.yLabelFormatter = ^(CGFloat yValue){
         CGFloat yValueParsed = yValue;
         NSString * labelText = [NSString stringWithFormat:@"%1.f MB",yValueParsed];
@@ -49,8 +57,15 @@
     };
     NSNumber* max = [self.usageData valueForKeyPath:@"@max.self"];
     [self.barChart setYMaxValue:10.0 * floor(([max floatValue]/10.0)+0.5)];
+    self.barChart.isGradientShow = NO;
+    self.barChart.isShowNumbers = NO;
+    self.barChart.showChartBorder = YES;
+    self.barChart.xLabelSkip = 1;
+    self.barChart.yLabelSum = 8;
+    self.barChart.labelFont = [UIFont fontWithName:@"OpenSans" size:10.0f];
     [self.barChart setXLabels:self.usageDate];
     [self.barChart setYValues:self.usageData];
+    
     
     self.usageColor = [NSMutableArray arrayWithObjects:PNGreen,PNGreen,PNGreen,PNGreen,PNGreen,PNGreen,PNGreen, nil];
     NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
@@ -127,13 +142,21 @@
         self.usageColor[weekday-1] = PNBlue;
     }
     
-   
     NSDateComponents *comps = [gregorian components:NSWeekdayCalendarUnit fromDate:date];
     int weekday = [comps weekday];
+    NSLog(@"weekday is: %d", weekday);
     self.usageColor[weekday-1] = PNRed;
+    for (UIColor *color in self.usageColor) {
+        NSLog(@"Color is: %@", color);
+    }
     [self.barChart setStrokeColors:self.usageColor];
-    
     [self.barChart strokeChart];
+    
+    //Count up
+    self.wanLabelAmount.format = @"%.01f MB";
+    self.wanLabelAmount.animationDuration = 1.0;
+    [self.wanLabelAmount countFrom:0.0f to:[self.usageData[weekday-1] floatValue]];
+    
     
     return;
 }
