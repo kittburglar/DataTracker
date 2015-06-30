@@ -19,8 +19,24 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         sharedInstance = [[self alloc] init];
+        
     });
     return sharedInstance;
+}
+
+- (id)init {
+    if (self = [super init]) {
+        NSLog(@"DataManagment locations init");
+        self.locations = [[NSMutableArray alloc] initWithObjects:nil];
+        self.locationManager = [[CLLocationManager alloc] init];
+        self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+        self.locationManager.delegate = self;
+        [self.locationManager requestAlwaysAuthorization];
+        [self.locationManager startMonitoringSignificantLocationChanges];
+        [self.locationManager startUpdatingLocation];
+
+    }
+    return self;
 }
 
 - (NSArray *)getDataCounters
@@ -239,7 +255,9 @@
     return usageArray;
 }
 
-
+-(NSMutableArray *)getLocations2{
+    return self.locations2;
+}
 
 - (void)locationManager:(CLLocationManager *)manager
     didUpdateToLocation:(CLLocation *)newLocation
@@ -263,7 +281,16 @@
         NSLog(@"(thisWan - lastWanSinceUpdate) > 100000");
         //[self.map addAnnotation:annotation];
         // Also add to our map so we can remove old values later
-        [self.locations addObject:annotation];
+        NSMutableArray *locations = [[NSMutableArray alloc] initWithArray:[[DataManagement sharedInstance] locations]];
+        
+        [locations addObject:annotation];
+        [[DataManagement sharedInstance] setLocations:locations];
+        
+        for (MKPointAnnotation *annotation in [[DataManagement sharedInstance] locations]) {
+            NSLog(@"DataManagement: Location is: %@", annotation);
+        }
+        //[self.locations addObject:annotation];
+        
         
         [[NSUserDefaults standardUserDefaults] setFloat:thisWan forKey:@"LastWanSinceUpdate"];
         

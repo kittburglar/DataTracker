@@ -111,7 +111,7 @@ static void dumpAllFonts() {
                              duration:1.0
                                 delay:1.0];
     */
-    
+    /*
     //Map stuff
     [[DataManagement sharedInstance] setLocations:[[NSMutableArray alloc] init]];
     [[DataManagement sharedInstance] setLocationManager:[[CLLocationManager alloc] init]];
@@ -120,7 +120,7 @@ static void dumpAllFonts() {
     [[DataManagement sharedInstance].locationManager requestAlwaysAuthorization];
     [[DataManagement sharedInstance].locationManager startMonitoringSignificantLocationChanges];
     [[DataManagement sharedInstance].locationManager startUpdatingLocation];
-    
+    */
     //core data
     AppDelegate *appdelegate = [[UIApplication sharedApplication] delegate];
     managedObjectContext = [appdelegate managedObjectContext];
@@ -343,6 +343,9 @@ static void dumpAllFonts() {
 
 - (IBAction)testButton:(id)sender {
     NSLog(@"DataManagement is: %@", [[DataManagement sharedInstance] object]);
+    NSMutableArray *locations = [[NSMutableArray alloc] initWithArray:[[DataManagement sharedInstance] locations2]];
+    [locations addObject:@0];
+    [[DataManagement sharedInstance] setLocations2:locations];
 }
 
 

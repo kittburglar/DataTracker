@@ -22,8 +22,9 @@
 
 @property (nonatomic, strong) NSObject* object;
 @property (nonatomic, strong) NSArray* usageData;
-@property (nonatomic, strong) CLLocationManager *locationManager;
-@property (nonatomic, strong) NSMutableArray *locations;
+@property (nonatomic, retain) CLLocationManager *locationManager;
+@property (nonatomic, retain) NSMutableArray *locations;
+@property (nonatomic, retain) NSMutableArray *locations2;
 @property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, retain) NSFetchedResultsController *fetchedResultsController;
 
@@ -36,5 +37,6 @@
 -(NSArray *)CDDataUsage:(NSDate *)startDate withEndDate:(NSDate *)endDate;
 - (NSInteger)daysBetweenDate:(NSDate*)fromDateTime andDate:(NSDate*)toDateTime;
 -(NSArray *)getColors;
+-(NSMutableArray *)getLocations2;
 
 @end

@@ -9,13 +9,12 @@
 #import "ViewController.h"
 #import <MapKit/MapKit.h>
 
-@interface MapViewController : ViewController <CLLocationManagerDelegate>
+@interface MapViewController : ViewController
 @property (strong, nonatomic) IBOutlet UISegmentedControl *segmentAccuracy;
 @property (strong, nonatomic) IBOutlet MKMapView *map;
 @property (strong, nonatomic) IBOutlet UISwitch *switchEnabled;
-@property (nonatomic, strong) CLLocationManager *locationManager;
-@property (nonatomic, strong) NSMutableArray *locations;
 - (IBAction)accuracyChanged:(id)sender;
 - (IBAction)enabledStateChanged:(id)sender;
+- (IBAction)testButtonAction:(id)sender;
 
 @end
