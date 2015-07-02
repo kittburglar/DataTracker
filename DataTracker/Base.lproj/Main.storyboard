@@ -867,38 +867,14 @@ Please select your plan cycle.</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Ys6-Nf-rBe">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <rect key="frame" x="0.0" y="132" width="600" height="423"/>
                             </mapView>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="t3N-6k-ShT">
-                                <rect key="frame" x="16" y="552" width="568" height="29"/>
-                                <segments>
-                                    <segment title="Nav"/>
-                                    <segment title="Best"/>
-                                    <segment title="10m"/>
-                                    <segment title="100m"/>
-                                    <segment title="1Km"/>
-                                    <segment title="3Km"/>
-                                </segments>
-                                <connections>
-                                    <action selector="accuracyChanged:" destination="gVp-6K-zxM" eventType="valueChanged" id="drt-fQ-rld"/>
-                                </connections>
-                            </segmentedControl>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Qta-te-RJD">
-                                <rect key="frame" x="16" y="72" width="51" height="31"/>
-                                <connections>
-                                    <action selector="enabledStateChanged:" destination="gVp-6K-zxM" eventType="valueChanged" id="JK5-EC-Z4D"/>
-                                </connections>
-                            </switch>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pnB-2D-no2">
+                                <rect key="frame" x="0.0" y="64" width="600" height="60"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="Qta-te-RJD" firstAttribute="top" secondItem="7Zq-0K-pTP" secondAttribute="bottom" constant="8" id="6pe-li-Ocg"/>
-                            <constraint firstItem="t3N-6k-ShT" firstAttribute="trailing" secondItem="inF-i5-bwn" secondAttribute="trailingMargin" id="8f9-sK-Pik"/>
-                            <constraint firstItem="Ie6-ov-0LK" firstAttribute="top" secondItem="t3N-6k-ShT" secondAttribute="bottom" constant="20" id="BBN-xf-Yss"/>
-                            <constraint firstItem="Qta-te-RJD" firstAttribute="leading" secondItem="inF-i5-bwn" secondAttribute="leadingMargin" id="hy1-Of-Vf3"/>
-                            <constraint firstAttribute="centerX" secondItem="t3N-6k-ShT" secondAttribute="centerX" id="lwN-AK-Ugm"/>
-                            <constraint firstItem="t3N-6k-ShT" firstAttribute="leading" secondItem="inF-i5-bwn" secondAttribute="leadingMargin" id="t2A-uj-gWA"/>
-                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="gAV-K5-dw3">
                         <barButtonItem key="leftBarButtonItem" title="Menu" id="cz2-dG-LEB">
@@ -914,8 +890,6 @@ Please select your plan cycle.</string>
                     </navigationItem>
                     <connections>
                         <outlet property="map" destination="Ys6-Nf-rBe" id="cx2-h6-1Yi"/>
-                        <outlet property="segmentAccuracy" destination="t3N-6k-ShT" id="nt8-32-qxH"/>
-                        <outlet property="switchEnabled" destination="Qta-te-RJD" id="Lus-Xq-cLX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UPR-xA-UPt" userLabel="First Responder" sceneMemberID="firstResponder"/>

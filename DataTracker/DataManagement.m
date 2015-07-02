@@ -30,6 +30,7 @@
         self.locations = [[NSMutableArray alloc] initWithObjects:nil];
         self.locationManager = [[CLLocationManager alloc] init];
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+        self.locationManager.distanceFilter = 10.0f;
         self.locationManager.delegate = self;
         [self.locationManager requestAlwaysAuthorization];
         [self.locationManager startMonitoringSignificantLocationChanges];
@@ -258,6 +259,8 @@
 -(NSMutableArray *)getLocations2{
     return self.locations2;
 }
+
+
 
 - (void)locationManager:(CLLocationManager *)manager
     didUpdateToLocation:(CLLocation *)newLocation

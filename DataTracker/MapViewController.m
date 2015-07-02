@@ -8,8 +8,11 @@
 
 #import "MapViewController.h"
 #import "DataManagement.h"
+#import <CCHMapClusterController.h>
 
-@interface MapViewController ()
+@interface MapViewController () <MKMapViewDelegate>
+
+@property (strong, nonatomic) CCHMapClusterController *mapClusterController;
 
 @end
 
@@ -17,9 +20,29 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.map.showsUserLocation=YES;
+    self.map.delegate = self;
+    
+    
+    NSArray *locations = [[NSArray alloc] initWithArray:[[DataManagement sharedInstance] locations]];
+    self.mapClusterController = [[CCHMapClusterController alloc] initWithMapView:self.map];
+    [self.mapClusterController addAnnotations:locations withCompletionHandler:NULL];
 }
 
+-(void)viewDidAppear:(BOOL)animated{
+    
+}
 
+-(void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation
+{
+    MKCoordinateRegion mapRegion;
+    mapRegion.center = self.map.userLocation.coordinate;
+    mapRegion.span.latitudeDelta = 0.01f;
+    mapRegion.span.longitudeDelta = 0.01f;
+    [self.map regionThatFits:mapRegion];
+    [self.map setRegion:mapRegion animated:NO];
+    
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -39,12 +62,15 @@
     NSLog(@"TEST BUTTON PRESSED");
     NSMutableArray *locations = [[NSMutableArray alloc] initWithArray:[[DataManagement sharedInstance] locations]];
     NSMutableArray *locations2 = [[NSMutableArray alloc] initWithArray:[[DataManagement sharedInstance] locations2]];
+    
     for (MKPointAnnotation *annotation in locations) {
         NSLog(@"Location is: %@", annotation);
+        //[self.map addAnnotation:annotation];
     }
     for (NSNumber *num in locations2) {
         NSLog(@"%@", num);
     }
+    [self.mapClusterController addAnnotations:locations withCompletionHandler:NULL];
     
 }
 
