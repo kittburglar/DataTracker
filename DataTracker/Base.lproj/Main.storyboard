@@ -866,15 +866,54 @@ Please select your plan cycle.</string>
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Ys6-Nf-rBe">
-                                <rect key="frame" x="0.0" y="132" width="600" height="423"/>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Ys6-Nf-rBe">
+                                <rect key="frame" x="0.0" y="132" width="600" height="395"/>
                             </mapView>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pnB-2D-no2">
+                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pnB-2D-no2">
                                 <rect key="frame" x="0.0" y="64" width="600" height="60"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ndO-2b-wBe">
+                                        <rect key="frame" x="8" y="15" width="46" height="30"/>
+                                        <state key="normal" title="Button">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A4G-lb-28Q">
+                                        <rect key="frame" x="546" y="15" width="46" height="30"/>
+                                        <state key="normal" title="Button">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uEy-lx-ZSL">
+                                        <rect key="frame" x="279" y="19" width="42" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="A4G-lb-28Q" secondAttribute="trailing" constant="8" id="1jg-OU-fW5"/>
+                                    <constraint firstItem="ndO-2b-wBe" firstAttribute="leading" secondItem="pnB-2D-no2" secondAttribute="leading" constant="8" id="Fqo-0J-elb"/>
+                                    <constraint firstAttribute="centerY" secondItem="uEy-lx-ZSL" secondAttribute="centerY" constant="0.5" id="KIV-c6-TaX"/>
+                                    <constraint firstAttribute="centerY" secondItem="ndO-2b-wBe" secondAttribute="centerY" id="Vr7-Lp-cHs"/>
+                                    <constraint firstAttribute="centerX" secondItem="uEy-lx-ZSL" secondAttribute="centerX" id="YPl-Cj-S2T"/>
+                                    <constraint firstAttribute="centerY" secondItem="A4G-lb-28Q" secondAttribute="centerY" id="kPv-04-5CO"/>
+                                </constraints>
                             </view>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="U12-Af-TXq" customClass="ASValueTrackingSlider">
+                                <rect key="frame" x="14" y="562" width="572" height="31"/>
+                            </slider>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Ie6-ov-0LK" firstAttribute="top" secondItem="U12-Af-TXq" secondAttribute="bottom" constant="8" id="6Zf-yU-tPF"/>
+                            <constraint firstItem="U12-Af-TXq" firstAttribute="top" secondItem="Ys6-Nf-rBe" secondAttribute="bottom" constant="8" id="cbB-Th-gas"/>
+                            <constraint firstItem="U12-Af-TXq" firstAttribute="leading" secondItem="inF-i5-bwn" secondAttribute="leadingMargin" id="dTL-7R-SqK"/>
+                            <constraint firstItem="Ys6-Nf-rBe" firstAttribute="top" secondItem="pnB-2D-no2" secondAttribute="bottom" id="eey-PY-P4i"/>
+                            <constraint firstItem="U12-Af-TXq" firstAttribute="trailing" secondItem="inF-i5-bwn" secondAttribute="trailingMargin" id="fOE-oZ-psk"/>
+                            <constraint firstAttribute="width" secondItem="pnB-2D-no2" secondAttribute="width" id="vpH-5X-yHu"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="gAV-K5-dw3">
                         <barButtonItem key="leftBarButtonItem" title="Menu" id="cz2-dG-LEB">
