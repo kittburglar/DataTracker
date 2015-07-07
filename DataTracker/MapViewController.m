@@ -27,6 +27,23 @@
     NSArray *locations = [[NSArray alloc] initWithArray:[[DataManagement sharedInstance] locations]];
     self.mapClusterController = [[CCHMapClusterController alloc] initWithMapView:self.map];
     [self.mapClusterController addAnnotations:locations withCompletionHandler:NULL];
+    
+    NSDate *date = [NSDate date];
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSDateComponents *components = [calendar components:(NSCalendarUnitHour | NSCalendarUnitMinute) fromDate:date];
+    NSInteger hour = [components hour];
+    self.slider.minimumValue = 0;
+    self.slider.maximumValue = hour;
+    
+    self.dataDate = [NSDate date];
+    self.dataDateFormatter=[[NSDateFormatter alloc] init];
+    [self.dataDateFormatter setDateFormat:@"EEEE, MMM dd, yyyy"];
+    NSLog(@"Date is: %@",[self.dataDateFormatter stringFromDate:self.dataDate]);
+    self.dateLabel.text = [NSString stringWithFormat:@"%@",[self.dataDateFormatter stringFromDate:self.dataDate]];
+    
+    
+    NSArray *addAnnotationArray = [self CDgetAnnotationArray:self.dataDate];
+    [self.map addAnnotations:addAnnotationArray];
 }
 
 -(void)viewDidAppear:(BOOL)animated{
@@ -59,6 +76,7 @@
 }
 
 - (IBAction)testButtonAction:(id)sender {
+    /*
     NSLog(@"TEST BUTTON PRESSED");
     NSMutableArray *locations = [[NSMutableArray alloc] initWithArray:[[DataManagement sharedInstance] locations]];
     NSMutableArray *locations2 = [[NSMutableArray alloc] initWithArray:[[DataManagement sharedInstance] locations2]];
@@ -71,8 +89,97 @@
         NSLog(@"%@", num);
     }
     [self.mapClusterController addAnnotations:locations withCompletionHandler:NULL];
-    
+    */
+    NSLog(@"testButtonAction: date is %@", self.dataDate);
+    [self.map removeAnnotations:[self.map annotations]];
+    NSArray *addAnnotationArray = [self CDgetAnnotationArray:self.dataDate];
+    [self.map addAnnotations:addAnnotationArray];
 }
+
+- (IBAction)sliderValueChanged:(ASValueTrackingSlider *)sender {
+    NSLog(@"Slider value is %f", self.slider.value);
+    NSArray *addAnnotationArray = [self CDgetAnnotationArray:self.dataDate];
+    
+    NSArray *oldAnnotations=[self.map annotations];
+    NSLog(@"oldannotations is: %lu and addannotationsis: %lu", (unsigned long)oldAnnotations.count, (unsigned long)addAnnotationArray.count);
+    
+    int hours = (int)self.slider.value;
+    int minutes = (int)((self.slider.value - hours) * 60);
+    
+    NSDate* result;
+    NSDate* today = self.dataDate;
+    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    NSDateComponents *comps = [gregorian components: NSUIntegerMax fromDate: today];
+    [comps setMinute:minutes];
+    [comps setHour:hours];
+    result = [gregorian dateFromComponents:comps];
+    
+    /*
+    if([result timeIntervalSinceDate:self.dataDate] > 0){
+        NSLog(@"result timeIntervalSinceDate:date in core data with: date %@, lat %f, long %f, wan %f, wifi %f", date, latitude, longitude, wan, wifi);
+        [addAnnotationArray addObject:annotation];
+    }
+    
+    if ((oldAnnotations.count - 1) > addAnnotationArray.count) {
+        [self.map removeAnnotations:oldAnnotations];
+        
+    }
+     */
+    [self.map addAnnotations:addAnnotationArray];
+}
+
+-(NSArray *)CDgetAnnotationArray:(NSDate *)dataDate{
+    NSMutableArray *annotationArray = [[DataManagement sharedInstance] CDSearchAnnotation:dataDate];
+    NSMutableArray *addAnnotationArray = [[NSMutableArray alloc] init];
+    for (NSManagedObject *obj in annotationArray) {
+        NSDate *date = [obj valueForKey:@"date"];
+        double latitude = [[obj valueForKey:@"latitude"] doubleValue];
+        double longitude = [[obj valueForKey:@"longitude"] doubleValue];
+        float wan = [[obj valueForKey:@"wan"] floatValue];
+        float wifi = [[obj valueForKey:@"wifi"] floatValue];
+        NSLog(@"Annotation object in core data with: date %@, lat %f, long %f, wan %f, wifi %f", date, latitude, longitude, wan, wifi);
+        
+        
+        
+        //NSLog(@"Date corresponding to slider is: %@", result);
+        MKPointAnnotation *annotation = [[MKPointAnnotation alloc] init];
+        annotation.coordinate = CLLocationCoordinate2DMake(latitude, longitude);
+        annotation.title = [NSString stringWithFormat:@"%.1f MB", wan/100000];
+        [addAnnotationArray addObject:annotation];
+        
+        /*
+        if([result timeIntervalSinceDate:date] > 0){
+            NSLog(@"result timeIntervalSinceDate:date in core data with: date %@, lat %f, long %f, wan %f, wifi %f", date, latitude, longitude, wan, wifi);
+            [addAnnotationArray addObject:annotation];
+        }
+         */
+        
+    }
+    return addAnnotationArray;
+}
+
+- (IBAction)prevButton:(id)sender {
+    NSDateComponents *dateComponents = [[NSDateComponents alloc] init];
+    [dateComponents setDay:-1];
+    self.dataDate = [[NSCalendar currentCalendar] dateByAddingComponents:dateComponents toDate:self.dataDate options:0];
+    self.dateLabel.text = [NSString stringWithFormat:@"%@",[self.dataDateFormatter stringFromDate:self.dataDate]];
+    
+    [self.map removeAnnotations:[self.map annotations]];
+    NSArray *addAnnotationArray = [self CDgetAnnotationArray:self.dataDate];
+    [self.map addAnnotations:addAnnotationArray];
+}
+
+- (IBAction)nextButton:(id)sender {
+    NSDateComponents *dateComponents = [[NSDateComponents alloc] init];
+    [dateComponents setDay:+1];
+    self.dataDate = [[NSCalendar currentCalendar] dateByAddingComponents:dateComponents toDate:self.dataDate options:0];
+    self.dateLabel.text = [NSString stringWithFormat:@"%@",[self.dataDateFormatter stringFromDate:self.dataDate]];
+    
+    [self.map removeAnnotations:[self.map annotations]];
+    NSArray *addAnnotationArray = [self CDgetAnnotationArray:self.dataDate];
+    [self.map addAnnotations:addAnnotationArray];
+}
+
 
 /*
 #pragma mark - Navigation

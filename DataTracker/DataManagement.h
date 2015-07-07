@@ -38,5 +38,6 @@
 - (NSInteger)daysBetweenDate:(NSDate*)fromDateTime andDate:(NSDate*)toDateTime;
 -(NSArray *)getColors;
 -(NSMutableArray *)getLocations2;
+-(NSMutableArray *)CDSearchAnnotation:(NSDate *)searchDay;
 
 @end

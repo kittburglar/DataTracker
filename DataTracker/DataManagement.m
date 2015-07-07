@@ -243,14 +243,17 @@
     }
     else{
         //Fill each mini progress bar
-        int i = 0;
+        
+        NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+        NSDateComponents *comps = [gregorian components:NSWeekdayCalendarUnit fromDate:[NSDate date]];
+        int weekday = [comps weekday]-1;
         for (NSManagedObjectContext *obj in matchingData) {
             NSDate *date = [obj valueForKey:@"date"];
             NSNumber *wanNum = [obj valueForKey:@"wan"];
             float wan = [wanNum floatValue]/1000000;
             NSLog(@"The usage for date %@ is %f", date, wan);
-            usageArray[i] = [NSNumber numberWithFloat:wan];
-            i++;
+            usageArray[weekday] = [NSNumber numberWithFloat:wan];
+            weekday++;
         }
     }
     return usageArray;
@@ -258,6 +261,89 @@
 
 -(NSMutableArray *)getLocations2{
     return self.locations2;
+}
+
+-(NSMutableArray *)CDSearchAnnotation:(NSDate *)searchDay
+{
+    AppDelegate *appdelegate = [[UIApplication sharedApplication] delegate];
+    managedObjectContext = [appdelegate managedObjectContext];
+    NSMutableArray *annotationArray = [[NSMutableArray alloc] initWithObjects:nil];
+    NSEntityDescription *entitydesc = [NSEntityDescription entityForName:@"Annotation" inManagedObjectContext:managedObjectContext];
+    
+    
+    //Get 12am this morning
+    NSCalendar *calendar = [NSCalendar currentCalendar]; // gets default calendar
+    NSDateComponents *components = [calendar components:(NSYearCalendarUnit | NSMonthCalendarUnit |  NSDayCalendarUnit) fromDate:searchDay]; // gets the year, month, and day for today's date
+    NSDate *firstDate = [calendar dateFromComponents:components]; // makes a new NSDate keeping only the year, month, and day
+    
+    //Get 12am tonight;
+    //NSCalendarUnit const preservedComponents = (NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay);
+    //NSDateComponents *components2 = [calendar components:preservedComponents fromDate:firstDate];
+    [components setMonth:0];
+    [components setDay:1]; //reset the other components
+    [components setYear:0]; //reset the other components
+    NSDate *secondDate = [calendar dateByAddingComponents:components toDate:firstDate options:0];
+    
+    NSLog(@"start day is %@ and end date is %@", firstDate, secondDate);
+    
+    //Get values from start of searchDay and end of searchDay
+    NSPredicate *firstPredicate = [NSPredicate predicateWithFormat:@"date > %@", firstDate];
+    NSPredicate *secondPredicate = [NSPredicate predicateWithFormat:@"date < %@", secondDate];
+    
+    NSPredicate *predicate = [NSCompoundPredicate andPredicateWithSubpredicates:[NSArray arrayWithObjects:firstPredicate, secondPredicate, nil]];
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    [request setEntity:entitydesc];
+    [request setPredicate:predicate];
+    
+    NSError *error;
+    NSArray *matchingData = [managedObjectContext executeFetchRequest:request error:&error];
+    
+    if (matchingData.count <= 0) {
+        NSLog(@"No annotation found for this date!");
+    }
+    else{
+        NSDate *date;
+        double latitude;
+        double longitude;
+        float wan;
+        float wifi;
+        
+        for (NSManagedObject *obj in matchingData) {
+            date = [obj valueForKey:@"date"];
+            latitude = [[obj valueForKey:@"latitude"] doubleValue];
+            longitude = [[obj valueForKey:@"longitude"] doubleValue];
+            wan = [[obj valueForKey:@"wan"] floatValue];
+            wifi = [[obj valueForKey:@"wifi"] floatValue];
+            //NSLog(@"Annotation object in core data with: date %@, lat %f, long %f, wan %f, wifi %f", date, latitude, longitude, wan, wifi);
+            [annotationArray addObject:obj];
+        }
+    }
+    
+    return annotationArray;
+}
+
+-(void)CDAddAnnotation:(NSDate *)date
+          withLatitude:(double)latitude
+         withLongitude:(double)longitude
+               withWan:(float)wan
+              withWifi:(float)wifi
+{
+    
+    AppDelegate *appdelegate = [[UIApplication sharedApplication] delegate];
+    managedObjectContext = [appdelegate managedObjectContext];
+    NSEntityDescription *entitydesc = [NSEntityDescription entityForName:@"Annotation" inManagedObjectContext:managedObjectContext];
+    NSManagedObject *newAnnotation = [[NSManagedObject alloc] initWithEntity:entitydesc insertIntoManagedObjectContext:managedObjectContext];
+    
+    [newAnnotation setValue:date forKey:@"date"];
+    [newAnnotation setValue:[NSNumber numberWithDouble:latitude] forKey:@"latitude"];
+    [newAnnotation setValue:[NSNumber numberWithDouble:longitude] forKey:@"longitude"];
+    [newAnnotation setValue:[NSNumber numberWithFloat:wan] forKey:@"wan"];
+    [newAnnotation setValue:[NSNumber numberWithFloat:wifi] forKey:@"wifi"];
+    
+    NSError *error;
+    [managedObjectContext save:&error];
+    NSLog(@"Added annotation with date: %@, latitude: %f, longitude: %f, wan: %f, wifi: %f",date, latitude, longitude, wan, wifi);
+    
 }
 
 
@@ -277,6 +363,7 @@
     // Add another annotation to the map.
     MKPointAnnotation *annotation = [[MKPointAnnotation alloc] init];
     annotation.coordinate = newLocation.coordinate;
+    
     annotation.title = [NSString stringWithFormat:@"%f MB", (thisWan - lastWanSinceUpdate)/100000];
     //annotation.subtitle = @"World";
     
@@ -284,6 +371,13 @@
         NSLog(@"(thisWan - lastWanSinceUpdate) > 100000");
         //[self.map addAnnotation:annotation];
         // Also add to our map so we can remove old values later
+        
+        //Store annotation in core data
+        [self CDAddAnnotation:[NSDate date] withLatitude:newLocation.coordinate.latitude withLongitude:newLocation.coordinate.longitude withWan:(thisWan - lastWanSinceUpdate) withWifi:0];
+        
+        
+        
+        
         NSMutableArray *locations = [[NSMutableArray alloc] initWithArray:[[DataManagement sharedInstance] locations]];
         
         [locations addObject:annotation];

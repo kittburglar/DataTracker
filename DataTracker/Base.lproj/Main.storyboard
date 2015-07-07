@@ -43,6 +43,7 @@
             <string>OpenSans</string>
             <string>OpenSans</string>
             <string>OpenSans</string>
+            <string>OpenSans</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -866,36 +867,43 @@ Please select your plan cycle.</string>
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Ys6-Nf-rBe">
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Ys6-Nf-rBe">
                                 <rect key="frame" x="0.0" y="132" width="600" height="395"/>
                             </mapView>
-                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pnB-2D-no2">
-                                <rect key="frame" x="0.0" y="64" width="600" height="60"/>
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pnB-2D-no2">
+                                <rect key="frame" x="15" y="64" width="569" height="60"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ndO-2b-wBe">
-                                        <rect key="frame" x="8" y="15" width="46" height="30"/>
-                                        <state key="normal" title="Button">
+                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ndO-2b-wBe">
+                                        <rect key="frame" x="20" y="15" width="46" height="30"/>
+                                        <state key="normal" title="Prev">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <action selector="prevButton:" destination="gVp-6K-zxM" eventType="touchUpInside" id="ISC-xA-OBr"/>
+                                        </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A4G-lb-28Q">
-                                        <rect key="frame" x="546" y="15" width="46" height="30"/>
-                                        <state key="normal" title="Button">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                    </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uEy-lx-ZSL">
-                                        <rect key="frame" x="279" y="19" width="42" height="21"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uEy-lx-ZSL">
+                                        <rect key="frame" x="264" y="19" width="42" height="21"/>
+                                        <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="17"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A4G-lb-28Q">
+                                        <rect key="frame" x="505" y="15" width="46" height="30"/>
+                                        <state key="normal" title="Next">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="nextButton:" destination="gVp-6K-zxM" eventType="touchUpInside" id="c11-nc-ilS"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="A4G-lb-28Q" secondAttribute="trailing" constant="8" id="1jg-OU-fW5"/>
+                                    <constraint firstAttribute="height" constant="60" id="62D-IW-2hE"/>
                                     <constraint firstItem="ndO-2b-wBe" firstAttribute="leading" secondItem="pnB-2D-no2" secondAttribute="leading" constant="8" id="Fqo-0J-elb"/>
-                                    <constraint firstAttribute="centerY" secondItem="uEy-lx-ZSL" secondAttribute="centerY" constant="0.5" id="KIV-c6-TaX"/>
+                                    <constraint firstAttribute="centerY" secondItem="uEy-lx-ZSL" secondAttribute="centerY" id="KIV-c6-TaX"/>
                                     <constraint firstAttribute="centerY" secondItem="ndO-2b-wBe" secondAttribute="centerY" id="Vr7-Lp-cHs"/>
                                     <constraint firstAttribute="centerX" secondItem="uEy-lx-ZSL" secondAttribute="centerX" id="YPl-Cj-S2T"/>
                                     <constraint firstAttribute="centerY" secondItem="A4G-lb-28Q" secondAttribute="centerY" id="kPv-04-5CO"/>
@@ -903,17 +911,30 @@ Please select your plan cycle.</string>
                             </view>
                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="U12-Af-TXq" customClass="ASValueTrackingSlider">
                                 <rect key="frame" x="14" y="562" width="572" height="31"/>
+                                <connections>
+                                    <action selector="sliderValueChanged:" destination="gVp-6K-zxM" eventType="valueChanged" id="3Kf-zr-9Yy"/>
+                                </connections>
                             </slider>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Ie6-ov-0LK" firstAttribute="top" secondItem="U12-Af-TXq" secondAttribute="bottom" constant="8" id="6Zf-yU-tPF"/>
+                            <constraint firstItem="pnB-2D-no2" firstAttribute="leading" secondItem="inF-i5-bwn" secondAttribute="leadingMargin" id="EoD-XD-nJh"/>
+                            <constraint firstItem="pnB-2D-no2" firstAttribute="trailing" secondItem="inF-i5-bwn" secondAttribute="trailingMargin" id="bKz-yO-S4m"/>
                             <constraint firstItem="U12-Af-TXq" firstAttribute="top" secondItem="Ys6-Nf-rBe" secondAttribute="bottom" constant="8" id="cbB-Th-gas"/>
                             <constraint firstItem="U12-Af-TXq" firstAttribute="leading" secondItem="inF-i5-bwn" secondAttribute="leadingMargin" id="dTL-7R-SqK"/>
                             <constraint firstItem="Ys6-Nf-rBe" firstAttribute="top" secondItem="pnB-2D-no2" secondAttribute="bottom" id="eey-PY-P4i"/>
                             <constraint firstItem="U12-Af-TXq" firstAttribute="trailing" secondItem="inF-i5-bwn" secondAttribute="trailingMargin" id="fOE-oZ-psk"/>
+                            <constraint firstItem="pnB-2D-no2" firstAttribute="top" secondItem="7Zq-0K-pTP" secondAttribute="bottom" id="rCm-0c-XBc"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Ys6-Nf-rBe" secondAttribute="trailing" constant="-16" id="tr5-G1-Com"/>
+                            <constraint firstItem="Ys6-Nf-rBe" firstAttribute="leading" secondItem="inF-i5-bwn" secondAttribute="leadingMargin" constant="-16" id="ubc-3M-ner"/>
                             <constraint firstAttribute="width" secondItem="pnB-2D-no2" secondAttribute="width" id="vpH-5X-yHu"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="vpH-5X-yHu"/>
+                            </mask>
+                        </variation>
                     </view>
                     <navigationItem key="navigationItem" id="gAV-K5-dw3">
                         <barButtonItem key="leftBarButtonItem" title="Menu" id="cz2-dG-LEB">
@@ -928,7 +949,9 @@ Please select your plan cycle.</string>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="dateLabel" destination="uEy-lx-ZSL" id="961-wL-PRp"/>
                         <outlet property="map" destination="Ys6-Nf-rBe" id="cx2-h6-1Yi"/>
+                        <outlet property="slider" destination="U12-Af-TXq" id="Dix-OM-R6n"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UPR-xA-UPt" userLabel="First Responder" sceneMemberID="firstResponder"/>
