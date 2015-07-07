@@ -23,6 +23,7 @@
     self.map.showsUserLocation=YES;
     self.map.delegate = self;
     
+    self.navigationItem.title=@"MAP";
     
     NSArray *locations = [[NSArray alloc] initWithArray:[[DataManagement sharedInstance] locations]];
     self.mapClusterController = [[CCHMapClusterController alloc] initWithMapView:self.map];
@@ -41,9 +42,11 @@
     NSLog(@"Date is: %@",[self.dataDateFormatter stringFromDate:self.dataDate]);
     self.dateLabel.text = [NSString stringWithFormat:@"%@",[self.dataDateFormatter stringFromDate:self.dataDate]];
     
-    
+    /*
     NSArray *addAnnotationArray = [self CDgetAnnotationArray:self.dataDate];
     [self.map addAnnotations:addAnnotationArray];
+     */
+    [self updateMapAnnotations];
 }
 
 -(void)viewDidAppear:(BOOL)animated{
@@ -91,10 +94,28 @@
     [self.mapClusterController addAnnotations:locations withCompletionHandler:NULL];
     */
     NSLog(@"testButtonAction: date is %@", self.dataDate);
+    [self updateMapAnnotations];
+
+    
+}
+
+-(void)updateMapAnnotations{
     [self.map removeAnnotations:[self.map annotations]];
     NSArray *addAnnotationArray = [self CDgetAnnotationArray:self.dataDate];
     [self.map addAnnotations:addAnnotationArray];
+    
+    //Zoom to fit annotations
+    MKMapPoint annotationPoint = MKMapPointForCoordinate(self.map.userLocation.coordinate);
+    MKMapRect zoomRect = MKMapRectMake(annotationPoint.x, annotationPoint.y, 0.1, 0.1);
+    for (id <MKAnnotation> annotation in self.map.annotations)
+    {
+        MKMapPoint annotationPoint = MKMapPointForCoordinate(annotation.coordinate);
+        MKMapRect pointRect = MKMapRectMake(annotationPoint.x, annotationPoint.y, 0.1, 0.1);
+        zoomRect = MKMapRectUnion(zoomRect, pointRect);
+    }
+    [self.map setVisibleMapRect:zoomRect animated:YES];
 }
+
 
 - (IBAction)sliderValueChanged:(ASValueTrackingSlider *)sender {
     NSLog(@"Slider value is %f", self.slider.value);
@@ -164,9 +185,7 @@
     self.dataDate = [[NSCalendar currentCalendar] dateByAddingComponents:dateComponents toDate:self.dataDate options:0];
     self.dateLabel.text = [NSString stringWithFormat:@"%@",[self.dataDateFormatter stringFromDate:self.dataDate]];
     
-    [self.map removeAnnotations:[self.map annotations]];
-    NSArray *addAnnotationArray = [self CDgetAnnotationArray:self.dataDate];
-    [self.map addAnnotations:addAnnotationArray];
+    [self updateMapAnnotations];
 }
 
 - (IBAction)nextButton:(id)sender {
@@ -175,9 +194,7 @@
     self.dataDate = [[NSCalendar currentCalendar] dateByAddingComponents:dateComponents toDate:self.dataDate options:0];
     self.dateLabel.text = [NSString stringWithFormat:@"%@",[self.dataDateFormatter stringFromDate:self.dataDate]];
     
-    [self.map removeAnnotations:[self.map annotations]];
-    NSArray *addAnnotationArray = [self CDgetAnnotationArray:self.dataDate];
-    [self.map addAnnotations:addAnnotationArray];
+    [self updateMapAnnotations];
 }
 
 
