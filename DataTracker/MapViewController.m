@@ -34,8 +34,8 @@
     NSDateComponents *components = [calendar components:(NSCalendarUnitHour | NSCalendarUnitMinute) fromDate:date];
     NSInteger hour = [components hour];
     self.slider.minimumValue = 0;
-    self.slider.maximumValue = hour;
-    
+    //self.slider.maximumValue = hour;
+    self.slider.maximumValue = 24;
     self.dataDate = [NSDate date];
     self.dataDateFormatter=[[NSDateFormatter alloc] init];
     [self.dataDateFormatter setDateFormat:@"EEEE, MMM dd, yyyy"];
@@ -46,24 +46,29 @@
     NSArray *addAnnotationArray = [self CDgetAnnotationArray:self.dataDate];
     [self.map addAnnotations:addAnnotationArray];
      */
-    [self updateMapAnnotations];
-}
-
--(void)viewDidAppear:(BOOL)animated{
     
 }
 
+-(void)viewDidAppear:(BOOL)animated{
+    [self updateMapAnnotations];
+}
+
+
 -(void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation
 {
+    /*
     MKCoordinateRegion mapRegion;
     mapRegion.center = self.map.userLocation.coordinate;
     mapRegion.span.latitudeDelta = 0.01f;
     mapRegion.span.longitudeDelta = 0.01f;
     [self.map regionThatFits:mapRegion];
     [self.map setRegion:mapRegion animated:NO];
+    */
+    [self updateMapAnnotations];
     
 }
 
+ 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -93,8 +98,7 @@
     }
     [self.mapClusterController addAnnotations:locations withCompletionHandler:NULL];
     */
-    NSLog(@"testButtonAction: date is %@", self.dataDate);
-    [self updateMapAnnotations];
+    [self.map removeAnnotations:[self.map annotations]];
 
     
 }
@@ -119,10 +123,11 @@
 
 - (IBAction)sliderValueChanged:(ASValueTrackingSlider *)sender {
     NSLog(@"Slider value is %f", self.slider.value);
-    NSArray *addAnnotationArray = [self CDgetAnnotationArray:self.dataDate];
+    NSMutableArray *CDAnnotationArray = [[DataManagement sharedInstance] CDSearchAnnotation:self.dataDate];
+    
     
     NSArray *oldAnnotations=[self.map annotations];
-    NSLog(@"oldannotations is: %lu and addannotationsis: %lu", (unsigned long)oldAnnotations.count, (unsigned long)addAnnotationArray.count);
+    //NSLog(@"oldannotations is: %lu and addannotationsis: %lu", (unsigned long)oldAnnotations.count, (unsigned long)addAnnotationArray.count);
     
     int hours = (int)self.slider.value;
     int minutes = (int)((self.slider.value - hours) * 60);
@@ -134,19 +139,51 @@
     [comps setMinute:minutes];
     [comps setHour:hours];
     result = [gregorian dateFromComponents:comps];
+    NSLog(@"Slider date is: %@", result);
+    NSMutableArray *addAnnotationArray = [[NSMutableArray alloc] init];
     
-    /*
-    if([result timeIntervalSinceDate:self.dataDate] > 0){
-        NSLog(@"result timeIntervalSinceDate:date in core data with: date %@, lat %f, long %f, wan %f, wifi %f", date, latitude, longitude, wan, wifi);
-        [addAnnotationArray addObject:annotation];
-    }
-    
-    if ((oldAnnotations.count - 1) > addAnnotationArray.count) {
-        [self.map removeAnnotations:oldAnnotations];
+    for (NSManagedObject *obj in CDAnnotationArray) {
         
+        NSDate *date = [obj valueForKey:@"date"];
+        double latitude = [[obj valueForKey:@"latitude"] doubleValue];
+        double longitude = [[obj valueForKey:@"longitude"] doubleValue];
+        float wan = [[obj valueForKey:@"wan"] floatValue];
+        float wifi = [[obj valueForKey:@"wifi"] floatValue];
+        NSLog(@"Annotation object in core data with: date %@, lat %f, long %f, wan %f, wifi %f", date, latitude, longitude, wan, wifi);
+        
+        /*
+        //NSLog(@"Date corresponding to slider is: %@", result);
+        MKPointAnnotation *annotation = [[MKPointAnnotation alloc] init];
+        annotation.coordinate = CLLocationCoordinate2DMake(latitude, longitude);
+        annotation.title = [NSString stringWithFormat:@"%.1f MB", wan/100000];
+        [addAnnotationArray addObject:annotation];
+        */
+        
+        MKPointAnnotation *annotation = [[MKPointAnnotation alloc] init];
+        annotation.coordinate = CLLocationCoordinate2DMake(latitude, longitude);
+        annotation.title = [NSString stringWithFormat:@"%.1f MB", wan/100000];
+        
+        if([result timeIntervalSinceDate:date] > 0){
+            NSLog(@"result timeIntervalSinceDate:date in core data with: date %@, lat %f, long %f, wan %f, wifi %f", date, latitude, longitude, wan, wifi);
+            //[self.map addAnnotation:annotation];
+            [addAnnotationArray addObject:annotation];
+        }
     }
-     */
-    [self.map addAnnotations:addAnnotationArray];
+    
+    NSLog(@"oldAnnotation count is: %lu and addAnotationArray count is: %lu", (unsigned long)[self.map annotations].count-1, (unsigned long)addAnnotationArray.count);
+    if (([self.map annotations].count - 1) > addAnnotationArray.count) {
+        for (int i = 0; i < ([self.map annotations].count - 1) - addAnnotationArray.count; i++) {
+            [self.map removeAnnotation:[self.map annotations].lastObject];
+        }
+    }
+    else if(addAnnotationArray.count > ([self.map annotations].count - 1)){
+        NSLog(@"2 oldAnnotation count is: %lu and addAnotationArray count is: %lu", (unsigned long)[self.map annotations].count-1, (unsigned long)addAnnotationArray.count);
+        //for (int i = 0; i < addAnnotationArray.count - ([self.map annotations].count - 1); i++) {
+        [addAnnotationArray removeObjectsInRange:NSMakeRange(0, ([self.map annotations].count - 1))];
+        //}
+        [self.map addAnnotations:addAnnotationArray];
+    }
+    
 }
 
 -(NSArray *)CDgetAnnotationArray:(NSDate *)dataDate{
@@ -158,7 +195,7 @@
         double longitude = [[obj valueForKey:@"longitude"] doubleValue];
         float wan = [[obj valueForKey:@"wan"] floatValue];
         float wifi = [[obj valueForKey:@"wifi"] floatValue];
-        NSLog(@"Annotation object in core data with: date %@, lat %f, long %f, wan %f, wifi %f", date, latitude, longitude, wan, wifi);
+        //NSLog(@"Annotation object in core data with: date %@, lat %f, long %f, wan %f, wifi %f", date, latitude, longitude, wan, wifi);
         
         
         

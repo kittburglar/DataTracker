@@ -223,6 +223,9 @@ static void dumpAllFonts() {
             //Calculate the total daily usage amount
             float denominator = [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue] / planDays;
             NSLog(@"wan is: %f and denominator is: %f", wan, denominator);
+            
+            float dailyUsageSuggestion = (denominator - wan)/1000000;
+            
             UIColor *color;
             
             //Colour progress bars according to budget usage percentage
@@ -272,7 +275,11 @@ static void dumpAllFonts() {
             if (weekday == today) {
                 [self progressBarFill:self.otherProgressLabel withColor:color withProgress:[self calculateProgress:wan withTotal:denominator]];
                 //[self.dailyUnusedAmount countFrom:[self.dailyUnusedAmount currentValue] to:(denominator - wan)/1000000];
-                self.dailyUnusedAmount.text = [NSString stringWithFormat:@"%.01f MB", (denominator - wan)/1000000];
+                if(dailyUsageSuggestion < 0){
+                    self.dailyLabel.text = @"DAILY BUDGET EXCEEDED";
+                    self.dailyUnusedAmount.textColor = UIColorFromRGB(0xc82829);
+                }
+                self.dailyUnusedAmount.text = [NSString stringWithFormat:@"%.01f MB", dailyUsageSuggestion];
             }
         }
     }

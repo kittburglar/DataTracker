@@ -271,7 +271,7 @@
     NSEntityDescription *entitydesc = [NSEntityDescription entityForName:@"Annotation" inManagedObjectContext:managedObjectContext];
     
     
-    //Get 12am this morning
+    //Get 12am in the morning
     NSCalendar *calendar = [NSCalendar currentCalendar]; // gets default calendar
     NSDateComponents *components = [calendar components:(NSYearCalendarUnit | NSMonthCalendarUnit |  NSDayCalendarUnit) fromDate:searchDay]; // gets the year, month, and day for today's date
     NSDate *firstDate = [calendar dateFromComponents:components]; // makes a new NSDate keeping only the year, month, and day

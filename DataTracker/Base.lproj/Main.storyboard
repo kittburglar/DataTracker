@@ -942,7 +942,7 @@ Please select your plan cycle.</string>
                                 <segue destination="aAL-3y-9BR" kind="unwind" unwindAction="unwindToMenuViewController:" id="4Cv-MC-NGi"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Item" id="bv7-3d-JYP">
+                        <barButtonItem key="rightBarButtonItem" title="Test" id="bv7-3d-JYP">
                             <connections>
                                 <action selector="testButtonAction:" destination="gVp-6K-zxM" id="Bb4-p6-OcK"/>
                             </connections>
