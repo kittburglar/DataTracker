@@ -243,9 +243,11 @@
     }
     else{
         //Fill each mini progress bar
+        NSManagedObjectContext *firstObj = matchingData[0];
+        NSDate *date = [firstObj valueForKey:@"date"];
         
         NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
-        NSDateComponents *comps = [gregorian components:NSWeekdayCalendarUnit fromDate:[NSDate date]];
+        NSDateComponents *comps = [gregorian components:NSWeekdayCalendarUnit fromDate:date];
         int weekday = [comps weekday]-1;
         for (NSManagedObjectContext *obj in matchingData) {
             NSDate *date = [obj valueForKey:@"date"];
