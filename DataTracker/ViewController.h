@@ -40,6 +40,7 @@
 @property (strong, nonatomic) IBOutlet KAProgressLabel *satProgressLabel;
 @property (strong, nonatomic) IBOutlet UICountingLabel *dailyUnusedAmount;
 @property (strong, nonatomic) IBOutlet UILabel *dailyLabel;
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *menuBarButton;
 
 
 

@@ -210,7 +210,7 @@
     
     //Test sum amount on core data since last renewal
     [self checkCoreDataUsage];
-    [self upDateCoreData:currentUsage];
+    //[self upDateCoreData:currentUsage];
 
     
 }

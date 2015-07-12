@@ -129,6 +129,7 @@ static void dumpAllFonts() {
     float thisWan = [[[NSUserDefaults standardUserDefaults] stringForKey:@"totalUsage"] floatValue];
     [[NSUserDefaults standardUserDefaults] setFloat:thisWan forKey:@"LastWanSinceUpdate"];
     //[self fillWeeklyBars];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -157,6 +158,15 @@ static void dumpAllFonts() {
                                 delay:0.0];
     [self fillWeeklyBars];
    
+}
+
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+{
+    if([UINavigationBar conformsToProtocol:@protocol(UIAppearanceContainer)]) {
+        [UINavigationBar appearance].tintColor = [UIColor blackColor];
+    }
+    
+    return YES;
 }
 
 - (float)calculateDailySuggestion{

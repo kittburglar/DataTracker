@@ -277,7 +277,8 @@
                         </variation>
                     </view>
                     <navigationItem key="navigationItem" title="MAIN" id="Byw-7W-zZT">
-                        <barButtonItem key="leftBarButtonItem" title="Menu" id="UcJ-KI-3FL">
+                        <barButtonItem key="leftBarButtonItem" title="Item" image="Menu" id="UcJ-KI-3FL">
+                            <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
                             <connections>
                                 <segue destination="OeF-hE-fna" kind="unwind" unwindAction="unwindToMenuViewController:" id="X7q-Te-but"/>
                             </connections>
@@ -294,6 +295,7 @@
                         <outlet property="dailyLabel" destination="9o6-6T-Ems" id="TlP-ie-aAh"/>
                         <outlet property="dailyUnusedAmount" destination="LIp-YS-Xfx" id="QXc-ME-5kv"/>
                         <outlet property="friProgressLabel" destination="0d9-z8-thp" id="Yeh-Le-Ous"/>
+                        <outlet property="menuBarButton" destination="UcJ-KI-3FL" id="YPf-QN-lCd"/>
                         <outlet property="monProgressLabel" destination="5Gd-vh-sQn" id="Cbe-vF-UGu"/>
                         <outlet property="myProgressLabel" destination="Ity-l2-Gwo" id="sdQ-gy-oBi"/>
                         <outlet property="otherProgressLabel" destination="F1A-0c-hqI" id="0j1-7A-EeC"/>
@@ -326,17 +328,31 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="2ia-IK-wJD" id="JJf-rJ-377">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Eb-oD-0kh">
+                                                    <rect key="frame" x="8" y="10" width="79" height="24"/>
+                                                    <state key="normal" image="Home">
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Home" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tA6-GG-kLY">
-                                                    <rect key="frame" x="8" y="11" width="80" height="21"/>
+                                                    <rect key="frame" x="95" y="11" width="80" height="21"/>
                                                     <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstAttribute="centerY" secondItem="9Eb-oD-0kh" secondAttribute="centerY" id="T9c-qt-tIy"/>
                                                 <constraint firstItem="tA6-GG-kLY" firstAttribute="leading" secondItem="JJf-rJ-377" secondAttribute="leadingMargin" id="UJV-e5-nVA"/>
+                                                <constraint firstItem="9Eb-oD-0kh" firstAttribute="leading" secondItem="JJf-rJ-377" secondAttribute="leadingMargin" id="fk4-1Z-Vnj"/>
                                                 <constraint firstAttribute="centerY" secondItem="tA6-GG-kLY" secondAttribute="centerY" id="g3A-Dt-6xg"/>
+                                                <constraint firstItem="tA6-GG-kLY" firstAttribute="leading" secondItem="9Eb-oD-0kh" secondAttribute="trailing" constant="8" id="sBE-LW-wNy"/>
                                             </constraints>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="UJV-e5-nVA"/>
+                                                </mask>
+                                            </variation>
                                         </tableViewCellContentView>
                                         <connections>
                                             <segue destination="X2m-mL-0oz" kind="custom" customClass="ECSlidingSegue" id="dyj-iM-DYb"/>
@@ -348,16 +364,30 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Plan Cycle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ibC-pO-mvc">
-                                                    <rect key="frame" x="8" y="11" width="190" height="21"/>
+                                                    <rect key="frame" x="96" y="11" width="190" height="21"/>
                                                     <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nRf-PM-DpU">
+                                                    <rect key="frame" x="8" y="7" width="79" height="24"/>
+                                                    <state key="normal" image="Calendar">
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                </button>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="nRf-PM-DpU" firstAttribute="leading" secondItem="huj-ym-bW7" secondAttribute="leadingMargin" id="5oc-gJ-IO4"/>
+                                                <constraint firstAttribute="centerY" secondItem="nRf-PM-DpU" secondAttribute="centerY" id="NRl-qk-WBx"/>
+                                                <constraint firstItem="ibC-pO-mvc" firstAttribute="leading" secondItem="nRf-PM-DpU" secondAttribute="trailing" constant="8" id="NlF-he-UyF"/>
                                                 <constraint firstAttribute="centerY" secondItem="ibC-pO-mvc" secondAttribute="centerY" id="YQw-VI-kzQ"/>
                                                 <constraint firstItem="ibC-pO-mvc" firstAttribute="leading" secondItem="huj-ym-bW7" secondAttribute="leadingMargin" id="aWn-dr-ZVm"/>
                                             </constraints>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="aWn-dr-ZVm"/>
+                                                </mask>
+                                            </variation>
                                         </tableViewCellContentView>
                                         <connections>
                                             <segue destination="bTv-ak-XPl" kind="custom" customClass="ECSlidingSegue" id="tna-zq-NqU"/>
@@ -369,16 +399,31 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="7ES-Fu-CaC" id="HgV-zG-qsa">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Map" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Na3-ub-vr8">
-                                                    <rect key="frame" x="8" y="11" width="133" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Map" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Na3-ub-vr8">
+                                                    <rect key="frame" x="104" y="11" width="133" height="21"/>
                                                     <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Lc-ck-C6D">
+                                                    <rect key="frame" x="8" y="10" width="79" height="24"/>
+                                                    <state key="normal" image="Map">
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                </button>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstAttribute="centerY" secondItem="Na3-ub-vr8" secondAttribute="centerY" id="A9q-xH-u8b"/>
+                                                <constraint firstAttribute="centerY" secondItem="9Lc-ck-C6D" secondAttribute="centerY" id="B1z-9K-Tcc"/>
                                                 <constraint firstItem="Na3-ub-vr8" firstAttribute="leading" secondItem="HgV-zG-qsa" secondAttribute="leadingMargin" id="K9u-Lb-5xC"/>
+                                                <constraint firstItem="9Lc-ck-C6D" firstAttribute="leading" secondItem="HgV-zG-qsa" secondAttribute="leadingMargin" id="s8v-bo-rTW"/>
+                                                <constraint firstItem="Na3-ub-vr8" firstAttribute="leading" secondItem="9Lc-ck-C6D" secondAttribute="trailing" constant="8" id="uQe-73-vC9"/>
                                             </constraints>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="K9u-Lb-5xC"/>
+                                                </mask>
+                                            </variation>
                                         </tableViewCellContentView>
                                         <connections>
                                             <segue destination="3Xy-fM-DN9" kind="custom" customClass="ECSlidingSegue" id="lTR-fK-bBu"/>
@@ -391,16 +436,30 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="History" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a71-C9-clT">
-                                                    <rect key="frame" x="8" y="11" width="105" height="24"/>
+                                                    <rect key="frame" x="100" y="8" width="105" height="24"/>
                                                     <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4hX-wo-isY">
+                                                    <rect key="frame" x="8" y="10" width="79" height="24"/>
+                                                    <state key="normal" image="Chart">
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                </button>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="centerY" secondItem="a71-C9-clT" secondAttribute="centerY" id="6NV-Sz-Y8Y"/>
+                                                <constraint firstItem="4hX-wo-isY" firstAttribute="leading" secondItem="d9V-dk-Ph7" secondAttribute="leadingMargin" id="RzX-3j-XmR"/>
+                                                <constraint firstItem="a71-C9-clT" firstAttribute="leading" secondItem="4hX-wo-isY" secondAttribute="trailing" constant="8" id="THE-oF-GgP"/>
+                                                <constraint firstAttribute="centerY" secondItem="4hX-wo-isY" secondAttribute="centerY" id="rTH-l3-Wb1"/>
                                                 <constraint firstItem="a71-C9-clT" firstAttribute="leading" secondItem="d9V-dk-Ph7" secondAttribute="leadingMargin" id="rzk-i4-bpf"/>
                                             </constraints>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="rzk-i4-bpf"/>
+                                                </mask>
+                                            </variation>
                                         </tableViewCellContentView>
                                         <connections>
                                             <segue destination="naP-BL-2Ko" kind="custom" customClass="ECSlidingSegue" id="qya-v8-a65"/>
@@ -607,8 +666,9 @@ Please select your plan cycle.</string>
                             <constraint firstItem="6w4-64-JVF" firstAttribute="top" secondItem="DYg-47-rf8" secondAttribute="bottom" constant="32" id="lWn-Sq-FAR"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="Kd5-By-TWT">
-                        <barButtonItem key="leftBarButtonItem" title="Menu" id="3nX-3k-IME">
+                    <navigationItem key="navigationItem" title="PLAN CYCLE" id="Kd5-By-TWT">
+                        <barButtonItem key="leftBarButtonItem" image="Menu" id="3nX-3k-IME">
+                            <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
                             <connections>
                                 <segue destination="y5e-Ys-7Ch" kind="unwind" unwindAction="unwindToMenuViewController:" id="8oQ-iy-KSg"/>
                             </connections>
@@ -666,7 +726,7 @@ Please select your plan cycle.</string>
                         <viewControllerLayoutGuide type="bottom" id="wOa-Ze-pOG"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="wh8-Eb-NJO">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="568" height="546"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Yji-b1-0Dg">
@@ -678,7 +738,7 @@ Please select your plan cycle.</string>
                                 <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Please enter your data amount per cycle." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dkk-pm-YM6">
-                                <rect key="frame" x="16" y="72" width="568" height="101"/>
+                                <rect key="frame" x="16" y="72" width="536" height="101"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="600" id="BSP-eQ-Top"/>
                                 </constraints>
@@ -873,9 +933,9 @@ Please select your plan cycle.</string>
                             <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pnB-2D-no2">
                                 <rect key="frame" x="15" y="64" width="569" height="60"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ndO-2b-wBe">
-                                        <rect key="frame" x="20" y="15" width="46" height="30"/>
-                                        <state key="normal" title="Prev">
+                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ndO-2b-wBe">
+                                        <rect key="frame" x="20" y="18" width="60" height="24"/>
+                                        <state key="normal" image="Back">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -888,9 +948,9 @@ Please select your plan cycle.</string>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A4G-lb-28Q">
-                                        <rect key="frame" x="505" y="15" width="46" height="30"/>
-                                        <state key="normal" title="Next">
+                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A4G-lb-28Q">
+                                        <rect key="frame" x="505" y="18" width="62" height="24"/>
+                                        <state key="normal" image="Next">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -937,7 +997,8 @@ Please select your plan cycle.</string>
                         </variation>
                     </view>
                     <navigationItem key="navigationItem" id="gAV-K5-dw3">
-                        <barButtonItem key="leftBarButtonItem" title="Menu" id="cz2-dG-LEB">
+                        <barButtonItem key="leftBarButtonItem" image="Menu" id="cz2-dG-LEB">
+                            <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <segue destination="aAL-3y-9BR" kind="unwind" unwindAction="unwindToMenuViewController:" id="4Cv-MC-NGi"/>
                             </connections>
@@ -1163,7 +1224,8 @@ Please select your plan cycle.</string>
                         </variation>
                     </view>
                     <navigationItem key="navigationItem" id="7vz-10-agw">
-                        <barButtonItem key="leftBarButtonItem" title="Item" id="icl-W5-axa">
+                        <barButtonItem key="leftBarButtonItem" image="Menu" id="icl-W5-axa">
+                            <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
                             <connections>
                                 <segue destination="67k-Cv-3oW" kind="unwind" unwindAction="unwindToMenuViewController:" id="hFm-9r-jpm"/>
                             </connections>
@@ -1336,10 +1398,19 @@ Please select your plan cycle.</string>
             <point key="canvasLocation" x="406" y="225"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Back" width="24" height="24"/>
+        <image name="Calendar" width="24" height="24"/>
+        <image name="Chart" width="24" height="24"/>
+        <image name="Home" width="24" height="24"/>
+        <image name="Map" width="24" height="24"/>
+        <image name="Menu" width="24" height="24"/>
+        <image name="Next" width="24" height="24"/>
+    </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="lOz-sV-moi"/>
+        <segue reference="3c3-nS-TMe"/>
         <segue reference="dzl-eX-tBP"/>
         <segue reference="rs3-iB-oWS"/>
-        <segue reference="zXT-tP-pOY"/>
-        <segue reference="lOz-sV-moi"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -18,6 +18,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    //Navigation Bar
+    [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                                     [UIFont fontWithName:@"OpenSans" size:21],
+                                                                     NSFontAttributeName, nil]];
+    self.navigationItem.title=@"PLAN CYCLE";
+    
 }
 
 - (void)didReceiveMemoryWarning {
