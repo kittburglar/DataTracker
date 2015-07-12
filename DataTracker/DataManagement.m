@@ -157,6 +157,18 @@
     
 }
 
+- (int)daysLeftInPlan{
+    int daysLeft = 0;
+
+    NSDate *todayDate = [NSDate date];
+    NSDate *endDate = [[NSUserDefaults standardUserDefaults] objectForKey:@"RenewDate"];
+    
+    NSLog(@"Today's Date is: %@ and End Date is: %@", todayDate, endDate);
+    daysLeft = [self daysBetweenDate:todayDate andDate:endDate];
+    
+    return daysLeft;
+}
+
 - (float)calculatePercentage{
     float percentage = 0.0;
     float difference = 0.0;

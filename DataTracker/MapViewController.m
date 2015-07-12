@@ -122,6 +122,7 @@
 
 
 - (IBAction)sliderValueChanged:(ASValueTrackingSlider *)sender {
+    /*
     NSLog(@"Slider value is %f", self.slider.value);
     NSMutableArray *CDAnnotationArray = [[DataManagement sharedInstance] CDSearchAnnotation:self.dataDate];
     
@@ -151,13 +152,7 @@
         float wifi = [[obj valueForKey:@"wifi"] floatValue];
         NSLog(@"Annotation object in core data with: date %@, lat %f, long %f, wan %f, wifi %f", date, latitude, longitude, wan, wifi);
         
-        /*
-        //NSLog(@"Date corresponding to slider is: %@", result);
-        MKPointAnnotation *annotation = [[MKPointAnnotation alloc] init];
-        annotation.coordinate = CLLocationCoordinate2DMake(latitude, longitude);
-        annotation.title = [NSString stringWithFormat:@"%.1f MB", wan/100000];
-        [addAnnotationArray addObject:annotation];
-        */
+        
         
         MKPointAnnotation *annotation = [[MKPointAnnotation alloc] init];
         annotation.coordinate = CLLocationCoordinate2DMake(latitude, longitude);
@@ -183,7 +178,7 @@
         //}
         [self.map addAnnotations:addAnnotationArray];
     }
-    
+    */
 }
 
 -(NSArray *)CDgetAnnotationArray:(NSDate *)dataDate{

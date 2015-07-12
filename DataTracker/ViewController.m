@@ -159,7 +159,19 @@ static void dumpAllFonts() {
    
 }
 
-
+- (float)calculateDailySuggestion{
+    NSDate *todayDate = [NSDate date];
+    NSDate *endDate = [[NSUserDefaults standardUserDefaults] objectForKey:@"RenewDate"];
+    float wanUsage = [[DataManagement sharedInstance] calculateWAN];
+    float planDataLimit = [[NSUserDefaults standardUserDefaults] floatForKey:@"DataAmount"];
+    int planDaysLeft = [[DataManagement sharedInstance] daysBetweenDate:todayDate andDate:endDate];
+    NSLog(@"wanUsage is: %f, planDataLimit is: %f, planDaysLeft is: %d", wanUsage, planDataLimit, planDaysLeft);
+    
+    float dailyBudget = (planDataLimit - wanUsage) / planDaysLeft;
+    NSLog(@"dailyBudget is: %f", dailyBudget);
+    
+    return dailyBudget;
+}
 
 
 - (void)fillWeeklyBars{
@@ -221,7 +233,8 @@ static void dumpAllFonts() {
             int planDays = [self renewalPeriodDays:date withWan:wanNum withDataPlan:dataPlan];
             
             //Calculate the total daily usage amount
-            float denominator = [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue] / planDays;
+            //float denominator = [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataAmount"] floatValue] / planDays;
+            float denominator = [self calculateDailySuggestion];
             NSLog(@"wan is: %f and denominator is: %f", wan, denominator);
             
             float dailyUsageSuggestion = (denominator - wan)/1000000;
@@ -287,7 +300,19 @@ static void dumpAllFonts() {
 }
 
 - (float)calculateProgress:(float)wan withTotal:(float)total{
-    return fminf(wan/total, 1);
+    float progressPercentage = fminf(wan/total, 1);
+    /*
+    NSDate *todayDate = [NSDate date];
+    NSDate *endDate = [[NSUserDefaults standardUserDefaults] objectForKey:@"RenewDate"];
+    float wanUsage = [[DataManagement sharedInstance] calculateWAN];
+    float planDataLimit = [[NSUserDefaults standardUserDefaults] floatForKey:@"DataAmount"];
+    int planDaysLeft = [[DataManagement sharedInstance] daysBetweenDate:todayDate andDate:endDate];
+    NSLog(@"wanUsage is: %f, planDataLimit is: %f, planDaysLeft is: %d", wanUsage, planDataLimit, planDaysLeft);
+    
+    float dailyBudget = (planDataLimit - wanUsage) / planDaysLeft;
+    float progressPercentage = wan / dailyBudget;
+    */
+    return progressPercentage;
 }
 
 
@@ -349,10 +374,7 @@ static void dumpAllFonts() {
 }
 
 - (IBAction)testButton:(id)sender {
-    NSLog(@"DataManagement is: %@", [[DataManagement sharedInstance] object]);
-    NSMutableArray *locations = [[NSMutableArray alloc] initWithArray:[[DataManagement sharedInstance] locations2]];
-    [locations addObject:@0];
-    [[DataManagement sharedInstance] setLocations2:locations];
+    NSLog(@"Day's left in plan are: %d", [[DataManagement sharedInstance] daysLeftInPlan]);
 }
 
 

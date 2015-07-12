@@ -34,10 +34,11 @@
 - (void)calibrateTotalUsage;
 - (void)resetData;
 - (float)calculatePercentage;
--(NSArray *)CDDataUsage:(NSDate *)startDate withEndDate:(NSDate *)endDate;
+- (NSArray *)CDDataUsage:(NSDate *)startDate withEndDate:(NSDate *)endDate;
 - (NSInteger)daysBetweenDate:(NSDate*)fromDateTime andDate:(NSDate*)toDateTime;
--(NSArray *)getColors;
--(NSMutableArray *)getLocations2;
--(NSMutableArray *)CDSearchAnnotation:(NSDate *)searchDay;
+- (NSArray *)getColors;
+- (NSMutableArray *)getLocations2;
+- (NSMutableArray *)CDSearchAnnotation:(NSDate *)searchDay;
+- (int)daysLeftInPlan;
 
 @end

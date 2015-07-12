@@ -1142,6 +1142,7 @@ Please select your plan cycle.</string>
                             <constraint firstItem="KHs-Sd-U8y" firstAttribute="top" secondItem="74c-8j-OVH" secondAttribute="bottom" id="KUl-9q-W1f"/>
                             <constraint firstItem="WzM-M4-PHU" firstAttribute="top" secondItem="KHs-Sd-U8y" secondAttribute="bottom" constant="32" id="LE9-ua-sho"/>
                             <constraint firstItem="KHs-Sd-U8y" firstAttribute="top" secondItem="74c-8j-OVH" secondAttribute="top" constant="69" id="NTZ-Hb-aIW"/>
+                            <constraint firstAttribute="centerX" secondItem="JUN-UU-pVB" secondAttribute="centerX" id="OEX-Ha-aqN"/>
                             <constraint firstItem="KHs-Sd-U8y" firstAttribute="trailing" secondItem="Tww-MS-w8D" secondAttribute="trailingMargin" id="Upu-p1-6go"/>
                             <constraint firstItem="KHs-Sd-U8y" firstAttribute="leading" secondItem="Tww-MS-w8D" secondAttribute="leadingMargin" id="XwM-ba-xjH"/>
                             <constraint firstItem="JUN-UU-pVB" firstAttribute="centerX" secondItem="tMU-J4-FC1" secondAttribute="centerX" id="g8H-nc-kda"/>
@@ -1157,6 +1158,7 @@ Please select your plan cycle.</string>
                                 <exclude reference="NTZ-Hb-aIW"/>
                                 <exclude reference="huv-I8-YUD"/>
                                 <exclude reference="LE9-ua-sho"/>
+                                <exclude reference="qY4-yQ-etf"/>
                             </mask>
                         </variation>
                     </view>
