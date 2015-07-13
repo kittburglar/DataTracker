@@ -969,7 +969,7 @@ Please select your plan cycle.</string>
                                     <constraint firstAttribute="centerY" secondItem="A4G-lb-28Q" secondAttribute="centerY" id="kPv-04-5CO"/>
                                 </constraints>
                             </view>
-                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="U12-Af-TXq" customClass="ASValueTrackingSlider">
+                            <slider hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="U12-Af-TXq" customClass="ASValueTrackingSlider">
                                 <rect key="frame" x="14" y="562" width="572" height="31"/>
                                 <connections>
                                     <action selector="sliderValueChanged:" destination="gVp-6K-zxM" eventType="valueChanged" id="3Kf-zr-9Yy"/>
@@ -984,6 +984,7 @@ Please select your plan cycle.</string>
                             <constraint firstItem="U12-Af-TXq" firstAttribute="top" secondItem="Ys6-Nf-rBe" secondAttribute="bottom" constant="8" id="cbB-Th-gas"/>
                             <constraint firstItem="U12-Af-TXq" firstAttribute="leading" secondItem="inF-i5-bwn" secondAttribute="leadingMargin" id="dTL-7R-SqK"/>
                             <constraint firstItem="Ys6-Nf-rBe" firstAttribute="top" secondItem="pnB-2D-no2" secondAttribute="bottom" id="eey-PY-P4i"/>
+                            <constraint firstItem="Ie6-ov-0LK" firstAttribute="top" secondItem="Ys6-Nf-rBe" secondAttribute="bottom" id="f1o-8L-uI1"/>
                             <constraint firstItem="U12-Af-TXq" firstAttribute="trailing" secondItem="inF-i5-bwn" secondAttribute="trailingMargin" id="fOE-oZ-psk"/>
                             <constraint firstItem="pnB-2D-no2" firstAttribute="top" secondItem="7Zq-0K-pTP" secondAttribute="bottom" id="rCm-0c-XBc"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Ys6-Nf-rBe" secondAttribute="trailing" constant="-16" id="tr5-G1-Com"/>
@@ -993,6 +994,7 @@ Please select your plan cycle.</string>
                         <variation key="default">
                             <mask key="constraints">
                                 <exclude reference="vpH-5X-yHu"/>
+                                <exclude reference="cbB-Th-gas"/>
                             </mask>
                         </variation>
                     </view>

@@ -39,6 +39,7 @@ static void dumpAllFonts() {
     dumpAllFonts();
     
     [[DataManagement sharedInstance] setObject:@"Hello"];
+    [self checkTodayData];
     
     //Check date and reset if necessary
     [self checkDate];
@@ -183,6 +184,47 @@ static void dumpAllFonts() {
     return dailyBudget;
 }
 
+//If today is not in the core data add it bruhhg
+- (void)checkTodayData{
+    NSDate *today = [NSDate date];
+    NSDateFormatter *dt = [[NSDateFormatter alloc] init];
+    [dt setDateFormat:@"dd/MM/yyyy"]; // for example
+    NSString *dateString = [dt stringFromDate:today];
+    NSDate *date = [dt dateFromString:dateString];
+    
+    //add to core data again
+    AppDelegate *appdelegate = [[UIApplication sharedApplication] delegate];
+    managedObjectContext = [appdelegate managedObjectContext];
+    
+    NSEntityDescription *entitydesc = [NSEntityDescription entityForName:@"Usage" inManagedObjectContext:managedObjectContext];
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    [request setEntity:entitydesc];
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"date == %@", date];
+    [request setPredicate:predicate];
+    NSError *error;
+    NSArray *matchingData = [managedObjectContext executeFetchRequest:request error:&error];
+
+    if (matchingData.count <= 0) {
+        NSLog(@"Today does not have core data values");
+        NSManagedObject *newUsage = [[NSManagedObject alloc] initWithEntity:entitydesc insertIntoManagedObjectContext:managedObjectContext];
+        
+        NSDate *today = [NSDate date];
+        NSDateFormatter *dt = [[NSDateFormatter alloc] init];
+        [dt setDateFormat:@"dd/MM/yyyy"]; // for example
+        NSString *dateString = [dt stringFromDate:today];
+        NSDate *date = [dt dateFromString:dateString];
+        [newUsage setValue:date forKey:@"date"];
+        [newUsage setValue:[NSNumber numberWithFloat:0.0f] forKey:@"wan"];
+        [newUsage setValue:[NSNumber numberWithFloat:0.0f] forKey:@"wifi"];
+        
+        NSError *error;
+        [managedObjectContext save:&error];
+    }
+    else{
+        NSLog(@"Today has core data values already");
+    }
+}
 
 - (void)fillWeeklyBars{
     NSDate *currentDate = [NSDate date];
@@ -225,7 +267,8 @@ static void dumpAllFonts() {
     
     
     if (matchingData.count <=0) {
-        NSLog(@"No dates match in core data to fill bars.");
+        NSLog(@"No dates match in core data to fill bars. Must add blank value to core data.");
+        
     }
     else{
         //Fill each mini progress bar
@@ -248,6 +291,8 @@ static void dumpAllFonts() {
             NSLog(@"wan is: %f and denominator is: %f", wan, denominator);
             
             float dailyUsageSuggestion = (denominator - wan)/1000000;
+            
+            NSLog(@"Daily Usage Suggestions is: %f", dailyUsageSuggestion);
             
             UIColor *color;
             
@@ -298,11 +343,13 @@ static void dumpAllFonts() {
             if (weekday == today) {
                 [self progressBarFill:self.otherProgressLabel withColor:color withProgress:[self calculateProgress:wan withTotal:denominator]];
                 //[self.dailyUnusedAmount countFrom:[self.dailyUnusedAmount currentValue] to:(denominator - wan)/1000000];
+                
                 if(dailyUsageSuggestion < 0){
                     self.dailyLabel.text = @"DAILY BUDGET EXCEEDED";
                     self.dailyUnusedAmount.textColor = UIColorFromRGB(0xc82829);
                 }
                 self.dailyUnusedAmount.text = [NSString stringWithFormat:@"%.01f MB", dailyUsageSuggestion];
+                NSLog(@"Daily Usage Suggestions is: %f", dailyUsageSuggestion);
             }
         }
     }
