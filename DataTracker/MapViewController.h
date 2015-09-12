@@ -14,6 +14,7 @@
 @property (strong, nonatomic) IBOutlet UISegmentedControl *segmentAccuracy;
 @property (strong, nonatomic) IBOutlet ASValueTrackingSlider *slider;
 @property (strong, nonatomic) IBOutlet MKMapView *map;
+@property (strong, nonatomic) IBOutlet UIView *fullView;
 @property (strong, nonatomic) IBOutlet UISwitch *switchEnabled;
 @property (strong, nonatomic) IBOutlet UILabel *dateLabel;
 @property (strong, nonatomic) NSDate *dataDate;

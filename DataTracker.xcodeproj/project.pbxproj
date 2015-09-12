@@ -9,6 +9,48 @@
 /* Begin PBXBuildFile section */
 		76F4F25C33C324E5600FACB8 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E016C2D93CD9F9F39D81C2AA /* libPods.a */; };
 		F80419501B14005E00C6C6B2 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8D988D81AF8241300CA8736 /* MapKit.framework */; };
+		F84BFA281B9CE0CE0098A88A /* ECSlidingAnimationController.m in Sources */ = {isa = PBXBuildFile; fileRef = F8D988C51AF74EEC00CA8736 /* ECSlidingAnimationController.m */; };
+		F84BFA291B9CE0CE0098A88A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F85059EC1AE5D19200BAED40 /* AppDelegate.m */; };
+		F84BFA2A1B9CE0CE0098A88A /* InitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F8D988D61AF74F7A00CA8736 /* InitViewController.m */; };
+		F84BFA2B1B9CE0CE0098A88A /* DataTracker.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F85059EE1AE5D19200BAED40 /* DataTracker.xcdatamodeld */; };
+		F84BFA2C1B9CE0CE0098A88A /* PlanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F892FC501B2C3B2900C38B4F /* PlanViewController.m */; };
+		F84BFA2D1B9CE0CE0098A88A /* FirstTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F8913D3D1AF2CABF0027AD9F /* FirstTableViewController.m */; };
+		F84BFA2E1B9CE0CE0098A88A /* ECPercentDrivenInteractiveTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = F8D988C31AF74EEC00CA8736 /* ECPercentDrivenInteractiveTransition.m */; };
+		F84BFA2F1B9CE0CE0098A88A /* UsageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F8913D491AF302A80027AD9F /* UsageViewController.m */; };
+		F84BFA301B9CE0CE0098A88A /* SettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F86FA5281B5440F40018291A /* SettingsTableViewController.m */; };
+		F84BFA311B9CE0CE0098A88A /* DataManagement.m in Sources */ = {isa = PBXBuildFile; fileRef = F8AA03EC1B31749E008C1642 /* DataManagement.m */; };
+		F84BFA321B9CE0CE0098A88A /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F85059F21AE5D19200BAED40 /* ViewController.m */; };
+		F84BFA331B9CE0CE0098A88A /* UIViewController+ECSlidingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F8D988CE1AF74EEC00CA8736 /* UIViewController+ECSlidingViewController.m */; };
+		F84BFA341B9CE0CE0098A88A /* SwipeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F87A01321B2809C600049280 /* SwipeViewController.m */; };
+		F84BFA351B9CE0CE0098A88A /* HistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F8AA03E91B315631008C1642 /* HistoryViewController.m */; };
+		F84BFA361B9CE0CE0098A88A /* SwipeView.m in Sources */ = {isa = PBXBuildFile; fileRef = F87A012F1B2804B500049280 /* SwipeView.m */; };
+		F84BFA371B9CE0CE0098A88A /* AmountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F8913D461AF2F7090027AD9F /* AmountViewController.m */; };
+		F84BFA381B9CE0CE0098A88A /* ECSlidingInteractiveTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = F8D988C81AF74EEC00CA8736 /* ECSlidingInteractiveTransition.m */; };
+		F84BFA391B9CE0CE0098A88A /* KAProgressLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = F8D988E51AFB3D4400CA8736 /* KAProgressLabel.m */; };
+		F84BFA3A1B9CE0CE0098A88A /* ECSlidingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F8D988CC1AF74EEC00CA8736 /* ECSlidingViewController.m */; };
+		F84BFA3B1B9CE0CE0098A88A /* TPPropertyAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = F8D988E71AFB3D4400CA8736 /* TPPropertyAnimation.m */; };
+		F84BFA3C1B9CE0CE0098A88A /* PlanTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F8913D401AF2EFE50027AD9F /* PlanTableViewController.m */; };
+		F84BFA3D1B9CE0CE0098A88A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F85059E91AE5D19200BAED40 /* main.m */; };
+		F84BFA3E1B9CE0CE0098A88A /* DateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F8913D431AF2F65A0027AD9F /* DateViewController.m */; };
+		F84BFA3F1B9CE0CE0098A88A /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F8D988E11AF84C6900CA8736 /* MapViewController.m */; };
+		F84BFA401B9CE0CE0098A88A /* ECSlidingSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = F8D988CA1AF74EEC00CA8736 /* ECSlidingSegue.m */; };
+		F84BFA411B9CE0CE0098A88A /* Usage.m in Sources */ = {isa = PBXBuildFile; fileRef = F8A7B0B01AFF75F600E41647 /* Usage.m */; };
+		F84BFA431B9CE0CE0098A88A /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8D988D81AF8241300CA8736 /* MapKit.framework */; };
+		F84BFA441B9CE0CE0098A88A /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E016C2D93CD9F9F39D81C2AA /* libPods.a */; };
+		F84BFA461B9CE0CE0098A88A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F85059F41AE5D19200BAED40 /* Main.storyboard */; };
+		F84BFA471B9CE0CE0098A88A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = F85059F91AE5D19200BAED40 /* LaunchScreen.xib */; };
+		F84BFA481B9CE0CE0098A88A /* OpenSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F8A7B09E1AFF306E00E41647 /* OpenSans-Light.ttf */; };
+		F84BFA491B9CE0CE0098A88A /* screenshot1.png in Resources */ = {isa = PBXBuildFile; fileRef = F876AA681B075794003B959D /* screenshot1.png */; };
+		F84BFA4A1B9CE0CE0098A88A /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F8A7B09B1AFF306E00E41647 /* OpenSans-Bold.ttf */; };
+		F84BFA4B1B9CE0CE0098A88A /* OpenSans-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F8A7B0A11AFF306E00E41647 /* OpenSans-Semibold.ttf */; };
+		F84BFA4C1B9CE0CE0098A88A /* OpenSans-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F8A7B09D1AFF306E00E41647 /* OpenSans-Italic.ttf */; };
+		F84BFA4D1B9CE0CE0098A88A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F85059F71AE5D19200BAED40 /* Images.xcassets */; };
+		F84BFA4E1B9CE0CE0098A88A /* OpenSans-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F8A7B09F1AFF306E00E41647 /* OpenSans-LightItalic.ttf */; };
+		F84BFA4F1B9CE0CE0098A88A /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F8A7B0A01AFF306E00E41647 /* OpenSans-Regular.ttf */; };
+		F84BFA501B9CE0CE0098A88A /* OpenSans-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F8A7B0A41AFF306E00E41647 /* OpenSans-ExtraBoldItalic.ttf */; };
+		F84BFA511B9CE0CE0098A88A /* OpenSans-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F8A7B09C1AFF306E00E41647 /* OpenSans-BoldItalic.ttf */; };
+		F84BFA521B9CE0CE0098A88A /* OpenSans-SemiboldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F8A7B0A21AFF306E00E41647 /* OpenSans-SemiboldItalic.ttf */; };
+		F84BFA531B9CE0CE0098A88A /* OpenSans-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F8A7B0A31AFF306E00E41647 /* OpenSans-ExtraBold.ttf */; };
 		F85059EA1AE5D19200BAED40 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F85059E91AE5D19200BAED40 /* main.m */; };
 		F85059ED1AE5D19200BAED40 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F85059EC1AE5D19200BAED40 /* AppDelegate.m */; };
 		F85059F01AE5D19200BAED40 /* DataTracker.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F85059EE1AE5D19200BAED40 /* DataTracker.xcdatamodeld */; };
@@ -17,6 +59,7 @@
 		F85059F81AE5D19200BAED40 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F85059F71AE5D19200BAED40 /* Images.xcassets */; };
 		F85059FB1AE5D19200BAED40 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = F85059F91AE5D19200BAED40 /* LaunchScreen.xib */; };
 		F8505A071AE5D19300BAED40 /* DataTrackerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F8505A061AE5D19300BAED40 /* DataTrackerTests.m */; };
+		F86FA5291B5440F40018291A /* SettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F86FA5281B5440F40018291A /* SettingsTableViewController.m */; };
 		F876AA691B075794003B959D /* screenshot1.png in Resources */ = {isa = PBXBuildFile; fileRef = F876AA681B075794003B959D /* screenshot1.png */; };
 		F87A01301B2804B500049280 /* SwipeView.m in Sources */ = {isa = PBXBuildFile; fileRef = F87A012F1B2804B500049280 /* SwipeView.m */; };
 		F87A01331B2809C600049280 /* SwipeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F87A01321B2809C600049280 /* SwipeViewController.m */; };
@@ -68,6 +111,8 @@
 		7ED6FCDEA017147A4B514163 /* Pods-DataTracker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DataTracker.release.xcconfig"; path = "Pods/Target Support Files/Pods-DataTracker/Pods-DataTracker.release.xcconfig"; sourceTree = "<group>"; };
 		A6D121F3B53A6DA8D8DB6362 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		E016C2D93CD9F9F39D81C2AA /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		F84BFA581B9CE0CE0098A88A /* DataTrackerFree.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DataTrackerFree.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F84BFA591B9CE0CF0098A88A /* DataTrackerFree.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = DataTrackerFree.plist; path = /Users/kittiphongxayasane/Desktop/DataTracker/DataTrackerFree.plist; sourceTree = "<absolute>"; };
 		F85059E41AE5D19200BAED40 /* DataTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DataTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F85059E81AE5D19200BAED40 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F85059E91AE5D19200BAED40 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -82,6 +127,8 @@
 		F8505A001AE5D19300BAED40 /* DataTrackerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DataTrackerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8505A051AE5D19300BAED40 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F8505A061AE5D19300BAED40 /* DataTrackerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DataTrackerTests.m; sourceTree = "<group>"; };
+		F86FA5271B5440F40018291A /* SettingsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsTableViewController.h; sourceTree = "<group>"; };
+		F86FA5281B5440F40018291A /* SettingsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsTableViewController.m; sourceTree = "<group>"; };
 		F876AA681B075794003B959D /* screenshot1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = screenshot1.png; sourceTree = "<group>"; };
 		F87A012E1B2804B500049280 /* SwipeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwipeView.h; sourceTree = "<group>"; };
 		F87A012F1B2804B500049280 /* SwipeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SwipeView.m; sourceTree = "<group>"; };
@@ -140,6 +187,15 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		F84BFA421B9CE0CE0098A88A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F84BFA431B9CE0CE0098A88A /* MapKit.framework in Frameworks */,
+				F84BFA441B9CE0CE0098A88A /* libPods.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F85059E11AE5D19200BAED40 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -196,6 +252,7 @@
 			children = (
 				F85059E41AE5D19200BAED40 /* DataTracker.app */,
 				F8505A001AE5D19300BAED40 /* DataTrackerTests.xctest */,
+				F84BFA581B9CE0CE0098A88A /* DataTrackerFree.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -234,6 +291,8 @@
 				F87A01321B2809C600049280 /* SwipeViewController.m */,
 				F8AA03E81B315631008C1642 /* HistoryViewController.h */,
 				F8AA03E91B315631008C1642 /* HistoryViewController.m */,
+				F86FA5271B5440F40018291A /* SettingsTableViewController.h */,
+				F86FA5281B5440F40018291A /* SettingsTableViewController.m */,
 				F8A7B0AF1AFF75F600E41647 /* Usage.h */,
 				F8A7B0B01AFF75F600E41647 /* Usage.m */,
 				F85059F41AE5D19200BAED40 /* Main.storyboard */,
@@ -249,6 +308,7 @@
 			isa = PBXGroup;
 			children = (
 				F85059E81AE5D19200BAED40 /* Info.plist */,
+				F84BFA591B9CE0CF0098A88A /* DataTrackerFree.plist */,
 				F85059E91AE5D19200BAED40 /* main.m */,
 			);
 			name = "Supporting Files";
@@ -340,6 +400,25 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		F84BFA251B9CE0CE0098A88A /* DataTrackerFree */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F84BFA551B9CE0CE0098A88A /* Build configuration list for PBXNativeTarget "DataTrackerFree" */;
+			buildPhases = (
+				F84BFA261B9CE0CE0098A88A /* Check Pods Manifest.lock */,
+				F84BFA271B9CE0CE0098A88A /* Sources */,
+				F84BFA421B9CE0CE0098A88A /* Frameworks */,
+				F84BFA451B9CE0CE0098A88A /* Resources */,
+				F84BFA541B9CE0CE0098A88A /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = DataTrackerFree;
+			productName = DataTracker;
+			productReference = F84BFA581B9CE0CE0098A88A /* DataTrackerFree.app */;
+			productType = "com.apple.product-type.application";
+		};
 		F85059E31AE5D19200BAED40 /* DataTracker */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = F8505A0A1AE5D19300BAED40 /* Build configuration list for PBXNativeTarget "DataTracker" */;
@@ -410,11 +489,33 @@
 			targets = (
 				F85059E31AE5D19200BAED40 /* DataTracker */,
 				F85059FF1AE5D19300BAED40 /* DataTrackerTests */,
+				F84BFA251B9CE0CE0098A88A /* DataTrackerFree */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		F84BFA451B9CE0CE0098A88A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F84BFA461B9CE0CE0098A88A /* Main.storyboard in Resources */,
+				F84BFA471B9CE0CE0098A88A /* LaunchScreen.xib in Resources */,
+				F84BFA481B9CE0CE0098A88A /* OpenSans-Light.ttf in Resources */,
+				F84BFA491B9CE0CE0098A88A /* screenshot1.png in Resources */,
+				F84BFA4A1B9CE0CE0098A88A /* OpenSans-Bold.ttf in Resources */,
+				F84BFA4B1B9CE0CE0098A88A /* OpenSans-Semibold.ttf in Resources */,
+				F84BFA4C1B9CE0CE0098A88A /* OpenSans-Italic.ttf in Resources */,
+				F84BFA4D1B9CE0CE0098A88A /* Images.xcassets in Resources */,
+				F84BFA4E1B9CE0CE0098A88A /* OpenSans-LightItalic.ttf in Resources */,
+				F84BFA4F1B9CE0CE0098A88A /* OpenSans-Regular.ttf in Resources */,
+				F84BFA501B9CE0CE0098A88A /* OpenSans-ExtraBoldItalic.ttf in Resources */,
+				F84BFA511B9CE0CE0098A88A /* OpenSans-BoldItalic.ttf in Resources */,
+				F84BFA521B9CE0CE0098A88A /* OpenSans-SemiboldItalic.ttf in Resources */,
+				F84BFA531B9CE0CE0098A88A /* OpenSans-ExtraBold.ttf in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F85059E21AE5D19200BAED40 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -476,9 +577,72 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		F84BFA261B9CE0CE0098A88A /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		F84BFA541B9CE0CE0098A88A /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		F84BFA271B9CE0CE0098A88A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F84BFA281B9CE0CE0098A88A /* ECSlidingAnimationController.m in Sources */,
+				F84BFA291B9CE0CE0098A88A /* AppDelegate.m in Sources */,
+				F84BFA2A1B9CE0CE0098A88A /* InitViewController.m in Sources */,
+				F84BFA2B1B9CE0CE0098A88A /* DataTracker.xcdatamodeld in Sources */,
+				F84BFA2C1B9CE0CE0098A88A /* PlanViewController.m in Sources */,
+				F84BFA2D1B9CE0CE0098A88A /* FirstTableViewController.m in Sources */,
+				F84BFA2E1B9CE0CE0098A88A /* ECPercentDrivenInteractiveTransition.m in Sources */,
+				F84BFA2F1B9CE0CE0098A88A /* UsageViewController.m in Sources */,
+				F84BFA301B9CE0CE0098A88A /* SettingsTableViewController.m in Sources */,
+				F84BFA311B9CE0CE0098A88A /* DataManagement.m in Sources */,
+				F84BFA321B9CE0CE0098A88A /* ViewController.m in Sources */,
+				F84BFA331B9CE0CE0098A88A /* UIViewController+ECSlidingViewController.m in Sources */,
+				F84BFA341B9CE0CE0098A88A /* SwipeViewController.m in Sources */,
+				F84BFA351B9CE0CE0098A88A /* HistoryViewController.m in Sources */,
+				F84BFA361B9CE0CE0098A88A /* SwipeView.m in Sources */,
+				F84BFA371B9CE0CE0098A88A /* AmountViewController.m in Sources */,
+				F84BFA381B9CE0CE0098A88A /* ECSlidingInteractiveTransition.m in Sources */,
+				F84BFA391B9CE0CE0098A88A /* KAProgressLabel.m in Sources */,
+				F84BFA3A1B9CE0CE0098A88A /* ECSlidingViewController.m in Sources */,
+				F84BFA3B1B9CE0CE0098A88A /* TPPropertyAnimation.m in Sources */,
+				F84BFA3C1B9CE0CE0098A88A /* PlanTableViewController.m in Sources */,
+				F84BFA3D1B9CE0CE0098A88A /* main.m in Sources */,
+				F84BFA3E1B9CE0CE0098A88A /* DateViewController.m in Sources */,
+				F84BFA3F1B9CE0CE0098A88A /* MapViewController.m in Sources */,
+				F84BFA401B9CE0CE0098A88A /* ECSlidingSegue.m in Sources */,
+				F84BFA411B9CE0CE0098A88A /* Usage.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F85059E01AE5D19200BAED40 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -491,6 +655,7 @@
 				F8913D3E1AF2CABF0027AD9F /* FirstTableViewController.m in Sources */,
 				F8D988CF1AF74EEC00CA8736 /* ECPercentDrivenInteractiveTransition.m in Sources */,
 				F8913D4A1AF302A80027AD9F /* UsageViewController.m in Sources */,
+				F86FA5291B5440F40018291A /* SettingsTableViewController.m in Sources */,
 				F8AA03ED1B31749E008C1642 /* DataManagement.m in Sources */,
 				F85059F31AE5D19200BAED40 /* ViewController.m in Sources */,
 				F8D988D41AF74EEC00CA8736 /* UIViewController+ECSlidingViewController.m in Sources */,
@@ -549,6 +714,38 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		F84BFA561B9CE0CE0098A88A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 407793B09910D0516EB88C57 /* Pods.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					"FREE=1",
+				);
+				INFOPLIST_FILE = "$(SRCROOT)/DataTrackerFree.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = DataTrackerFree;
+			};
+			name = Debug;
+		};
+		F84BFA571B9CE0CE0098A88A /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A6D121F3B53A6DA8D8DB6362 /* Pods.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					"FREE=1",
+				);
+				INFOPLIST_FILE = "$(SRCROOT)/DataTrackerFree.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = DataTrackerFree;
+			};
+			name = Release;
+		};
 		F8505A081AE5D19300BAED40 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 407793B09910D0516EB88C57 /* Pods.debug.xcconfig */;
@@ -694,6 +891,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		F84BFA551B9CE0CE0098A88A /* Build configuration list for PBXNativeTarget "DataTrackerFree" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F84BFA561B9CE0CE0098A88A /* Debug */,
+				F84BFA571B9CE0CE0098A88A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		F85059DF1AE5D19200BAED40 /* Build configuration list for PBXProject "DataTracker" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

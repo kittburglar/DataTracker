@@ -535,4 +535,7 @@ static void dumpAllFonts() {
 
 
 
+- (IBAction)menuBarButtonAction:(UIBarButtonItem *)sender {
+    NSLog(@"Pressed menu button");
+}
 @end

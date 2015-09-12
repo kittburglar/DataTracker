@@ -15,7 +15,7 @@
 
 @implementation SwipeViewController
 
-
+#define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -91,24 +91,39 @@
         //this `if (view == nil) {...}` statement because the view will be
         //recycled and used with other index values later
         view = [[UIView alloc] initWithFrame:self.swipeView.bounds];
-        PlanTableViewController *ptvc = [self.storyboard instantiateViewControllerWithIdentifier:@"PlanTableViewController"];
-        view = ptvc.view;
-        /*
+        
         view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         
         label = [[UILabel alloc] initWithFrame:view.bounds];
         label.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         label.backgroundColor = [UIColor clearColor];
+        label.textColor = [UIColor whiteColor];
         label.textAlignment = NSTextAlignmentCenter;
         label.font = [label.font fontWithSize:50];
         label.tag = 1;
         [view addSubview:label];
-         */
         
+    }
+    else
+    {
+        //get a reference to the label in the recycled view
+        label = (UILabel *)[view viewWithTag:1];
     }
     
     //set background color
-    /*
+    if (index == 0) {
+        view.backgroundColor = UIColorFromRGB(0x4271ae);
+    }
+    else if (index == 1){
+        view.backgroundColor = UIColorFromRGB(0xc82829);
+    }
+    else if (index == 2){
+        view.backgroundColor = UIColorFromRGB(0xf5871f);
+    }
+    else if (index == 3){
+        view.backgroundColor = UIColorFromRGB(0x3e999f);
+    }
+    else{
     CGFloat red = arc4random() / (CGFloat)INT_MAX;
     CGFloat green = arc4random() / (CGFloat)INT_MAX;
     CGFloat blue = arc4random() / (CGFloat)INT_MAX;
@@ -117,7 +132,7 @@
                                            green:green
                                             blue:blue
                                            alpha:1.0];
-    */
+    }
     //set item label
     //remember to always set any properties of your carousel item
     //views outside of the `if (view == nil) {...}` check otherwise

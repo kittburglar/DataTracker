@@ -35,7 +35,12 @@
         [self.locationManager requestAlwaysAuthorization];
         [self.locationManager startMonitoringSignificantLocationChanges];
         [self.locationManager startUpdatingLocation];
-
+        
+        if([CLLocationManager locationServicesEnabled] &&
+           [CLLocationManager authorizationStatus] != kCLAuthorizationStatusDenied)
+        {
+            NSLog(@"location servies!");
+        }
     }
     return self;
 }

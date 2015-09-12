@@ -41,6 +41,7 @@
 @property (strong, nonatomic) IBOutlet UICountingLabel *dailyUnusedAmount;
 @property (strong, nonatomic) IBOutlet UILabel *dailyLabel;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *menuBarButton;
+- (IBAction)menuBarButtonAction:(UIBarButtonItem *)sender;
 
 
 

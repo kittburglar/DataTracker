@@ -211,22 +211,65 @@
     return addAnnotationArray;
 }
 
+-(void)displayFull{
+    NSLog(@"Free date exceeded");
+    self.fullView.hidden = NO;
+    self.map.hidden = YES;
+}
+
+-(void)dismissFull{
+    NSLog(@"Dismiss full and show map");
+    self.map.hidden = NO;
+    self.fullView.hidden = YES;
+}
+
 - (IBAction)prevButton:(id)sender {
+    
+#ifdef FREE
+    NSLog(@"Free version!");
+    NSDateComponents *dateComponents = [[NSDateComponents alloc] init];
+    
+    NSLog(@"Days between date are %d.",[[DataManagement sharedInstance] daysBetweenDate:self.dataDate andDate:[NSDate date]]);
+    if ([[DataManagement sharedInstance] daysBetweenDate:self.dataDate andDate:[NSDate date]] == 3){
+        NSLog(@"Days between date are 3");
+        [dateComponents setDay:-1];
+        self.dataDate = [[NSCalendar currentCalendar] dateByAddingComponents:dateComponents toDate:self.dataDate options:0];
+        self.dateLabel.text = [NSString stringWithFormat:@"%@",[self.dataDateFormatter stringFromDate:self.dataDate]];
+        [self displayFull];
+    }
+    else if ([[DataManagement sharedInstance] daysBetweenDate:self.dataDate andDate:[NSDate date]] > 2) {
+        [self displayFull];
+    }
+    else{
+        [self dismissFull];
+        [dateComponents setDay:-1];
+        self.dataDate = [[NSCalendar currentCalendar] dateByAddingComponents:dateComponents toDate:self.dataDate options:0];
+        self.dateLabel.text = [NSString stringWithFormat:@"%@",[self.dataDateFormatter stringFromDate:self.dataDate]];
+        [self updateMapAnnotations];
+    }
+#else
+    NSLog(@"Paid version!");
     NSDateComponents *dateComponents = [[NSDateComponents alloc] init];
     [dateComponents setDay:-1];
     self.dataDate = [[NSCalendar currentCalendar] dateByAddingComponents:dateComponents toDate:self.dataDate options:0];
     self.dateLabel.text = [NSString stringWithFormat:@"%@",[self.dataDateFormatter stringFromDate:self.dataDate]];
-    
     [self updateMapAnnotations];
+#endif
 }
 
 - (IBAction)nextButton:(id)sender {
     NSDateComponents *dateComponents = [[NSDateComponents alloc] init];
     [dateComponents setDay:+1];
-    self.dataDate = [[NSCalendar currentCalendar] dateByAddingComponents:dateComponents toDate:self.dataDate options:0];
-    self.dateLabel.text = [NSString stringWithFormat:@"%@",[self.dataDateFormatter stringFromDate:self.dataDate]];
+    if ([[DataManagement sharedInstance] daysBetweenDate:self.dataDate andDate:[NSDate date]] <= 0) {
+        NSLog(@"No point looking into the future!");
+    }
+    else{
+        [self dismissFull];
+        self.dataDate = [[NSCalendar currentCalendar] dateByAddingComponents:dateComponents toDate:self.dataDate options:0];
+        self.dateLabel.text = [NSString stringWithFormat:@"%@",[self.dataDateFormatter stringFromDate:self.dataDate]];
+        [self updateMapAnnotations];
+    }
     
-    [self updateMapAnnotations];
 }
 
 
