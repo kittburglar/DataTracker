@@ -52,6 +52,9 @@
             <string>OpenSans</string>
             <string>OpenSans</string>
             <string>OpenSans</string>
+            <string>OpenSans</string>
+            <string>OpenSans</string>
+            <string>OpenSans</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -1231,18 +1234,70 @@ Please select your plan cycle.</string>
                             <view hidden="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Thh-so-kDZ">
                                 <rect key="frame" x="16" y="132" width="568" height="395"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bET-F0-36D">
-                                        <rect key="frame" x="263" y="187" width="42" height="21"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Want more History?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bET-F0-36D">
+                                        <rect key="frame" x="8" y="8" width="552" height="21"/>
+                                        <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="17"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="key-CA-3LQ">
+                                        <rect key="frame" x="8" y="357" width="552" height="30"/>
+                                        <color key="backgroundColor" red="0.25882352941176467" green="0.44313725490196076" blue="0.68235294117647061" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="DIb-Zp-OMC"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="15"/>
+                                        <state key="normal" title="Get Premium Version">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="layer.cornerRadius" value="5"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Get your entire History with the Premium version!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XJK-Gj-Lxh">
+                                        <rect key="frame" x="8" y="328" width="552" height="21"/>
+                                        <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DDq-Uz-dO2">
+                                        <rect key="frame" x="245" y="183" width="79" height="24"/>
+                                        <state key="normal" image="MapPerm">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
+                                    <constraint firstAttribute="centerX" secondItem="key-CA-3LQ" secondAttribute="centerX" id="9Tt-33-QdK"/>
+                                    <constraint firstAttribute="centerX" secondItem="DDq-Uz-dO2" secondAttribute="centerX" id="A6I-HL-xzf"/>
+                                    <constraint firstItem="key-CA-3LQ" firstAttribute="leading" secondItem="Thh-so-kDZ" secondAttribute="leading" constant="8" id="F7B-Cp-LrF"/>
+                                    <constraint firstItem="bET-F0-36D" firstAttribute="leading" secondItem="Thh-so-kDZ" secondAttribute="leading" constant="8" id="Huv-DJ-RJb"/>
+                                    <constraint firstAttribute="centerY" secondItem="DDq-Uz-dO2" secondAttribute="centerY" id="K9f-5L-VTP"/>
+                                    <constraint firstAttribute="bottom" secondItem="key-CA-3LQ" secondAttribute="bottom" constant="16" id="Psq-0A-Jmh"/>
                                     <constraint firstAttribute="centerY" secondItem="bET-F0-36D" secondAttribute="centerY" id="SB1-DZ-pRI"/>
+                                    <constraint firstItem="DDq-Uz-dO2" firstAttribute="top" secondItem="bET-F0-36D" secondAttribute="bottom" constant="16" id="YaI-nM-9EC"/>
+                                    <constraint firstItem="XJK-Gj-Lxh" firstAttribute="top" secondItem="DDq-Uz-dO2" secondAttribute="bottom" constant="16" id="goX-c2-is1"/>
+                                    <constraint firstAttribute="trailing" secondItem="key-CA-3LQ" secondAttribute="trailing" constant="8" id="hjG-DU-mom"/>
+                                    <constraint firstAttribute="trailing" secondItem="XJK-Gj-Lxh" secondAttribute="trailing" constant="8" id="i8X-Ej-tgi"/>
+                                    <constraint firstItem="bET-F0-36D" firstAttribute="top" secondItem="Thh-so-kDZ" secondAttribute="top" constant="8" id="iSi-UA-iyP"/>
                                     <constraint firstAttribute="centerX" secondItem="bET-F0-36D" secondAttribute="centerX" id="jeJ-Rc-Ii5"/>
+                                    <constraint firstItem="key-CA-3LQ" firstAttribute="top" secondItem="XJK-Gj-Lxh" secondAttribute="bottom" constant="16" id="psL-u3-BEz"/>
+                                    <constraint firstItem="XJK-Gj-Lxh" firstAttribute="leading" secondItem="Thh-so-kDZ" secondAttribute="leading" constant="8" id="rWt-9m-PLV"/>
+                                    <constraint firstAttribute="trailing" secondItem="bET-F0-36D" secondAttribute="trailing" constant="8" id="s26-R6-fmM"/>
+                                    <constraint firstItem="XJK-Gj-Lxh" firstAttribute="top" secondItem="DDq-Uz-dO2" secondAttribute="bottom" constant="16" id="vBi-bq-b68"/>
                                 </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="SB1-DZ-pRI"/>
+                                        <exclude reference="jeJ-Rc-Ii5"/>
+                                        <exclude reference="K9f-5L-VTP"/>
+                                        <exclude reference="vBi-bq-b68"/>
+                                        <exclude reference="9Tt-33-QdK"/>
+                                        <exclude reference="psL-u3-BEz"/>
+                                    </mask>
+                                </variation>
                             </view>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Ys6-Nf-rBe">
                                 <rect key="frame" x="0.0" y="132" width="600" height="395"/>
@@ -1255,6 +1310,7 @@ Please select your plan cycle.</string>
                             <constraint firstItem="pnB-2D-no2" firstAttribute="leading" secondItem="inF-i5-bwn" secondAttribute="leadingMargin" id="EoD-XD-nJh"/>
                             <constraint firstItem="Thh-so-kDZ" firstAttribute="top" secondItem="pnB-2D-no2" secondAttribute="bottom" constant="8" symbolic="YES" id="JlN-rw-sQB"/>
                             <constraint firstItem="Thh-so-kDZ" firstAttribute="leading" secondItem="inF-i5-bwn" secondAttribute="leadingMargin" constant="-16" id="PPg-Ao-ciD"/>
+                            <constraint firstItem="Thh-so-kDZ" firstAttribute="trailing" secondItem="inF-i5-bwn" secondAttribute="trailingMargin" id="ZIp-Wo-MCg"/>
                             <constraint firstItem="pnB-2D-no2" firstAttribute="trailing" secondItem="inF-i5-bwn" secondAttribute="trailingMargin" id="bKz-yO-S4m"/>
                             <constraint firstItem="U12-Af-TXq" firstAttribute="top" secondItem="Ys6-Nf-rBe" secondAttribute="bottom" constant="8" id="cbB-Th-gas"/>
                             <constraint firstItem="U12-Af-TXq" firstAttribute="leading" secondItem="inF-i5-bwn" secondAttribute="leadingMargin" id="dTL-7R-SqK"/>
@@ -1262,6 +1318,7 @@ Please select your plan cycle.</string>
                             <constraint firstItem="Ie6-ov-0LK" firstAttribute="top" secondItem="Ys6-Nf-rBe" secondAttribute="bottom" id="f1o-8L-uI1"/>
                             <constraint firstItem="U12-Af-TXq" firstAttribute="trailing" secondItem="inF-i5-bwn" secondAttribute="trailingMargin" id="fOE-oZ-psk"/>
                             <constraint firstItem="Thh-so-kDZ" firstAttribute="trailing" secondItem="inF-i5-bwn" secondAttribute="trailingMargin" constant="-16" id="j0a-qH-c30"/>
+                            <constraint firstItem="Thh-so-kDZ" firstAttribute="leading" secondItem="inF-i5-bwn" secondAttribute="leadingMargin" id="mvr-2U-Lkd"/>
                             <constraint firstItem="pnB-2D-no2" firstAttribute="top" secondItem="7Zq-0K-pTP" secondAttribute="bottom" id="rCm-0c-XBc"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Ys6-Nf-rBe" secondAttribute="trailing" constant="-16" id="tr5-G1-Com"/>
                             <constraint firstItem="Ys6-Nf-rBe" firstAttribute="leading" secondItem="inF-i5-bwn" secondAttribute="leadingMargin" constant="-16" id="ubc-3M-ner"/>
@@ -1270,6 +1327,8 @@ Please select your plan cycle.</string>
                         <variation key="default">
                             <mask key="constraints">
                                 <exclude reference="vpH-5X-yHu"/>
+                                <exclude reference="PPg-Ao-ciD"/>
+                                <exclude reference="j0a-qH-c30"/>
                                 <exclude reference="cbB-Th-gas"/>
                             </mask>
                         </variation>
@@ -1281,16 +1340,12 @@ Please select your plan cycle.</string>
                                 <segue destination="aAL-3y-9BR" kind="unwind" unwindAction="unwindToMenuViewController:" id="4Cv-MC-NGi"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Test" id="bv7-3d-JYP">
-                            <connections>
-                                <action selector="testButtonAction:" destination="gVp-6K-zxM" id="Bb4-p6-OcK"/>
-                            </connections>
-                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="dateLabel" destination="uEy-lx-ZSL" id="961-wL-PRp"/>
                         <outlet property="fullView" destination="Thh-so-kDZ" id="y70-Ey-Bvc"/>
                         <outlet property="map" destination="Ys6-Nf-rBe" id="cx2-h6-1Yi"/>
+                        <outlet property="premiumButton" destination="key-CA-3LQ" id="hYN-AQ-rav"/>
                         <outlet property="slider" destination="U12-Af-TXq" id="Dix-OM-R6n"/>
                     </connections>
                 </viewController>
@@ -1667,6 +1722,7 @@ Please select your plan cycle.</string>
         <image name="Chart" width="24" height="24"/>
         <image name="Home" width="24" height="24"/>
         <image name="Map" width="24" height="24"/>
+        <image name="MapPerm" width="128" height="128"/>
         <image name="Menu" width="24" height="24"/>
         <image name="Next" width="24" height="24"/>
         <image name="Rate" width="24" height="24"/>

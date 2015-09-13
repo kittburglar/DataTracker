@@ -26,5 +26,6 @@
 - (IBAction)prevButton:(id)sender;
 - (IBAction)nextButton:(id)sender;
 
+@property (strong, nonatomic) IBOutlet UIButton *premiumButton;
 
 @end
