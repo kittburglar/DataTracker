@@ -22,6 +22,8 @@
 
 @implementation HistoryViewController
 
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -49,7 +51,10 @@
     float chartSize = 200.0f;
     float chartBottomSpace = 8.0f;
     float wifiToWifiLabel = 4.0f;
-    self.barChart = [[PNBarChart alloc] initWithFrame:CGRectMake(4, [[UIScreen mainScreen] bounds].size.height - chartBottomSpace - self.wifiLabel.bounds.size.height - wifiToWifiLabel - self.wifiLabelAmount.bounds.size.height - chartBottomSpace - chartSize, SCREEN_WIDTH-4, chartSize)];
+    //self.barChart = [[PNBarChart alloc] initWithFrame:CGRectMake(4, [[UIScreen mainScreen] bounds].size.height - chartBottomSpace - self.wifiLabel.bounds.size.height - wifiToWifiLabel - self.wifiLabelAmount.bounds.size.height - chartBottomSpace - chartSize, SCREEN_WIDTH-4, chartSize)];
+    self.barChart = [[PNBarChart alloc] initWithFrame:CGRectMake([self.barChart frame].origin.x, [self.barChart frame].origin.y, SCREEN_WIDTH, [self.barChart frame].size.height)];
+    
+    [self.view addSubview:self.barChart];
     self.barChart.yLabelFormatter = ^(CGFloat yValue){
         CGFloat yValueParsed = yValue;
         NSString * labelText = [NSString stringWithFormat:@"%1.f MB",yValueParsed];
@@ -76,7 +81,7 @@
     //[self.barChart setStrokeColor:[[[DataManagement sharedInstance] getColors] objectAtIndex:1]];
     
     [self.barChart strokeChart];
-    [self.view addSubview:self.barChart];
+    //[self.barChart reloadData];
     
     //Other Chart View (JBBarChartView)
     /*
@@ -122,6 +127,9 @@
     
     //Get usage date for history labels
     self.usageDate = [self getDateLabelsBetween:[self getBeginningOfWeek:date] withEndDate:[self getEndOfWeek:date]];
+    
+    #pragma mark - TEST MODE
+    self.usageData = [NSMutableArray arrayWithObjects:[NSNumber numberWithFloat:110],[NSNumber numberWithFloat:45],[NSNumber numberWithFloat:36],[NSNumber numberWithFloat:200],[NSNumber numberWithFloat:75],[NSNumber numberWithFloat:65],[NSNumber numberWithFloat:53], nil];
     
     NSNumber* max = [self.usageData valueForKeyPath:@"@max.self"];
     

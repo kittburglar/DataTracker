@@ -47,12 +47,41 @@
     [self.map addAnnotations:addAnnotationArray];
      */
     
+    /*
+    MKMapPoint annotationPoint = MKMapPointForCoordinate(self.map.userLocation.coordinate);
+    MKMapRect zoomRect = MKMapRectMake(annotationPoint.x, annotationPoint.y, 0.1, 0.1);
+    [self.map setVisibleMapRect:zoomRect animated:YES];
+    */
+    //[self updateMapAnnotations];
+    
+    NSArray *addAnnotationArray = [self CDgetAnnotationArray:self.dataDate];
+    [self.map showAnnotations:addAnnotationArray animated:TRUE];
 }
 
 -(void)viewDidAppear:(BOOL)animated{
-    [self updateMapAnnotations];
+    NSArray *addAnnotationArray = [self CDgetAnnotationArray:self.dataDate];
+    [self.map showAnnotations:addAnnotationArray animated:TRUE];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+
+    NSArray *addAnnotationArray = [self CDgetAnnotationArray:self.dataDate];
+    [self.map showAnnotations:addAnnotationArray animated:TRUE];
+    
+    #pragma mark -TEST
+    CLLocationManager *locationManager;
+    locationManager = [[CLLocationManager alloc] init];
+    locationManager.distanceFilter = kCLDistanceFilterNone;
+    locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters;
+    [locationManager startUpdatingLocation];
+    float latitude = locationManager.location.coordinate.latitude;
+    float longitude = locationManager.location.coordinate.longitude;
+    
+    MKPointAnnotation *annotation = [[MKPointAnnotation alloc] init];
+    annotation.coordinate = CLLocationCoordinate2DMake(latitude, longitude);
+    annotation.title = [NSString stringWithFormat:@"%.1f MB", 32.1];
+    
+}
 
 -(void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation
 {
@@ -64,8 +93,7 @@
     [self.map regionThatFits:mapRegion];
     [self.map setRegion:mapRegion animated:NO];
     */
-    [self updateMapAnnotations];
-    
+    //[self updateMapAnnotations];
 }
 
  
@@ -103,11 +131,13 @@
     
 }
 
+
 -(void)updateMapAnnotations{
     [self.map removeAnnotations:[self.map annotations]];
     NSArray *addAnnotationArray = [self CDgetAnnotationArray:self.dataDate];
     [self.map addAnnotations:addAnnotationArray];
     
+    /*
     //Zoom to fit annotations
     MKMapPoint annotationPoint = MKMapPointForCoordinate(self.map.userLocation.coordinate);
     MKMapRect zoomRect = MKMapRectMake(annotationPoint.x, annotationPoint.y, 0.1, 0.1);
@@ -118,6 +148,8 @@
         zoomRect = MKMapRectUnion(zoomRect, pointRect);
     }
     [self.map setVisibleMapRect:zoomRect animated:YES];
+     */
+    [self.map showAnnotations:addAnnotationArray animated:true];
 }
 
 

@@ -276,12 +276,13 @@ static void dumpAllFonts() {
             NSDate *date = [obj valueForKey:@"date"];
             NSNumber *wanNum = [obj valueForKey:@"wan"];
             float wan = [wanNum floatValue];
+            
             int dataPlan = [[[NSUserDefaults standardUserDefaults] stringForKey:@"DataPlan"] integerValue];
-            //NSLog(@"Date from core data is: %@ with wan: %f", date, wan);
+            NSLog(@"Date from core data is: %@ with wan: %f", date, wan);
             NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
             NSDateComponents *comps = [gregorian components:NSWeekdayCalendarUnit fromDate:date];
             int weekday = [comps weekday];
-            
+
             //Get the number of days in the full renewal period.
             int planDays = [self renewalPeriodDays:date withWan:wanNum withDataPlan:dataPlan];
             
@@ -317,25 +318,56 @@ static void dumpAllFonts() {
             //Fill each bar with animation
             switch (weekday) {
                 case 1:
+                    
                     [self progressBarFill:self.sunProgressLabel withColor:color withProgress:[self calculateProgress:wan withTotal:denominator]];
+                    
+                    //TEST MODE
+                    color = UIColorFromRGB(0xeab700);
+                    [self progressBarFill:self.sunProgressLabel withColor:color withProgress:0.6];
+                    
                     break;
                 case 2:
                     [self progressBarFill:self.monProgressLabel withColor:color withProgress:[self calculateProgress:wan withTotal:denominator]];
+                    
+                    //TEST MODE
+                    color = UIColorFromRGB(0x718c00);
+                    [self progressBarFill:self.monProgressLabel withColor:color withProgress:0.3];
                     break;
                 case 3:
                     [self progressBarFill:self.tuesProgressLabel withColor:color withProgress:[self calculateProgress:wan withTotal:denominator]];
+                    
+                    //TEST MODE
+                    color = UIColorFromRGB(0x718c00);
+                    [self progressBarFill:self.tuesProgressLabel withColor:color withProgress:0.4];
+                    
                     break;
                 case 4:
                     [self progressBarFill:self.wedProgressLabel withColor:color withProgress:[self calculateProgress:wan withTotal:denominator]];
+                    
+                    //TEST MODE
+                    color = UIColorFromRGB(0xf5871f);
+                    [self progressBarFill:self.wedProgressLabel withColor:color withProgress:0.8];
                     break;
                 case 5:
                     [self progressBarFill:self.thursProgressLabel withColor:color withProgress:[self calculateProgress:wan withTotal:denominator]];
+                    
+                    //TEST MODE
+                    color = UIColorFromRGB(0x718c00);
+                    [self progressBarFill:self.thursProgressLabel withColor:color withProgress:0.3];
                     break;
                 case 6:
                     [self progressBarFill:self.friProgressLabel withColor:color withProgress:[self calculateProgress:wan withTotal:denominator]];
+                    
+                    //TEST MODE
+                    color = UIColorFromRGB(0xc82829);
+                    [self progressBarFill:self.friProgressLabel withColor:color withProgress:0.9];
                     break;
                 case 7:
                     [self progressBarFill:self.satProgressLabel withColor:color withProgress:[self calculateProgress:wan withTotal:denominator]];
+                    
+                    //TEST MODE
+                    color = UIColorFromRGB(0xeab700);
+                    [self progressBarFill:self.satProgressLabel withColor:color withProgress:0.6];
                     break;
                 default:
                     break;
@@ -353,7 +385,31 @@ static void dumpAllFonts() {
             }
         }
     }
+    [self testBarFill];
+}
 
+-(void) testBarFill{
+#pragma mark - TEST MODE
+    //TEST MODE
+    UIColor *color;
+    
+    color = UIColorFromRGB(0xeab700);
+    [self progressBarFill:self.sunProgressLabel withColor:color withProgress:0.6];
+    color = UIColorFromRGB(0x718c00);
+    [self progressBarFill:self.monProgressLabel withColor:color withProgress:0.3];
+    color = UIColorFromRGB(0x718c00);
+    [self progressBarFill:self.tuesProgressLabel withColor:color withProgress:0.4];
+    color = UIColorFromRGB(0xf5871f);
+    [self progressBarFill:self.wedProgressLabel withColor:color withProgress:0.8];
+    color = UIColorFromRGB(0x718c00);
+    [self progressBarFill:self.thursProgressLabel withColor:color withProgress:0.3];
+    color = UIColorFromRGB(0xc82829);
+    [self progressBarFill:self.friProgressLabel withColor:color withProgress:0.9];
+    color = UIColorFromRGB(0xeab700);
+    [self progressBarFill:self.satProgressLabel withColor:color withProgress:0.6];
+    [self progressBarFill:self.otherProgressLabel withColor:color withProgress:0.6];
+    color = UIColorFromRGB(0x4271ae);
+    [self progressBarFill:self.myProgressLabel withColor:color withProgress:0.75];
 }
 
 - (float)calculateProgress:(float)wan withTotal:(float)total{

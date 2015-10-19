@@ -51,6 +51,7 @@
 - (IBAction)refreshButton:(id)sender;
 - (IBAction)fillAction:(id)sender;
 - (IBAction)testButton:(id)sender;
+- (void)testFillBar;
 - (void)addUsageCD;
 - (void)resetData;
 - (float)calculateWAN;

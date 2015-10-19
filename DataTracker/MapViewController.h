@@ -25,6 +25,8 @@
 - (IBAction)sliderValueChanged:(ASValueTrackingSlider *)sender;
 - (IBAction)prevButton:(id)sender;
 - (IBAction)nextButton:(id)sender;
+@property (strong, nonatomic) IBOutlet UIButton *prevButtonOutlet;
+@property (strong, nonatomic) IBOutlet UIButton *nextButtonOutlet;
 
 @property (strong, nonatomic) IBOutlet UIButton *premiumButton;
 
