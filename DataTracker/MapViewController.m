@@ -55,18 +55,7 @@
     //[self updateMapAnnotations];
     
     NSArray *addAnnotationArray = [self CDgetAnnotationArray:self.dataDate];
-    [self.map showAnnotations:addAnnotationArray animated:TRUE];
-}
-
--(void)viewDidAppear:(BOOL)animated{
-    NSArray *addAnnotationArray = [self CDgetAnnotationArray:self.dataDate];
-    [self.map showAnnotations:addAnnotationArray animated:TRUE];
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-
-    NSArray *addAnnotationArray = [self CDgetAnnotationArray:self.dataDate];
-    [self.map showAnnotations:addAnnotationArray animated:TRUE];
+    [self.map showAnnotations:addAnnotationArray animated:NO];
     
     #pragma mark -TEST
     CLLocationManager *locationManager;
@@ -74,12 +63,47 @@
     locationManager.distanceFilter = kCLDistanceFilterNone;
     locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters;
     [locationManager startUpdatingLocation];
-    float latitude = locationManager.location.coordinate.latitude;
-    float longitude = locationManager.location.coordinate.longitude;
+    //float latitude = locationManager.location.coordinate.latitude;
+    //float longitude = locationManager.location.coordinate.longitude;
+    float latitude = 60.0f;
+    float longitude = -110.0f;
     
     MKPointAnnotation *annotation = [[MKPointAnnotation alloc] init];
     annotation.coordinate = CLLocationCoordinate2DMake(latitude, longitude);
     annotation.title = [NSString stringWithFormat:@"%.1f MB", 32.1];
+    
+    [self.map addAnnotation:annotation];
+}
+
+- (void)mapView:(MKMapView *)mapView regionWillChangeAnimated:(BOOL)animated
+{
+    
+    for (int i=0;i< [mapView.annotations count];i++)
+    {
+        id annotation = [mapView.annotations objectAtIndex:i];
+        
+        MKAnnotationView* annView =[mapView viewForAnnotation: annotation];
+        if (annView != nil)
+        {
+            
+            CALayer* layer = annView.layer;
+            [layer removeAllAnimations];
+        }
+        
+    }
+}
+
+-(void)viewDidAppear:(BOOL)animated{
+    NSArray *addAnnotationArray = [self CDgetAnnotationArray:self.dataDate];
+    [self.map showAnnotations:addAnnotationArray animated:NO];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+
+    NSArray *addAnnotationArray = [self CDgetAnnotationArray:self.dataDate];
+    [self.map showAnnotations:addAnnotationArray animated:NO];
+    
+    
     
 }
 
@@ -94,9 +118,14 @@
     [self.map setRegion:mapRegion animated:NO];
     */
     //[self updateMapAnnotations];
+
 }
 
- 
+-(void)mapViewDidFinishLoadingMap:(MKMapView *)mapView{
+    
+
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -149,7 +178,7 @@
     }
     [self.map setVisibleMapRect:zoomRect animated:YES];
      */
-    [self.map showAnnotations:addAnnotationArray animated:true];
+    [self.map showAnnotations:addAnnotationArray animated:NO];
 }
 
 

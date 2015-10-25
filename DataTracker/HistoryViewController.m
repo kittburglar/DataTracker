@@ -48,11 +48,13 @@
     }
     
     //Chart View
-    float chartSize = 200.0f;
     float chartBottomSpace = 8.0f;
     float wifiToWifiLabel = 4.0f;
+    //float chartSize = 200.0f;
+    float chartSize = [[UIScreen mainScreen] bounds].size.height - chartBottomSpace - self.wifiLabel.bounds.size.height - [self.barChart frame].origin.y - self.wifiLabel.bounds.size.height - wifiToWifiLabel - self.wifiLabelAmount.bounds.size.height ;
+    self.barChart = [[PNBarChart alloc] initWithFrame:CGRectMake([self.barChart frame].origin.x, [self.barChart frame].origin.y, SCREEN_WIDTH-4, chartSize)];
     //self.barChart = [[PNBarChart alloc] initWithFrame:CGRectMake(4, [[UIScreen mainScreen] bounds].size.height - chartBottomSpace - self.wifiLabel.bounds.size.height - wifiToWifiLabel - self.wifiLabelAmount.bounds.size.height - chartBottomSpace - chartSize, SCREEN_WIDTH-4, chartSize)];
-    self.barChart = [[PNBarChart alloc] initWithFrame:CGRectMake([self.barChart frame].origin.x, [self.barChart frame].origin.y, SCREEN_WIDTH, [self.barChart frame].size.height)];
+    //self.barChart = [[PNBarChart alloc] initWithFrame:CGRectMake([self.barChart frame].origin.x, [self.barChart frame].origin.y, SCREEN_WIDTH, [self.barChart frame].size.height)];
     
     [self.view addSubview:self.barChart];
     self.barChart.yLabelFormatter = ^(CGFloat yValue){
